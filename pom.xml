@@ -20,7 +20,7 @@
   </licenses>
   <scm>
     <url>https://github.com/vangj/jbayes</url>
-    <connection>https://github.com/vangj/jbayes.git</connection>
+    <connection>scm:git:https://github.com/vangj/jbayes.git</connection>
   </scm>
   <developers>
     <developer>
