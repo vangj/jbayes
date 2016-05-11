@@ -17,7 +17,7 @@ public class CptPoDfsTraversal {
   /**
    * Constructor.
    * @param cpt CPT.
-   * @param listener
+   * @param listener Listener.
    */
   public CptPoDfsTraversal(Cpt cpt, CptPoDfsTraversalListener listener) {
     this.cpt = cpt;

@@ -56,10 +56,17 @@ public class Cpt {
     children = builder.children;
   }
 
+  /**
+   * Gets a new Builder instance.
+   * @return Builder.
+   */
   public static Builder newBuilder() {
     return new Builder();
   }
 
+  /**
+   * Builder class for Cpt.
+   */
   public static final class Builder {
     private int index = -1;
     private List<Double> values = new ArrayList<>();

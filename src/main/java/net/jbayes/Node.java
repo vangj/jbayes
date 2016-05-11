@@ -145,10 +145,17 @@ public class Node {
     sampledLw.set(value, s);
   }
 
+  /**
+   * Gets a new Builder instance.
+   * @return Builder.
+   */
   public static Builder newBuilder() {
     return new Builder();
   }
 
+  /**
+   * Builder for Node.
+   */
   public static final class Builder {
     private String name;
     private List<String> values = new ArrayList<>();

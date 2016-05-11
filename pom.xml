@@ -7,9 +7,29 @@
   <version>0.0.1-SNAPSHOT</version>
   <properties>
     <java.version>1.8</java.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <name>Simple Bayesian Belief Network inference library for Java.</name>
-  <description>m</description>
+  <description>A very cool project for BBN inference using likelihood-weight sampling.</description>
+  <url>https://github.com/vangj/jbayes</url>
+  <licenses>
+    <license>
+      <name>Apache-2.0</name>
+      <url>http://www.apache.org/licenses/</url>
+    </license>
+  </licenses>
+  <scm>
+    <url>https://github.com/vangj/jbayes</url>
+    <connection>https://github.com/vangj/jbayes.git</connection>
+  </scm>
+  <developers>
+    <developer>
+      <email>vangjee@gmail.com</email>
+      <name>Jee Vang, Ph.D.</name>
+      <url>https://github.com/vangj</url>
+      <id>vangj</id>
+    </developer>
+  </developers>
 
   <dependencies>
     <dependency>
@@ -30,6 +50,11 @@
           <source>${java.version}</source>
           <target>${java.version}</target>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.10.3</version>
       </plugin>
     </plugins>
   </build>
