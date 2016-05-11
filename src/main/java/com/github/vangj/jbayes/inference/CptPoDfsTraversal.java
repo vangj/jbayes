@@ -7,8 +7,8 @@ public class CptPoDfsTraversal {
   /**
    * Listener interface for when a CPT is visited.
    */
-  public static interface CptPoDfsTraversalListener {
-    public void visited(Cpt cpt);
+  public interface CptPoDfsTraversalListener {
+    void visited(Cpt cpt);
   }
 
   private Cpt cpt;

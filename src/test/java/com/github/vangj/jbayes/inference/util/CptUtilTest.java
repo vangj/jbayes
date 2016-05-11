@@ -1,13 +1,15 @@
-package com.github.vangj.jbayes.inference;
+package com.github.vangj.jbayes.inference.util;
 
+import com.github.vangj.jbayes.inference.Cpt;
+import com.github.vangj.jbayes.inference.Node;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 /**
- * Tests CptBuilder.
+ * Tests CptUtil.
  */
-public class CptBuilderTest {
+public class CptUtilTest {
   @Test
   public void testBuild() {
     Node n1 = Node.newBuilder()
@@ -30,12 +32,12 @@ public class CptBuilderTest {
         .parent(n2)
         .build();
 
-    Cpt cpt1 = CptBuilder.build(n1);
+    Cpt cpt1 = CptUtil.build(n1);
     assertNotNull(cpt1);
     assertEquals(2, cpt1.numOfValues());
     assertEquals(0, cpt1.numOfChildren());
 
-    Cpt cpt2 = CptBuilder.build(n2);
+    Cpt cpt2 = CptUtil.build(n2);
     assertNotNull(cpt2);
     assertEquals(0, cpt2.numOfValues());
     assertEquals(2, cpt2.numOfChildren());
@@ -46,7 +48,7 @@ public class CptBuilderTest {
     assertEquals(2, cpt2.get(1).numOfValues());
     assertEquals(0, cpt2.get(1).numOfChildren());
 
-    Cpt cpt3 = CptBuilder.build(n3);
+    Cpt cpt3 = CptUtil.build(n3);
     assertNotNull(cpt3);
     assertEquals(0, cpt3.numOfValues());
     assertEquals(2, cpt3.numOfChildren());
@@ -78,7 +80,7 @@ public class CptBuilderTest {
         .value("f")
         .build();
 
-    Cpt cpt = CptBuilder.build(n1, new double[][] {
+    Cpt cpt = CptUtil.build(n1, new double[][] {
         {0.7, 0.3}
     });
 
@@ -100,7 +102,7 @@ public class CptBuilderTest {
         .parent(n1)
         .build();
 
-    Cpt cpt = CptBuilder.build(n2, new double[][] {
+    Cpt cpt = CptUtil.build(n2, new double[][] {
         {0.7, 0.3},
         {0.3, 0.7}
     });
@@ -133,7 +135,7 @@ public class CptBuilderTest {
         .parent(n2)
         .build();
 
-    Cpt cpt = CptBuilder.build(n3, new double[][] {
+    Cpt cpt = CptUtil.build(n3, new double[][] {
         {0.1, 0.2, 0.7},
         {0.7, 0.2, 0.1},
         {0.2, 0.1, 0.7},
