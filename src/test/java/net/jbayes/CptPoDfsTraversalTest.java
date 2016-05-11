@@ -34,7 +34,7 @@ public class CptPoDfsTraversalTest {
     final List<List<Double>> probs = new ArrayList<>();
     CptPoDfsTraversal.CptPoDfsTraversalListener listener = (c) -> {
       if(c.numOfValues() > 0) {
-        probs.add(cpt.getValues());
+        probs.add(c.getValues());
       }
     };
     (new CptPoDfsTraversal(cpt, listener)).start();
