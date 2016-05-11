@@ -7,6 +7,9 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
+/**
+ * Tests CptPoDfsTraversal.
+ */
 public class CptPoDfsTraversalTest {
   @Test
   public void testTraversal() {

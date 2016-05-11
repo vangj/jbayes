@@ -3,6 +3,9 @@ package net.jbayes;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Node.
+ */
 public class Node {
 
   private String name;
@@ -72,6 +75,10 @@ public class Node {
     return this;
   }
 
+  /**
+   * Converts the sampled values to probabilities.
+   * @return Marginal probabilities.
+   */
   public double[] probs() {
     double sum = 0.0d;
     for(double lw : sampledLw) {

@@ -4,6 +4,9 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+/**
+ * Tests CptBuilder.
+ */
 public class CptBuilderTest {
   @Test
   public void testBuild() {

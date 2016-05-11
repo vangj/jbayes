@@ -4,6 +4,9 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+/**
+ * Tests graph.
+ */
 public class GraphTest {
 
   @Test

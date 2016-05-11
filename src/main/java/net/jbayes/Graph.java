@@ -3,6 +3,9 @@ package net.jbayes;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Graph.
+ */
 public class Graph {
   private List<Node> nodes;
 
@@ -14,6 +17,9 @@ public class Graph {
     nodes.add(node);
   }
 
+  /**
+   * Reinitializes the nodes' CPTs.
+   */
   public void reinit() {
     for(Node node : nodes) {
       Cpt cpt = CptBuilder.build(node);
@@ -21,6 +27,11 @@ public class Graph {
     }
   }
 
+  /**
+   * Performs the sampling.
+   * @param samples Total samples to generate.
+   * @return Likelihood-weighted sum.
+   */
   public double sample(int samples) {
     double lwSum = 0.0d;
 

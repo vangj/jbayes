@@ -3,8 +3,18 @@ package net.jbayes;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Builds conditional probability tables (CPTs).
+ */
 public class CptBuilder {
 
+  /**
+   * Builds a CPT for the specified node using
+   * the specified conditional probabilities passed in.
+   * @param node Node.
+   * @param probs Conditional proabilities.
+   * @return Cpt.
+   */
   public static Cpt build(Node node, double[][] probs) {
     Cpt cpt = build(node);
 
@@ -41,6 +51,12 @@ public class CptBuilder {
     return cpt;
   }
 
+  /**
+   * Builds a CPT for a node. Random conditional probabilities
+   * are assigned.
+   * @param node Node.
+   * @return Cpt.
+   */
   public static Cpt build(Node node) {
 
     if(!node.hasParents()) {
@@ -75,6 +91,11 @@ public class CptBuilder {
     }
   }
 
+  /**
+   * Generates a List of Doubles.
+   * @param total Total number of Doubles to generate.
+   * @return List of Doubles.
+   */
   private static List<Double> randomValues(int total) {
     List<Double> values = new ArrayList<>();
     double sum = 0.0d;

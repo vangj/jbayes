@@ -5,6 +5,9 @@ package net.jbayes;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a conditional probability table.
+ */
 public class Cpt {
   private int index = -1;
   private List<Double> values;
