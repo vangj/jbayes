@@ -1,5 +1,7 @@
 package com.github.vangj.jbayes.inference;
 
+import com.github.vangj.jbayes.inference.util.RandomUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +9,10 @@ import java.util.List;
  * Builds conditional probability tables (CPTs).
  */
 public class CptBuilder {
+
+  private CptBuilder() {
+
+  }
 
   /**
    * Builds a CPT for the specified node using

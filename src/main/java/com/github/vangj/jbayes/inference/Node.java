@@ -1,5 +1,7 @@
 package com.github.vangj.jbayes.inference;
 
+import com.github.vangj.jbayes.inference.util.RandomUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 
