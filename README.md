@@ -1,5 +1,7 @@
 # jbayes
-Simple Bayesian Belief Network inference library using likelihood weight sampling for Java.
+Simple Bayesian Belief Network (BBN) inference library using likelihood weight sampling for Java.
+
+This library is a port of [jsbayes](https://github.com/vangj/jsbayes). Another related JavaScript project that provides visualization and interaction with BBN is [jsbayes-viz](https://github.com/vangj/jsbayes-viz).
 
 # How do i use jbayes?
 
