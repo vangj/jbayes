@@ -1,4 +1,4 @@
-package net.jbayes;
+package com.github.vangj.jbayes.inference;
 
 import java.util.ArrayList;
 import java.util.List;
