@@ -90,3 +90,13 @@ n1.setCpt(new double[][] {
 });
 ```
 
+Note that the conditional probabilities per row sum to 1. If you do NOT make the conditional probabilties sum to 1 per row, the inference (or your head) may [asplode](http://www.urbandictionary.com/define.php?term=asplode).
+
+What may seem as a one-off case are nodes without any parents. In these cases, the CPT always has 1 row and as many columns as the cardinality of the node. So if n2 was a node without any parents, its CPT would be defined as follows.
+
+```
+n2.setCpt(new double[][] {
+ { 0.2, 0.5, 0.3 } //P(n2=yes), P(n2=no), P(n2=maybe)
+});
+```
+
