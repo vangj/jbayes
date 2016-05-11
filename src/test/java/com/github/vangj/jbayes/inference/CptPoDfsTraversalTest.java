@@ -1,5 +1,6 @@
 package com.github.vangj.jbayes.inference;
 
+import com.github.vangj.jbayes.inference.util.CptUtil;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class CptPoDfsTraversalTest {
         .parent(n2)
         .build();
 
-    Cpt cpt = CptBuilder.build(n3);
+    Cpt cpt = CptUtil.build(n3);
 
     final List<List<Double>> probs = new ArrayList<>();
     CptPoDfsTraversal.CptPoDfsTraversalListener listener = (c) -> {

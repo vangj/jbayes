@@ -1,5 +1,6 @@
 package com.github.vangj.jbayes.inference;
 
+import com.github.vangj.jbayes.inference.util.CptUtil;
 import com.github.vangj.jbayes.inference.util.RandomUtil;
 
 import java.util.ArrayList;
@@ -47,7 +48,7 @@ public class Node {
   }
 
   public void setCpt(double[][] probs) {
-    cpt = CptBuilder.build(this, probs);
+    cpt = CptUtil.build(this, probs);
   }
 
   public List<Node> getParents() {

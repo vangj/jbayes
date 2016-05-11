@@ -1,5 +1,7 @@
 package com.github.vangj.jbayes.inference;
 
+import com.github.vangj.jbayes.inference.util.CptUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +24,7 @@ public class Graph {
    */
   public void reinit() {
     for(Node node : nodes) {
-      Cpt cpt = CptBuilder.build(node);
+      Cpt cpt = CptUtil.build(node);
       node.setCpt(cpt);
     }
   }
