@@ -10,7 +10,7 @@
     <java.version>1.8</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-  
+
   <name>Simple Bayesian Belief Network inference library for Java.</name>
   <description>A very cool project for BBN inference using likelihood-weight sampling.</description>
   <url>https://github.com/vangj/jbayes</url>
@@ -119,6 +119,10 @@
       <id>ossrh</id>
       <url>https://oss.sonatype.org/content/repositories/snapshots</url>
     </snapshotRepository>
+    <repository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
   </distributionManagement>
 </project>
 
