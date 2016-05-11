@@ -1,5 +1,7 @@
-package com.github.vangj.jbayes.inference;
+package com.github.vangj.jbayes.inference.cpt;
 
+import com.github.vangj.jbayes.inference.Cpt;
+import com.github.vangj.jbayes.inference.Node;
 import com.github.vangj.jbayes.inference.util.CptUtil;
 import org.junit.Test;
 

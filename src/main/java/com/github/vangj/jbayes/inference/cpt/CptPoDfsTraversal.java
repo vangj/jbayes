@@ -1,4 +1,6 @@
-package com.github.vangj.jbayes.inference;
+package com.github.vangj.jbayes.inference.cpt;
+
+import com.github.vangj.jbayes.inference.Cpt;
 
 /**
  * Post-order depth-first-search for CPT.

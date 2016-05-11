@@ -1,9 +1,8 @@
 package com.github.vangj.jbayes.inference.util;
 
 import com.github.vangj.jbayes.inference.Cpt;
-import com.github.vangj.jbayes.inference.CptPoDfsTraversal;
+import com.github.vangj.jbayes.inference.cpt.CptPoDfsTraversal;
 import com.github.vangj.jbayes.inference.Node;
-import com.github.vangj.jbayes.inference.util.RandomUtil;
 
 import java.util.ArrayList;
 import java.util.List;
