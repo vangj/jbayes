@@ -31,6 +31,33 @@ public class Node {
     this.parents = b.parents;
   }
 
+  public void observe(String value) {
+    this.value = valueIndex(value);
+    this.observed = true;
+  }
+
+  public void unobserve() {
+    this.value = -1;
+    this.observed = false;
+  }
+
+  private int valueIndex(String value) {
+    int index = -1;
+    final int size = values.size();
+    for(int i=0; i < size; i++) {
+      String v = values.get(i);
+      if(value.equals(v)) {
+        index = i;
+        break;
+      }
+    }
+    return index;
+  }
+
+  public String getName() {
+    return name;
+  }
+
   public void setWasSampled(boolean wasSampled) {
     this.wasSampled = wasSampled;
   }
@@ -97,12 +124,12 @@ public class Node {
     return probs;
   }
 
-  public int sampleLw() {
+  public double sampleLw() {
     if(wasSampled) {
       return 1;
     }
 
-    int fa = 1;
+    double fa = 1.0d;
     for(Node pa : parents) {
       fa *= pa.sampleLw();
     }
@@ -133,7 +160,7 @@ public class Node {
     return fa;
   }
 
-  public void saveSampleLw(int f) {
+  public void saveSampleLw(double f) {
     if(null == sampledLw) {
       sampledLw = new ArrayList<>(values.size());
     }

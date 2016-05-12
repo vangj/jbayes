@@ -3,16 +3,46 @@ package com.github.vangj.jbayes.inference;
 import com.github.vangj.jbayes.inference.util.CptUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Graph.
  */
 public class Graph {
   private List<Node> nodes;
+  private Map<String, Node> _nodes = new HashMap<>();
 
   public Graph() {
     nodes = new ArrayList<>();
+  }
+
+  public Node getNode(String name) {
+    synchronized (_nodes) {
+      if(null == _nodes || 0 == _nodes.size()) {
+        _nodes = new HashMap<>();
+        nodes.forEach(n -> _nodes.put(n.getName(), n));
+      }
+    }
+
+    return _nodes.get(name);
+  }
+
+  public void observe(String name, String value) {
+    Node node = getNode(name);
+    if(null == node) {
+      return;
+    }
+    node.observe(value);
+  }
+
+  public void unobserve(String name) {
+    Node node = getNode(name);
+    if(null == node) {
+      return;
+    }
+    node.unobserve();
   }
 
   public void addNode(Node node) {
@@ -45,7 +75,7 @@ public class Graph {
         node.setWasSampled(false);
       }
 
-      int fa = 1;
+      double fa = 1.0d;
       for(Node node : nodes) {
         fa *= node.sampleLw();
       }
