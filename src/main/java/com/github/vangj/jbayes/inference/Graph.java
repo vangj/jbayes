@@ -78,15 +78,17 @@ public class Graph {
     }
   }
 
+  public void clearSamples() {
+    _samples.clear();;
+  }
+
   /**
    * Performs the sampling.
    * @param samples Total samples to generate.
    * @return Likelihood-weighted sum.
    */
   public double sample(int samples) {
-    if(saveSamples) {
-      _samples.clear();
-    }
+    clearSamples();
 
     nodes.forEach(Node::resetSampledLw);
 

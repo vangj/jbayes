@@ -48,12 +48,23 @@ g.addNode(n2);
 g.addNode(n3);
 
 //samples and computes the marginal probabilities aka the inference
-g.sample(10000);
+g.sample(10_000);
 
 //look at the marginal probabilities
 double[] probs1 = n1.probs();
 double[] probs2 = n2.probs();
 double[] probs3 = n3.probs();
+```
+
+You can also use jbayes to save generate data as a CSV file.
+
+```
+g.setSaveSamples(true); //stores samples in memory!
+g.sample(10_000);
+
+CsvUtil.saveSamples(g, new FileWriter(new File("/path/to/file.csv")); //save samples into CSV file
+
+g.clearSamples(); //clear samples, this might help with memory usage
 ```
 
 # Defining condtional probability tables (CPTs)
