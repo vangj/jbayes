@@ -11,6 +11,9 @@ import java.io.IOException;
 
 import static org.junit.Assert.*;
 
+/**
+ * Test JsonUtil.
+ */
 public class JsonUtilTest {
 
   @Test
