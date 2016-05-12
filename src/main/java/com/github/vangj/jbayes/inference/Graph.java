@@ -11,11 +11,30 @@ import java.util.Map;
  * Graph.
  */
 public class Graph {
+  private boolean saveSamples;
+  private List<String[]> _samples = new ArrayList<>();
   private List<Node> nodes;
   private Map<String, Node> _nodes = new HashMap<>();
 
   public Graph() {
     nodes = new ArrayList<>();
+  }
+
+  public String[] getNodeNames() {
+    final int size = nodes.size();
+    String[] names = new String[size];
+    for(int i=0; i < size; i++) {
+      names[i] = nodes.get(i).getName();
+    }
+    return names;
+  }
+
+  public List<String[]> getSamples() {
+    return _samples;
+  }
+
+  public void setSaveSamples(boolean saveSamples) {
+    this.saveSamples = saveSamples;
   }
 
   public Node getNode(String name) {
@@ -65,9 +84,14 @@ public class Graph {
    * @return Likelihood-weighted sum.
    */
   public double sample(int samples) {
+    if(saveSamples) {
+      _samples.clear();
+    }
+
     nodes.forEach(Node::resetSampledLw);
 
     double lwSum = 0.0d;
+    final int numNodes = nodes.size();
 
     for(int count=0; count < samples; count++) {
       for(Node node : nodes) {
@@ -86,6 +110,14 @@ public class Graph {
 
       for(Node node: nodes) {
         node.saveSampleLw(fa);
+      }
+
+      if(saveSamples) {
+        String[] sampledValues = new String[numNodes];
+        for(int i=0; i < numNodes; i++) {
+          sampledValues[i] = nodes.get(i).getSampledValue();
+        }
+        _samples.add(sampledValues);
       }
     }
 

@@ -31,6 +31,10 @@ public class Node {
     this.parents = b.parents;
   }
 
+  public String getSampledValue() {
+    return values.get(value);
+  }
+
   public void resetSampledLw() {
     if(null == sampledLw || 0 == sampledLw.size()) {
       return;
