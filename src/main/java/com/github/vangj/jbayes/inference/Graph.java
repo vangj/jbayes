@@ -1,5 +1,9 @@
 package com.github.vangj.jbayes.inference;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.github.vangj.jbayes.inference.util.CptUtil;
 
 import java.util.ArrayList;
@@ -10,16 +14,29 @@ import java.util.Map;
 /**
  * Graph.
  */
+@JsonInclude(content = Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Graph {
-  private boolean saveSamples;
+  private boolean saveSamples = false;
+  @JsonIgnore
   private List<String[]> _samples = new ArrayList<>();
   private List<Node> nodes;
+  @JsonIgnore
   private Map<String, Node> _nodes = new HashMap<>();
 
   public Graph() {
     nodes = new ArrayList<>();
   }
 
+  public boolean isSaveSamples() {
+    return saveSamples;
+  }
+
+  public List<Node> getNodes() {
+    return nodes;
+  }
+
+  @JsonIgnore
   public String[] getNodeNames() {
     final int size = nodes.size();
     String[] names = new String[size];
@@ -29,6 +46,7 @@ public class Graph {
     return names;
   }
 
+  @JsonIgnore
   public List<String[]> getSamples() {
     return _samples;
   }

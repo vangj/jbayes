@@ -2,12 +2,17 @@ package com.github.vangj.jbayes.inference;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Represents a conditional probability table.
  */
+@JsonInclude(content = JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Cpt {
   private int index = -1;
   private List<Double> values;
@@ -16,6 +21,10 @@ public class Cpt {
   public Cpt() {
     values = new ArrayList<>();
     children = new ArrayList<>();
+  }
+
+  public int getIndex() {
+    return index;
   }
 
   public List<Double> getValues() {

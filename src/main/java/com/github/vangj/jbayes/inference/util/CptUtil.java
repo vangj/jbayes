@@ -12,8 +12,42 @@ import java.util.List;
  */
 public class CptUtil {
 
+  private static class ArrayAccumulatorListener implements CptPoDfsTraversal.CptPoDfsTraversalListener {
+    private List<List<Double>> list = new ArrayList<>();
+
+    @Override public void visited(Cpt cpt) {
+      if(cpt.numOfValues() > 0) {
+        list.add(cpt.getValues());
+      }
+    }
+
+    public double[][] get() {
+      final int rows = list.size();
+      final int cols = list.get(0).size();
+
+      double[][] cpts = new double[rows][cols];
+      for(int r=0; r < rows; r++) {
+        for(int c=0; c < cols; c++) {
+          cpts[r][c] = list.get(r).get(c);
+        }
+      }
+      return cpts;
+    }
+  }
+
   private CptUtil() {
 
+  }
+
+  /**
+   * Converts the CPT into matrix form.
+   * @param cpt CPT.
+   * @return 2D representation of CPT.
+   */
+  public static double[][] getMatrix(Cpt cpt) {
+    ArrayAccumulatorListener listener = new ArrayAccumulatorListener();
+    (new CptPoDfsTraversal(cpt, listener)).start();
+    return listener.get();
   }
 
   /**

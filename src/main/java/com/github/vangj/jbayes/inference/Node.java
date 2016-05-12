@@ -1,5 +1,9 @@
 package com.github.vangj.jbayes.inference;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.github.vangj.jbayes.inference.util.CptUtil;
 import com.github.vangj.jbayes.inference.util.RandomUtil;
 
@@ -9,15 +13,23 @@ import java.util.List;
 /**
  * Node.
  */
+@JsonInclude(content = Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Node {
 
   private String name;
   private List<String> values;
+  @JsonIgnore
   private int value = -1;
+  @JsonIgnore
   private List<Node> parents;
+  @JsonIgnore
   private boolean observed = false;
+  @JsonIgnore
   private boolean wasSampled = false;
+  @JsonIgnore
   private List<Double> sampledLw;
+  @JsonIgnore
   private Cpt cpt;
 
   public Node() {
@@ -31,6 +43,27 @@ public class Node {
     this.parents = b.parents;
   }
 
+  public Cpt getCpt() {
+    return cpt;
+  }
+
+  public List<String> getValues() {
+    return values;
+  }
+
+  public int getValue() {
+    return value;
+  }
+
+  public boolean isWasSampled() {
+    return wasSampled;
+  }
+
+  public List<Double> getSampledLw() {
+    return sampledLw;
+  }
+
+  @JsonIgnore
   public String getSampledValue() {
     return values.get(value);
   }
