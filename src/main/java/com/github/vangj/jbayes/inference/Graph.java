@@ -65,6 +65,8 @@ public class Graph {
    * @return Likelihood-weighted sum.
    */
   public double sample(int samples) {
+    nodes.forEach(Node::resetSampledLw);
+
     double lwSum = 0.0d;
 
     for(int count=0; count < samples; count++) {

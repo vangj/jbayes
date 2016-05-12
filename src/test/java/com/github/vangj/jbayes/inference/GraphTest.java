@@ -79,7 +79,7 @@ public class GraphTest {
 
     g.observe("n1", "t");
 
-    g.sample(10000);
+    g.sample(10_000);
 
     double[] probs1 = n1.probs();
     double[] probs2 = n2.probs();
@@ -87,6 +87,23 @@ public class GraphTest {
 
     assertTrue( (1.0 - probs1[0]) < 0.001 );
     assertTrue( probs1[1] < 0.05 );
+
+    assertTrue( (0.5 - probs2[0]) < 0.05 );
+    assertTrue( (0.5 - probs2[1]) < 0.05 );
+
+    assertTrue( (0.5 - probs3[0]) < 0.05 );
+    assertTrue( (0.5 - probs3[1]) < 0.05 );
+
+    g.unobserve("n1");
+
+    g.sample(10_000);
+
+    probs1 = n1.probs();
+    probs2 = n2.probs();
+    probs3 = n3.probs();
+
+    assertTrue( (0.5 - probs1[0]) < 0.05 );
+    assertTrue( (0.5 - probs1[1]) < 0.05 );
 
     assertTrue( (0.5 - probs2[0]) < 0.05 );
     assertTrue( (0.5 - probs2[1]) < 0.05 );

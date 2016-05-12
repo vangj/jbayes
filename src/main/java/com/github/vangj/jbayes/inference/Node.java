@@ -31,6 +31,17 @@ public class Node {
     this.parents = b.parents;
   }
 
+  public void resetSampledLw() {
+    if(null == sampledLw || 0 == sampledLw.size()) {
+      return;
+    }
+
+    final int size = sampledLw.size();
+    for(int i=0; i < size; i++) {
+      sampledLw.set(i, 0.0d);
+    }
+  }
+
   public void observe(String value) {
     this.value = valueIndex(value);
     this.observed = true;
