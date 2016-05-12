@@ -56,7 +56,7 @@ double[] probs2 = n2.probs();
 double[] probs3 = n3.probs();
 ```
 
-You can also use jbayes to save generate data as a CSV file.
+You can also use jbayes to save generated data from the BBN as a CSV file.
 
 ```
 g.setSaveSamples(true); //stores samples in memory!
@@ -65,6 +65,13 @@ g.sample(10_000);
 CsvUtil.saveSamples(g, new FileWriter(new File("/path/to/file.csv")); //save samples into CSV file
 
 g.clearSamples(); //clear samples, this might help with memory usage
+```
+
+You can also serialize/deserialize the BBN to and from JSON.
+
+```
+JsonUtil.serialize(g, new FileOutputStream(new File("/path/to/graph.json")));
+Graph deserializedGraph = JsonUtil.deserialize(new FileInputStream(new File("/path/to/graph.json")));
 ```
 
 # Defining condtional probability tables (CPTs)
