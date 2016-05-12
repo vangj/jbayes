@@ -11,7 +11,7 @@ Using Maven, you make a depedency to jbayes.
 <dependency>
   <groupId>com.github.vangj</groupId>
   <artifactId>jbayes-inference</artifactId>
-  <version>0.0.1</version>
+  <version>0.0.2</version>
 </dependency>
 ```
 
