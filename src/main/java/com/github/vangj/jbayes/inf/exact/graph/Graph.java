@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * A generic graph.
+ */
 public class Graph {
   protected Map<String, List<Node>> neighbors;
   protected Map<String, Node> nodes;

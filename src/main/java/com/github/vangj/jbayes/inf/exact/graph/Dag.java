@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * A directed acylic graph (DAG).
+ */
 public class Dag extends Graph {
   protected Map<String, List<Node>> parents;
   protected Map<String, List<Node>> children;
@@ -45,6 +48,11 @@ public class Dag extends Graph {
     return this;
   }
 
+  /**
+   * Gets the parent of the specified node.
+   * @param node Node.
+   * @return List of parents.
+   */
   public List<Node> parents(Node node) {
     List<Node> parents = this.parents.get(node.id);
     if(null == parents) {
@@ -54,6 +62,11 @@ public class Dag extends Graph {
     return parents;
   }
 
+  /**
+   * Gets the children of the specified node.
+   * @param node Node.
+   * @return List of children.
+   */
   public List<Node> children(Node node) {
     List<Node> children = this.children.get(node.id);
     if(null == children) {
@@ -63,13 +76,33 @@ public class Dag extends Graph {
     return children;
   }
 
+  /**
+   * Gets the coparents of the specified node. Coparents are parents of the
+   * specified node's children.
+   * @param node Node.
+   * @return List of coparents.
+   */
   public List<Node> coparents(Node node) {
     Set<Node> copas = new HashSet<>();
-    copas.addAll(parents(node));
-    copas.addAll(children(node));
     children(node).forEach(n -> {
       copas.addAll(parents(n));
     });
+    copas.remove(node);
     return new ArrayList<>(copas);
+  }
+
+  /**
+   * Gets the Markov blanket for the specified node. The Markov blanket
+   * is specified as the union of parents, children, and coparents.
+   * @param node Node.
+   * @return List of nodes in the Markov blanket.
+   */
+  public List<Node> markovBlanket(Node node) {
+    Set<Node> blanket = new HashSet<>();
+    blanket.addAll(parents(node));
+    blanket.addAll(children(node));
+    blanket.addAll(coparents(node));
+    blanket.remove(node);
+    return new ArrayList<>(blanket);
   }
 }

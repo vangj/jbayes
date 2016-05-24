@@ -1,5 +1,8 @@
 package com.github.vangj.jbayes.inf.exact.graph;
 
+/**
+ * An edge/arc in a graph. Can be used to represent undirected or directed edges.
+ */
 public class Edge {
   public enum Type {
     DIRECTED, UNDIRECTED

@@ -3,6 +3,9 @@ package com.github.vangj.jbayes.inf.exact.graph;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+/**
+ * A node in a graph.
+ */
 public class Node extends Variable {
   public Node() {
 

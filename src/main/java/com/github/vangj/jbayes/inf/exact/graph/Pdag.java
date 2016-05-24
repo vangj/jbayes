@@ -7,6 +7,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * A partially directed acyclic graph (PDAG). "A PDAG is a graph where some edges
+ * are directed and some are undirected and one cannot trace a cycle by following
+ * the direction of directed edges and any direction for undirected edges."
+ * <ul>
+ *   <li>Quote above taken directly from http://jmlr.csail.mit.edu/papers/volume8/kalisch07a/kalisch07a.pdf</li>
+ * </ul>
+ */
 public class Pdag extends Graph {
   protected Map<String, List<Node>> parents;
   protected Map<String, List<Node>> children;

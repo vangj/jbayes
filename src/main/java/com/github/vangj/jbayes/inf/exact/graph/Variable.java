@@ -2,6 +2,9 @@ package com.github.vangj.jbayes.inf.exact.graph;
 
 import java.util.Set;
 
+/**
+ * Represents a discrete variable.
+ */
 public class Variable {
   protected String id;
   protected String name;
