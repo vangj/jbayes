@@ -1,10 +1,10 @@
-package com.github.vangj.jbayes.inference.util;
+package com.github.vangj.jbayes.inf.prob.util;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.github.vangj.jbayes.inference.Graph;
-import com.github.vangj.jbayes.inference.json.JsonGraph;
+import com.github.vangj.jbayes.inf.prob.Graph;
+import com.github.vangj.jbayes.inf.prob.json.JsonGraph;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;

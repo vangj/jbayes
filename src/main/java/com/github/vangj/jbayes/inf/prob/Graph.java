@@ -1,10 +1,10 @@
-package com.github.vangj.jbayes.inference;
+package com.github.vangj.jbayes.inf.prob;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.github.vangj.jbayes.inference.util.CptUtil;
+import com.github.vangj.jbayes.inf.prob.util.CptUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;

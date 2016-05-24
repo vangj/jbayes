@@ -1,4 +1,4 @@
-package com.github.vangj.jbayes.inference;
+package com.github.vangj.jbayes.inf.prob;
 
 
 

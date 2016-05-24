@@ -1,4 +1,4 @@
-package com.github.vangj.jbayes.inference.util;
+package com.github.vangj.jbayes.inf.prob.util;
 
 import java.util.Random;
 

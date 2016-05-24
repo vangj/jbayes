@@ -1,8 +1,8 @@
-package com.github.vangj.jbayes.inference.cpt;
+package com.github.vangj.jbayes.inf.prob.cpt;
 
-import com.github.vangj.jbayes.inference.Cpt;
-import com.github.vangj.jbayes.inference.Node;
-import com.github.vangj.jbayes.inference.util.CptUtil;
+import com.github.vangj.jbayes.inf.prob.util.CptUtil;
+import com.github.vangj.jbayes.inf.prob.Cpt;
+import com.github.vangj.jbayes.inf.prob.Node;
 import org.junit.Test;
 
 import java.util.ArrayList;

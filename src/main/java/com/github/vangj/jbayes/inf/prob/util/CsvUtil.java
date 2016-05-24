@@ -1,7 +1,7 @@
-package com.github.vangj.jbayes.inference.util;
+package com.github.vangj.jbayes.inf.prob.util;
 
 import au.com.bytecode.opencsv.CSVWriter;
-import com.github.vangj.jbayes.inference.Graph;
+import com.github.vangj.jbayes.inf.prob.Graph;
 
 import java.io.IOException;
 import java.io.Writer;

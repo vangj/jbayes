@@ -1,8 +1,8 @@
-package com.github.vangj.jbayes.inference.util;
+package com.github.vangj.jbayes.inf.prob.util;
 
-import com.github.vangj.jbayes.inference.Cpt;
-import com.github.vangj.jbayes.inference.cpt.CptPoDfsTraversal;
-import com.github.vangj.jbayes.inference.Node;
+import com.github.vangj.jbayes.inf.prob.cpt.CptPoDfsTraversal;
+import com.github.vangj.jbayes.inf.prob.Cpt;
+import com.github.vangj.jbayes.inf.prob.Node;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,8 @@ import java.util.List;
  */
 public class CptUtil {
 
-  private static class ArrayAccumulatorListener implements CptPoDfsTraversal.CptPoDfsTraversalListener {
+  private static class ArrayAccumulatorListener implements
+      CptPoDfsTraversal.CptPoDfsTraversalListener {
     private List<List<Double>> list = new ArrayList<>();
 
     @Override public void visited(Cpt cpt) {
