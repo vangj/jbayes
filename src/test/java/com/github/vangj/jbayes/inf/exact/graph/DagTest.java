@@ -49,6 +49,8 @@ public class DagTest {
         .addEdge(n1, n2)
         .addEdge(n1, n3);
 
+    System.out.println(graph);
+
     assertEquals(5, graph.nodes().size());
     assertEquals(3, graph.edges().size());
 

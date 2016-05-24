@@ -92,7 +92,7 @@ public class Edge {
   public static final class Builder {
     private Node left;
     private Node right;
-    private Type type;
+    private Type type = Type.UNDIRECTED;
 
     private Builder() {
     }

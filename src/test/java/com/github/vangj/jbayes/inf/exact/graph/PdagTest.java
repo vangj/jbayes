@@ -72,6 +72,8 @@ public class PdagTest {
                 .type(Edge.Type.DIRECTED)
                 .build());
 
+    System.out.println(graph);
+
     assertEquals(6, graph.nodes().size());
     assertEquals(5, graph.edges().size());
 
