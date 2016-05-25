@@ -37,6 +37,13 @@ public class Node extends Variable {
       values = new LinkedHashSet<>();
     }
 
+    public NodeBuilder from(Variable v) {
+      this.id = v.id;
+      this.name = v.name;
+      this.values = v.values;
+      return this;
+    }
+
     public NodeBuilder id(String val) {
       id = val;
       return this;
