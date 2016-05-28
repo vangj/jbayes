@@ -5,6 +5,9 @@ import static com.github.vangj.jbayes.inf.exact.graph.util.PotentialUtil.*;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * An entry of a potential. If it helps, think of a potential entry as a table row.
+ */
 public class PotentialEntry {
   private Map<String, String> entries;
   private Double value;

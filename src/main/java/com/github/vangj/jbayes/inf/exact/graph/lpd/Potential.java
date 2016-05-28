@@ -3,6 +3,9 @@ package com.github.vangj.jbayes.inf.exact.graph.lpd;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A potential. If it helps, think of a potential as a table.
+ */
 public class Potential {
   private List<PotentialEntry> entries;
 
