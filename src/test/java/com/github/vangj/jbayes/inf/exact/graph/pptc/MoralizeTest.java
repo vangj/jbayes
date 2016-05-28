@@ -3,7 +3,6 @@ package com.github.vangj.jbayes.inf.exact.graph.pptc;
 import static org.junit.Assert.*;
 
 import com.github.vangj.jbayes.inf.exact.graph.Dag;
-import com.github.vangj.jbayes.inf.exact.graph.Edge;
 import com.github.vangj.jbayes.inf.exact.graph.Ug;
 import org.junit.Test;
 
