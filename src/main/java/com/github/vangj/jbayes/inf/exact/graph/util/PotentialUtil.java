@@ -10,11 +10,19 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
+/**
+ * Potential util.
+ */
 public class PotentialUtil {
   private PotentialUtil() {
 
   }
 
+  /**
+   * Makes a string from the map.
+   * @param entries Map.
+   * @return String.
+   */
   public static String asString(Map<String, String> entries) {
     return entries.entrySet().stream()
         .map(entry -> (new StringBuilder())
@@ -25,11 +33,22 @@ public class PotentialUtil {
         .collect(Collectors.joining(",", "[" , "]"));
   }
 
+  /**
+   * Creates a new map sorted by the id of the specified map.
+   * @param map Map.
+   * @return Map sorted by id.
+   */
   public static Map<String, String> sortByKeys(Map<String, String> map) {
     Map<String, String> out = new TreeMap<>(map);
     return out;
   }
 
+  /**
+   * Creates a potential from the node and its parents.
+   * @param node Node.
+   * @param parents Parent nodes.
+   * @return Potential.
+   */
   public static Potential getPotential(Node node, List<Node> parents) {
     List<List<String>> valueLists = new ArrayList<>();
     parents.forEach(parent -> {
@@ -60,6 +79,12 @@ public class PotentialUtil {
     return potential;
   }
 
+  /**
+   * Creates cartesian product between the list of lists.
+   * @param lists List of lists.
+   * @param <T>
+   * @return List of lists representing cartesian product.
+   */
   public static <T> List<List<T>> cartesian(List<List<T>> lists) {
     List<List<T>> results = new ArrayList<>();
     if (lists.size() == 0) {
