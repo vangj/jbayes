@@ -7,7 +7,7 @@ import com.github.vangj.jbayes.inf.exact.graph.Ug;
 import java.util.List;
 
 /**
- * Moralizes a DAG.
+ * Step 1. Moralizes a DAG.
  */
 public class Moralize {
   private Moralize() {

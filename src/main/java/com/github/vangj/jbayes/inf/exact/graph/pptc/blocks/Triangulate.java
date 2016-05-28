@@ -12,7 +12,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * Triangulates an undirected graph and in the process identifies the induced
+ * Step 2. Triangulates an undirected graph and in the process identifies the induced
  * cliques.
  */
 public class Triangulate {
