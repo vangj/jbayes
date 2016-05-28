@@ -1,12 +1,16 @@
-package com.github.vangj.jbayes.inf.exact.graph.pptc;
+package com.github.vangj.jbayes.inf.exact.graph.pptc.blocks;
 
 import com.github.vangj.jbayes.inf.exact.graph.Dag;
 import com.github.vangj.jbayes.inf.exact.graph.Ug;
+import com.github.vangj.jbayes.inf.exact.graph.pptc.Clique;
+import com.github.vangj.jbayes.inf.exact.graph.pptc.HuangExample;
 import org.junit.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class TriangulateTest extends HuangExample {
   @Test

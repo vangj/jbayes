@@ -1,4 +1,7 @@
-package com.github.vangj.jbayes.inf.exact.graph.pptc;
+package com.github.vangj.jbayes.inf.exact.graph.pptc.traversal;
+
+import com.github.vangj.jbayes.inf.exact.graph.pptc.Clique;
+import com.github.vangj.jbayes.inf.exact.graph.pptc.JoinTree;
 
 import java.util.LinkedHashSet;
 import java.util.Set;

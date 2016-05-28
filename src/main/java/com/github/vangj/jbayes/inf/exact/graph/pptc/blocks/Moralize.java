@@ -1,4 +1,4 @@
-package com.github.vangj.jbayes.inf.exact.graph.pptc;
+package com.github.vangj.jbayes.inf.exact.graph.pptc.blocks;
 
 import com.github.vangj.jbayes.inf.exact.graph.Dag;
 import com.github.vangj.jbayes.inf.exact.graph.Node;

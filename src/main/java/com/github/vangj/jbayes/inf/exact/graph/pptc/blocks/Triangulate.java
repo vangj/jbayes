@@ -1,8 +1,9 @@
-package com.github.vangj.jbayes.inf.exact.graph.pptc;
+package com.github.vangj.jbayes.inf.exact.graph.pptc.blocks;
 
 import com.github.vangj.jbayes.inf.exact.graph.Edge;
 import com.github.vangj.jbayes.inf.exact.graph.Node;
 import com.github.vangj.jbayes.inf.exact.graph.Ug;
+import com.github.vangj.jbayes.inf.exact.graph.pptc.Clique;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;

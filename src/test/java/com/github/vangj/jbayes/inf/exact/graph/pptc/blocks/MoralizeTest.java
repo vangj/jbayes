@@ -1,9 +1,11 @@
-package com.github.vangj.jbayes.inf.exact.graph.pptc;
+package com.github.vangj.jbayes.inf.exact.graph.pptc.blocks;
 
 import static org.junit.Assert.*;
 
 import com.github.vangj.jbayes.inf.exact.graph.Dag;
 import com.github.vangj.jbayes.inf.exact.graph.Ug;
+import com.github.vangj.jbayes.inf.exact.graph.pptc.HuangExample;
+import com.github.vangj.jbayes.inf.exact.graph.pptc.blocks.Moralize;
 import org.junit.Test;
 
 public class MoralizeTest extends HuangExample {
