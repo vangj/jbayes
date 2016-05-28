@@ -49,6 +49,10 @@ public class PotentialEntry {
 
   @Override
   public String toString() {
-    return asString(entries);
+    return (new StringBuilder())
+        .append(asString(entries))
+        .append(" ")
+        .append(value)
+        .toString();
   }
 }
