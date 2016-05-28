@@ -1,5 +1,7 @@
 package com.github.vangj.jbayes.inf.exact.graph.pptc;
 
+import static org.junit.Assert.*;
+
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -19,19 +21,53 @@ public class TransformTest extends HuangExample {
 
     JoinTreeShortestPath.Listener listener = new JoinTreeShortestPath.Listener() {
       @Override public void pre(JoinTree joinTree, Clique start, Clique stop) {
-        System.out.println("starting check for shortest path from " + start + " to " + stop);
+//        System.out.println("starting check for shortest path from " + start + " to " + stop);
       }
 
       @Override public void visited(Clique clique) {
-        System.out.println("visited " + clique);
+//        System.out.println("visited " + clique);
       }
 
       @Override public void post(JoinTree joinTree, Clique start, Clique stop) {
-        System.out.println("finished check for shortest path from " + start + " to " + stop);
+//        System.out.println("finished check for shortest path from " + start + " to " + stop);
       }
     };
 
     JoinTree joinTree = Transform.transform(cliques, listener);
-    System.out.println(joinTree);
+//    System.out.println(joinTree);
+
+    assertEquals(11, joinTree.cliques().size());
+    assertNotNull(joinTree.clique(getNode("a"), getNode("b"), getNode("d")));
+    assertNotNull(joinTree.clique(getNode("a"), getNode("d"), getNode("e")));
+    assertNotNull(joinTree.clique(getNode("a"), getNode("c"), getNode("e")));
+    assertNotNull(joinTree.clique(getNode("c"), getNode("e"), getNode("g")));
+    assertNotNull(joinTree.clique(getNode("d"), getNode("e"), getNode("f")));
+    assertNotNull(joinTree.clique(getNode("e"), getNode("g"), getNode("h")));
+    assertNotNull(joinTree.clique(getNode("a"), getNode("d")));
+    assertNotNull(joinTree.clique(getNode("a"), getNode("e")));
+    assertNotNull(joinTree.clique(getNode("c"), getNode("e")));
+    assertNotNull(joinTree.clique(getNode("d"), getNode("e")));
+    assertNotNull(joinTree.clique(getNode("e"), getNode("g")));
+
+
+    List<Edge> edges = joinTree.edges();
+    assertEquals(10, edges.size());
+
+    List<Edge> expectedEdges = Arrays.asList(
+        new Edge(abd, new Clique(getNode("a"), getNode("d"))),
+        new Edge(ade, new Clique(getNode("a"), getNode("d"))),
+        new Edge(ade, new Clique(getNode("a"), getNode("e"))),
+        new Edge(ade, new Clique(getNode("d"), getNode("e"))),
+        new Edge(def, new Clique(getNode("d"), getNode("e"))),
+        new Edge(ace, new Clique(getNode("a"), getNode("e"))),
+        new Edge(ace, new Clique(getNode("c"), getNode("e"))),
+        new Edge(ceg, new Clique(getNode("c"), getNode("e"))),
+        new Edge(ceg, new Clique(getNode("e"), getNode("g"))),
+        new Edge(egh, new Clique(getNode("e"), getNode("g")))
+    );
+
+    for(Edge expected : expectedEdges) {
+      assertTrue(edges.contains(expected));
+    }
   }
 }

@@ -35,6 +35,11 @@ public class JoinTree {
     return neighbors.get(clique.id());
   }
 
+  public Clique clique(Node... nodes) {
+    String id = NodeUtil.id(Arrays.asList(nodes));
+    return cliques.get(id);
+  }
+
   public Set<Clique> neighbors(Node... nodes) {
     final String id = NodeUtil.id(Arrays.asList(nodes));
     return neighbors.get(id);
@@ -50,7 +55,7 @@ public class JoinTree {
 
   public JoinTree addClique(Clique clique) {
     final String id = clique.id();
-    if(cliques.containsKey(id)) {
+    if(!cliques.containsKey(id)) {
       cliques.put(id, clique);
     }
     return this;
