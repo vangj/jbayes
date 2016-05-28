@@ -17,7 +17,7 @@ public class TriangulateTest extends HuangExample {
 
 //    cliques.forEach(cluster -> System.out.println(cluster));
 
-    assertEquals(8, cliques.size());
+    assertEquals(6, cliques.size());
     assertTrue(cliques.get(0).contains("e"));
     assertTrue(cliques.get(0).contains("g"));
     assertTrue(cliques.get(0).contains("h"));
@@ -41,11 +41,6 @@ public class TriangulateTest extends HuangExample {
     assertTrue(cliques.get(5).contains("a"));
     assertTrue(cliques.get(5).contains("b"));
     assertTrue(cliques.get(5).contains("c"));
-
-    assertTrue(cliques.get(6).contains("a"));
-    assertTrue(cliques.get(6).contains("b"));
-
-    assertTrue(cliques.get(7).contains("a"));
 
 //    System.out.println(ug);
 

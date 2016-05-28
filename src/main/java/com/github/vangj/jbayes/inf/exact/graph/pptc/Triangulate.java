@@ -53,13 +53,24 @@ public class Triangulate {
 
       Clique clique = new Clique(nodeClique.node, mm.neighbors(nodeClique.node));
 
-      cliques.add(clique);
+      if(!isSubset(cliques, clique)) {
+        cliques.add(clique);
+      }
       mm.remove(nodeClique.node);
 
       connectNeighbors(m, nodeClique.edges);
       connectNeighbors(mm, nodeClique.edges);
     }
     return cliques;
+  }
+
+  private static boolean isSubset(List<Clique> cliques, Clique clique) {
+    for(Clique c : cliques) {
+      if(c.isSuperSet(clique)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   private static void connectNeighbors(Ug m, List<Edge> edges) {

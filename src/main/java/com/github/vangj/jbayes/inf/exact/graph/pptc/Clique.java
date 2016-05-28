@@ -4,8 +4,10 @@ import com.github.vangj.jbayes.inf.exact.graph.Node;
 import com.github.vangj.jbayes.inf.exact.graph.util.NodeUtil;
 
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Clique {
@@ -28,6 +30,16 @@ public class Clique {
     for(Node n : nodes) {
       this.nodes.put(n.getId(), n);
     }
+  }
+
+  public boolean isSuperSet(Clique that) {
+    Set<Node> set1 = new LinkedHashSet<>(this.nodes.values());
+    Set<Node> set2 = new LinkedHashSet<>(that.nodes.values());
+    set1.retainAll(set2);
+    if(set1.size() == set2.size()) {
+      return true;
+    }
+    return false;
   }
 
   @Override
