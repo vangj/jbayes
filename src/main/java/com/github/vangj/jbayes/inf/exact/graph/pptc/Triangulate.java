@@ -46,20 +46,20 @@ public class Triangulate {
   }
 
   public static List<Clique> triangulate(Ug m) {
-    List<Clique> clusters = new ArrayList<>();
+    List<Clique> cliques = new ArrayList<>();
     Ug mm = (Ug)m.duplicate();
     while(mm.nodes().size() > 0) {
       NodeClique nodeClique = selectNode(mm);
 
       Clique clique = new Clique(nodeClique.node, mm.neighbors(nodeClique.node));
 
-      clusters.add(clique);
+      cliques.add(clique);
       mm.remove(nodeClique.node);
 
       connectNeighbors(m, nodeClique.edges);
       connectNeighbors(mm, nodeClique.edges);
     }
-    return clusters;
+    return cliques;
   }
 
   private static void connectNeighbors(Ug m, List<Edge> edges) {
