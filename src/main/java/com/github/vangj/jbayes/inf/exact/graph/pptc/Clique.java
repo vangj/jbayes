@@ -32,7 +32,7 @@ public class Clique {
     }
   }
 
-  public boolean isSuperSet(Clique that) {
+  public boolean isSuperset(Clique that) {
     Set<Node> set1 = new LinkedHashSet<>(this.nodes.values());
     Set<Node> set2 = new LinkedHashSet<>(that.nodes.values());
     set1.retainAll(set2);

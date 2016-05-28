@@ -66,7 +66,7 @@ public class Triangulate {
 
   private static boolean isSubset(List<Clique> cliques, Clique clique) {
     for(Clique c : cliques) {
-      if(c.isSuperSet(clique)) {
+      if(c.isSuperset(clique)) {
         return true;
       }
     }

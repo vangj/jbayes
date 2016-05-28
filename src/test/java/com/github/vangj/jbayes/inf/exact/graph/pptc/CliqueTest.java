@@ -37,16 +37,16 @@ public class CliqueTest extends HuangExample {
     Clique ae = new Clique(getNode("a"), getNode("e"));
     Clique a = new Clique(getNode("a"));
 
-    assertTrue(ade.isSuperSet(ae));
-    assertTrue(ace.isSuperSet(ae));
-    assertTrue(ace.isSuperSet(a));
-    assertTrue(abd.isSuperSet(a));
-    assertTrue(ade.isSuperSet(a));
+    assertTrue(ade.isSuperset(ae));
+    assertTrue(ace.isSuperset(ae));
+    assertTrue(ace.isSuperset(a));
+    assertTrue(abd.isSuperset(a));
+    assertTrue(ade.isSuperset(a));
 
     Clique[] cliques = { egh, ceg, def };
     for(Clique clique : cliques) {
-      assertFalse(clique.isSuperSet(ae));
-      assertFalse(clique.isSuperSet(a));
+      assertFalse(clique.isSuperset(ae));
+      assertFalse(clique.isSuperset(a));
     }
   }
 }
