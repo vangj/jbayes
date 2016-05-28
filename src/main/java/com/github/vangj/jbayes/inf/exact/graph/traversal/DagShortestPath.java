@@ -3,6 +3,8 @@ package com.github.vangj.jbayes.inf.exact.graph.traversal;
 import com.github.vangj.jbayes.inf.exact.graph.Dag;
 import com.github.vangj.jbayes.inf.exact.graph.Node;
 
+import java.util.List;
+
 public class DagShortestPath extends GraphShortestPath {
 
   private Dag dag;
@@ -42,11 +44,16 @@ public class DagShortestPath extends GraphShortestPath {
       listener.visited(node);
     }
 
-    if(dag.children(node).contains(stop)) {
+    List<Node> children = dag.children(node);
+    if(null == children || children.size() == 0) {
+      return false;
+    }
+
+    if(children.contains(stop)) {
       return true;
     } else {
       seen.add(node);
-      for(Node child : dag.children(node)) {
+      for(Node child : children) {
         if(!seen.contains(child)) {
           if(search(child)) {
             return true;

@@ -4,6 +4,7 @@ import com.github.vangj.jbayes.inf.exact.graph.Graph;
 import com.github.vangj.jbayes.inf.exact.graph.Node;
 
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 public class GraphShortestPath {
@@ -52,11 +53,16 @@ public class GraphShortestPath {
       listener.visited(node);
     }
 
-    if(graph.neighbors(node).contains(stop)) {
+    List<Node> neighbors = graph.neighbors(node);
+    if(null == neighbors || neighbors.size() == 0) {
+      return false;
+    }
+
+    if(neighbors.contains(stop)) {
       return true;
     } else {
       seen.add(node);
-      for(Node neighbor : graph.neighbors(node)) {
+      for(Node neighbor : neighbors) {
         if(!seen.contains(neighbor)) {
           if(search(neighbor)) {
             return true;
