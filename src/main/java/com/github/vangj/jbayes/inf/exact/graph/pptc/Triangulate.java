@@ -1,6 +1,5 @@
 package com.github.vangj.jbayes.inf.exact.graph.pptc;
 
-import com.github.vangj.jbayes.inf.exact.graph.Dag;
 import com.github.vangj.jbayes.inf.exact.graph.Edge;
 import com.github.vangj.jbayes.inf.exact.graph.Node;
 import com.github.vangj.jbayes.inf.exact.graph.Ug;
@@ -12,13 +11,13 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Triangulate {
-  private static class NodeCluster {
+  private static class NodeClique {
     private Node node;
     private Set<Node> neighbors;
     private int weight;
     private List<Edge> edges;
 
-    public NodeCluster(Node node, List<Node> neighbors, int weight, List<Edge> edges) {
+    public NodeClique(Node node, List<Node> neighbors, int weight, List<Edge> edges) {
       this.node = node;
       this.neighbors = new LinkedHashSet<>(neighbors);
       this.weight = weight;
@@ -46,19 +45,19 @@ public class Triangulate {
 
   }
 
-  public static List<Cluster> triangulate(Dag dag, Ug m) {
-    List<Cluster> clusters = new ArrayList<>();
+  public static List<Clique> triangulate(Ug m) {
+    List<Clique> clusters = new ArrayList<>();
     Ug mm = (Ug)m.duplicate();
     while(mm.nodes().size() > 0) {
-      NodeCluster nodeCluster = selectNode(mm);
+      NodeClique nodeClique = selectNode(mm);
 
-      Cluster cluster = new Cluster(nodeCluster.node, mm.neighbors(nodeCluster.node));
+      Clique clique = new Clique(nodeClique.node, mm.neighbors(nodeClique.node));
 
-      clusters.add(cluster);
-      mm.remove(nodeCluster.node);
+      clusters.add(clique);
+      mm.remove(nodeClique.node);
 
-      connectNeighbors(m, nodeCluster.edges);
-      connectNeighbors(mm, nodeCluster.edges);
+      connectNeighbors(m, nodeClique.edges);
+      connectNeighbors(mm, nodeClique.edges);
     }
     return clusters;
   }
@@ -69,13 +68,13 @@ public class Triangulate {
     });
   }
 
-  private static NodeCluster selectNode(Ug m) {
-    List<NodeCluster> clusters = m.nodes()
+  private static NodeClique selectNode(Ug m) {
+    List<NodeClique> cliques = m.nodes()
         .stream()
         .map(node -> {
           int weight = weight(node, m);
           List<Edge> edges = edgesToAdd(node, m);
-          return new NodeCluster(node, m.neighbors(node), weight, edges);
+          return new NodeClique(node, m.neighbors(node), weight, edges);
         })
         .sorted( (c1, c2) -> {
           int result = Integer.compare(c1.edges.size(), c2.edges.size());
@@ -88,7 +87,7 @@ public class Triangulate {
           return result;
         })
         .collect(Collectors.toList());
-    return clusters.get(0);
+    return cliques.get(0);
   }
 
   private static int weight(Node n, Ug m) {

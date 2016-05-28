@@ -7,14 +7,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class Cluster {
+public class Clique {
   private Map<String, Node> nodes;
 
-  public Cluster() {
+  public Clique() {
     nodes = new LinkedHashMap<>();
   }
 
-  public Cluster(Node node, List<Node> nodes) {
+  public Clique(Node node, List<Node> nodes) {
     this.nodes = new LinkedHashMap<>();
     for(Node n : nodes) {
       this.nodes.put(n.getId(), n);

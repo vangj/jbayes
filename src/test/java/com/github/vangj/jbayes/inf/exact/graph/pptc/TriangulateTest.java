@@ -13,39 +13,39 @@ public class TriangulateTest extends HuangExample {
   public void triangulate() {
     Dag dag = getDag();
     Ug ug = Moralize.moralize(dag);
-    List<Cluster> clusters = Triangulate.triangulate(dag, ug);
+    List<Clique> cliques = Triangulate.triangulate(ug);
 
-//    clusters.forEach(cluster -> System.out.println(cluster));
+//    cliques.forEach(cluster -> System.out.println(cluster));
 
-    assertEquals(8, clusters.size());
-    assertTrue(clusters.get(0).contains("e"));
-    assertTrue(clusters.get(0).contains("g"));
-    assertTrue(clusters.get(0).contains("h"));
+    assertEquals(8, cliques.size());
+    assertTrue(cliques.get(0).contains("e"));
+    assertTrue(cliques.get(0).contains("g"));
+    assertTrue(cliques.get(0).contains("h"));
 
-    assertTrue(clusters.get(1).contains("c"));
-    assertTrue(clusters.get(1).contains("e"));
-    assertTrue(clusters.get(1).contains("g"));
+    assertTrue(cliques.get(1).contains("c"));
+    assertTrue(cliques.get(1).contains("e"));
+    assertTrue(cliques.get(1).contains("g"));
 
-    assertTrue(clusters.get(2).contains("d"));
-    assertTrue(clusters.get(2).contains("e"));
-    assertTrue(clusters.get(2).contains("f"));
+    assertTrue(cliques.get(2).contains("d"));
+    assertTrue(cliques.get(2).contains("e"));
+    assertTrue(cliques.get(2).contains("f"));
 
-    assertTrue(clusters.get(3).contains("c"));
-    assertTrue(clusters.get(3).contains("d"));
-    assertTrue(clusters.get(3).contains("e"));
+    assertTrue(cliques.get(3).contains("c"));
+    assertTrue(cliques.get(3).contains("d"));
+    assertTrue(cliques.get(3).contains("e"));
 
-    assertTrue(clusters.get(4).contains("b"));
-    assertTrue(clusters.get(4).contains("c"));
-    assertTrue(clusters.get(4).contains("d"));
+    assertTrue(cliques.get(4).contains("b"));
+    assertTrue(cliques.get(4).contains("c"));
+    assertTrue(cliques.get(4).contains("d"));
 
-    assertTrue(clusters.get(5).contains("a"));
-    assertTrue(clusters.get(5).contains("b"));
-    assertTrue(clusters.get(5).contains("c"));
+    assertTrue(cliques.get(5).contains("a"));
+    assertTrue(cliques.get(5).contains("b"));
+    assertTrue(cliques.get(5).contains("c"));
 
-    assertTrue(clusters.get(6).contains("a"));
-    assertTrue(clusters.get(6).contains("b"));
+    assertTrue(cliques.get(6).contains("a"));
+    assertTrue(cliques.get(6).contains("b"));
 
-    assertTrue(clusters.get(7).contains("a"));
+    assertTrue(cliques.get(7).contains("a"));
 
 //    System.out.println(ug);
 
