@@ -11,9 +11,13 @@ public class NodeUtil {
   }
 
   public static String id(List<Node> nodes) {
+    return id(nodes, "[", "]");
+  }
+
+  public static String id(List<Node> nodes, String prefix, String suffix) {
     return NodeUtil.sort(nodes).stream()
         .map(Node::getId)
-        .collect(Collectors.joining(",", "[", "]"));
+        .collect(Collectors.joining(",", prefix, suffix));
   }
 
   public static List<Node> sort(List<Node> nodes) {

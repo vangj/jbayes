@@ -40,13 +40,31 @@ public class JoinTree {
     return cliques.get(id);
   }
 
+  public SepSet sepSet(Node... nodes) {
+    String id = NodeUtil.id(Arrays.asList(nodes), "|", "|");
+    return (SepSet)cliques.get(id);
+  }
+
   public Set<Clique> neighbors(Node... nodes) {
     final String id = NodeUtil.id(Arrays.asList(nodes));
     return neighbors.get(id);
   }
 
-  public List<Clique> cliques() {
+  public List<Clique> allCliques() {
     return cliques.values().stream().collect(Collectors.toList());
+  }
+
+  public List<Clique> cliques() {
+    return cliques.values().stream()
+        .filter(clique -> !(clique instanceof SepSet))
+        .collect(Collectors.toList());
+  }
+
+  public List<SepSet> sepSets() {
+    return cliques.values().stream()
+        .filter(clique -> (clique instanceof SepSet))
+        .map(clique -> (SepSet)clique)
+        .collect(Collectors.toList());
   }
 
   public List<Edge> edges() {
@@ -98,7 +116,7 @@ public class JoinTree {
     return (new StringBuilder())
         .append(String.join(
             System.lineSeparator(),
-            cliques().stream().map(Clique::toString).collect(Collectors.toList())))
+            allCliques().stream().map(Clique::toString).collect(Collectors.toList())))
         .append(System.lineSeparator())
         .append(String.join(System.lineSeparator(),
             edges().stream().map(Edge::toString).collect(Collectors.toList())))

@@ -34,36 +34,41 @@ public class TransformTest extends HuangExample {
     };
 
     JoinTree joinTree = Transform.transform(cliques, listener);
-//    System.out.println(joinTree);
+    System.out.println(joinTree);
 
-    assertEquals(11, joinTree.cliques().size());
+    assertEquals(11, joinTree.allCliques().size());
+
+    assertEquals(6, joinTree.cliques().size());
     assertNotNull(joinTree.clique(getNode("a"), getNode("b"), getNode("d")));
     assertNotNull(joinTree.clique(getNode("a"), getNode("d"), getNode("e")));
     assertNotNull(joinTree.clique(getNode("a"), getNode("c"), getNode("e")));
     assertNotNull(joinTree.clique(getNode("c"), getNode("e"), getNode("g")));
     assertNotNull(joinTree.clique(getNode("d"), getNode("e"), getNode("f")));
     assertNotNull(joinTree.clique(getNode("e"), getNode("g"), getNode("h")));
-    assertNotNull(joinTree.clique(getNode("a"), getNode("d")));
-    assertNotNull(joinTree.clique(getNode("a"), getNode("e")));
-    assertNotNull(joinTree.clique(getNode("c"), getNode("e")));
-    assertNotNull(joinTree.clique(getNode("d"), getNode("e")));
-    assertNotNull(joinTree.clique(getNode("e"), getNode("g")));
+
+    assertEquals(5, joinTree.sepSets().size());
+    assertNotNull(joinTree.sepSet(getNode("a"), getNode("d")));
+    assertNotNull(joinTree.sepSet(getNode("a"), getNode("e")));
+    assertNotNull(joinTree.sepSet(getNode("c"), getNode("e")));
+    assertNotNull(joinTree.sepSet(getNode("d"), getNode("e")));
+    assertNotNull(joinTree.sepSet(getNode("e"), getNode("g")));
 
 
     List<Edge> edges = joinTree.edges();
     assertEquals(10, edges.size());
 
     List<Edge> expectedEdges = Arrays.asList(
-        new Edge(abd, new Clique(getNode("a"), getNode("d"))),
-        new Edge(ade, new Clique(getNode("a"), getNode("d"))),
-        new Edge(ade, new Clique(getNode("a"), getNode("e"))),
-        new Edge(ade, new Clique(getNode("d"), getNode("e"))),
-        new Edge(def, new Clique(getNode("d"), getNode("e"))),
-        new Edge(ace, new Clique(getNode("a"), getNode("e"))),
-        new Edge(ace, new Clique(getNode("c"), getNode("e"))),
-        new Edge(ceg, new Clique(getNode("c"), getNode("e"))),
-        new Edge(ceg, new Clique(getNode("e"), getNode("g"))),
-        new Edge(egh, new Clique(getNode("e"), getNode("g")))
+        new Edge(abd, joinTree.sepSet(getNode("a"), getNode("d"))),
+        new Edge(abd, joinTree.sepSet(getNode("a"), getNode("d"))),
+        new Edge(ade, joinTree.sepSet(getNode("a"), getNode("d"))),
+        new Edge(ade, joinTree.sepSet(getNode("a"), getNode("e"))),
+        new Edge(ade, joinTree.sepSet(getNode("d"), getNode("e"))),
+        new Edge(def, joinTree.sepSet(getNode("d"), getNode("e"))),
+        new Edge(ace, joinTree.sepSet(getNode("a"), getNode("e"))),
+        new Edge(ace, joinTree.sepSet(getNode("c"), getNode("e"))),
+        new Edge(ceg, joinTree.sepSet(getNode("c"), getNode("e"))),
+        new Edge(ceg, joinTree.sepSet(getNode("e"), getNode("g"))),
+        new Edge(egh, joinTree.sepSet(getNode("e"), getNode("g")))
     );
 
     for(Edge expected : expectedEdges) {

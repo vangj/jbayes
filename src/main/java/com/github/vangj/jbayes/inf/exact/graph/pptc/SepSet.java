@@ -1,6 +1,7 @@
 package com.github.vangj.jbayes.inf.exact.graph.pptc;
 
 import com.github.vangj.jbayes.inf.exact.graph.Node;
+import com.github.vangj.jbayes.inf.exact.graph.util.NodeUtil;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -34,5 +35,10 @@ public class SepSet extends Clique {
 
   public int mass() {
     return nodes.size();
+  }
+
+  @Override
+  public String id() {
+    return NodeUtil.id(nodes(), "|", "|");
   }
 }
