@@ -1,17 +1,22 @@
 package com.github.vangj.jbayes.inf.exact.graph;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
  * A node in a graph.
  */
 public class Node extends Variable {
-  public Node() {
+  private List<Double> probs;
 
+  public Node() {
+    probs = new ArrayList<>();
   }
 
   public Node(Variable v) {
+    probs = new ArrayList<>();
     this.id = v.id;
     this.name = v.name;
     this.values = v.values;
@@ -21,10 +26,20 @@ public class Node extends Variable {
     id = builder.id;
     name = builder.name;
     values = builder.values;
+    probs = builder.probs;
+  }
+
+  public Node addProb(Double prob) {
+    probs.add(prob);
+    return this;
   }
 
   public int weight() {
     return values.size();
+  }
+
+  public List<Double> probs() {
+    return probs;
   }
 
   public static NodeBuilder builder() {
@@ -36,9 +51,11 @@ public class Node extends Variable {
     private String id;
     private String name;
     private Set<String> values;
+    private List<Double> probs;
 
     private NodeBuilder() {
       values = new LinkedHashSet<>();
+      probs = new ArrayList<>();
     }
 
     public NodeBuilder from(Variable v) {
@@ -67,6 +84,16 @@ public class Node extends Variable {
 
     public NodeBuilder values(Set<String> val) {
       values = val;
+      return this;
+    }
+
+    public NodeBuilder probs(List<Double> probs) {
+      this.probs = probs;
+      return this;
+    }
+
+    public NodeBuilder prob(Double prob) {
+      this.probs.add(prob);
       return this;
     }
 
