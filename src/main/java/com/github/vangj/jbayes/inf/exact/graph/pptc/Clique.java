@@ -4,10 +4,8 @@ import com.github.vangj.jbayes.inf.exact.graph.Node;
 import com.github.vangj.jbayes.inf.exact.graph.util.NodeUtil;
 
 import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Clique {
@@ -63,11 +61,7 @@ public class Clique {
   }
 
   public SepSet sepSet(Clique that) {
-    Set<Node> set1 = new LinkedHashSet<>(this.nodes.values());
-    Set<Node> set2 = new LinkedHashSet<>(that.nodes.values());
-    set1.retainAll(set2);
-    int weight = this.weight() + that.weight();
-    return new SepSet(weight, set1);
+    return new SepSet(this, that);
   }
 
   public String id() {

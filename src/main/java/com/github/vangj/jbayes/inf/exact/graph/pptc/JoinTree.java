@@ -3,6 +3,7 @@ package com.github.vangj.jbayes.inf.exact.graph.pptc;
 import com.github.vangj.jbayes.inf.exact.graph.Node;
 import com.github.vangj.jbayes.inf.exact.graph.util.NodeUtil;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
@@ -17,9 +18,21 @@ public class JoinTree {
   private Set<Edge> edges;
 
   public JoinTree() {
-    cliques = new HashMap<>();
+    this(new ArrayList<>());
+  }
+
+  public JoinTree(List<Clique> cliques) {
+    this.cliques = new HashMap<>();
     neighbors = new HashMap<>();
     edges = new LinkedHashSet<>();
+
+    for(Clique clique : cliques) {
+      addClique(clique);
+    }
+  }
+
+  public Set<Clique> neighbors(Clique clique) {
+    return neighbors.get(clique.id());
   }
 
   public Set<Clique> neighbors(Node... nodes) {
@@ -32,7 +45,7 @@ public class JoinTree {
   }
 
   public List<Edge> edges() {
-    return edges().stream().collect(Collectors.toList());
+    return edges.stream().collect(Collectors.toList());
   }
 
   public JoinTree addClique(Clique clique) {
