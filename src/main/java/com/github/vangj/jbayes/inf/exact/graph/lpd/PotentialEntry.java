@@ -20,9 +20,27 @@ public class PotentialEntry {
     return this;
   }
 
+  public Double value() {
+    return value;
+  }
+
   public PotentialEntry value(Double value) {
     this.value = value;
     return this;
+  }
+
+  @Override
+  public int hashCode() {
+    return toString().hashCode();
+  }
+
+  @Override
+  public boolean equals(Object object) {
+    if(null == object || !(object instanceof PotentialEntry)) {
+      return false;
+    }
+    PotentialEntry that = (PotentialEntry)object;
+    return this.toString().equals(that.toString());
   }
 
   @Override

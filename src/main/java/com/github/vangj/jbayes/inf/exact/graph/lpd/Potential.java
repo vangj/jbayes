@@ -10,7 +10,11 @@ public class Potential {
     entries = new ArrayList<>();
   }
 
-  public Potential entry(PotentialEntry entry) {
+  public List<PotentialEntry> entries() {
+    return entries;
+  }
+
+  public Potential addEntry(PotentialEntry entry) {
     entries.add(entry);
     return this;
   }

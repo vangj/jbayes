@@ -1,11 +1,38 @@
 package com.github.vangj.jbayes.inf.exact.graph.util;
 
+import com.github.vangj.jbayes.inf.exact.graph.Node;
+import com.github.vangj.jbayes.inf.exact.graph.lpd.Potential;
+import com.github.vangj.jbayes.inf.exact.graph.lpd.PotentialEntry;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class PotentialUtil {
   private PotentialUtil() {
 
+  }
+
+  public static Potential getPotential(Node node, List<Node> parents) {
+    List<List<String>> valueLists = new ArrayList<>();
+    parents.forEach(parent -> {
+      valueLists.add(new ArrayList<String>(parent.getValues()));
+    });
+    valueLists.add(new ArrayList<>(node.getValues()));
+
+    List<List<String>> cartesian = cartesian(valueLists);
+    final int size = parents.size();
+    Potential potential = new Potential();
+    cartesian.forEach(values -> {
+      PotentialEntry entry = new PotentialEntry();
+      for(int i=0; i < size; i++) {
+        String value = values.get(i);
+        String id = parents.get(i).getId();
+        entry.add(id, value);
+      }
+      entry.add(node.getId(), values.get(size));
+      potential.addEntry(entry);
+    });
+    return potential;
   }
 
   public static <T> List<List<T>> cartesian(List<List<T>> lists) {
