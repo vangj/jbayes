@@ -1,6 +1,7 @@
 package com.github.vangj.jbayes.inf.exact.graph.pptc;
 
 import com.github.vangj.jbayes.inf.exact.graph.Node;
+import com.github.vangj.jbayes.inf.exact.graph.util.NodeUtil;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -24,6 +25,27 @@ public class Clique {
     this.nodes.put(node.getId(), node);
   }
 
+  public Clique(Node... nodes) {
+    this.nodes = new LinkedHashMap<>();
+    for(Node n : nodes) {
+      this.nodes.put(n.getId(), n);
+    }
+  }
+
+  @Override
+  public int hashCode() {
+    return toString().hashCode();
+  }
+
+  @Override
+  public boolean equals(Object object) {
+    if(null == object || !(object instanceof Clique)) {
+      return false;
+    }
+    Clique that = (Clique)object;
+    return this.hashCode() == that.hashCode();
+  }
+
   public int weight() {
     int weight = 1;
     for(Map.Entry<String, Node> entry : nodes.entrySet()) {
@@ -34,13 +56,6 @@ public class Clique {
 
   public List<Node> nodes() {
     return nodes.values().stream().collect(Collectors.toList());
-  }
-
-  public Clique add(Node node) {
-    if(!this.nodes.containsKey(node.getId())) {
-      this.nodes.put(node.getId(), node);
-    }
-    return this;
   }
 
   public boolean contains(String id) {
@@ -55,10 +70,12 @@ public class Clique {
     return new SepSet(weight, set1);
   }
 
+  public String id() {
+    return NodeUtil.id(nodes());
+  }
+
   @Override
   public String toString() {
-    return nodes.entrySet().stream()
-        .map(entry -> entry.getKey())
-        .collect(Collectors.joining(",","[","]"));
+    return id();
   }
 }

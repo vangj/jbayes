@@ -7,14 +7,14 @@ import org.junit.Test;
 public class CliqueTest extends HuangExample {
   @Test
   public void testSepSet() {
-    Clique clique1 = new Clique()
-        .add(getNode("a"))
-        .add(getNode("b"))
-        .add(getNode("c"));
-    Clique clique2 = new Clique()
-        .add(getNode("b"))
-        .add(getNode("c"))
-        .add(getNode("e"));
+    Clique clique1 = new Clique(
+        getNode("a"),
+        getNode("b"),
+        getNode("c"));
+    Clique clique2 = new Clique(
+        getNode("b"),
+        getNode("c"),
+        getNode("e"));
     SepSet sepSet = clique1.sepSet(clique2);
 
     assertEquals(2, sepSet.nodes().size());

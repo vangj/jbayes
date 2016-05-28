@@ -11,7 +11,7 @@ public class SepSet extends Clique {
   public SepSet(int cost, Set<Node> nodes) {
     super();
     this.cost = cost;
-    nodes.forEach(node -> add(node));
+    nodes.forEach(node -> this.nodes.put(node.getId(), node));
   }
 
   public int cost() {
