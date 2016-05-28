@@ -25,6 +25,11 @@ public class Pdag extends Graph {
   }
 
   @Override
+  protected Graph instance() {
+    return new Pdag();
+  }
+
+  @Override
   public Graph addEdge(Edge edge) {
     if(Edge.Type.UNDIRECTED == edge.type) {
       super.addEdge(edge);

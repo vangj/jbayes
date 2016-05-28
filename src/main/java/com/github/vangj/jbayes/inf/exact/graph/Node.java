@@ -23,6 +23,10 @@ public class Node extends Variable {
     values = builder.values;
   }
 
+  public int weight() {
+    return values.size();
+  }
+
   public static NodeBuilder builder() {
     return new NodeBuilder();
   }

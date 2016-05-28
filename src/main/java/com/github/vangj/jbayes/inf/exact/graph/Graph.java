@@ -2,6 +2,7 @@ package com.github.vangj.jbayes.inf.exact.graph;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -18,6 +19,31 @@ public class Graph {
     neighbors = new HashMap<>();
     nodes = new HashMap<>();
     edges = new ArrayList<>();
+  }
+
+  public void remove(Node node) {
+    nodes.remove(node.id);
+    neighbors.remove(node.id);
+    neighbors.forEach((k, v) -> {
+      v.remove(node);
+    });
+    for(Iterator<Edge> it = edges.iterator(); it.hasNext(); ) {
+      Edge edge = it.next();
+      if(node.id.equalsIgnoreCase(edge.left.id) || node.id.equalsIgnoreCase(edge.right.id)) {
+        it.remove();
+      }
+    }
+  }
+
+  public Graph duplicate() {
+    Graph g = instance();
+    nodes().forEach(node -> g.addNode(node));
+    edges().forEach(edge -> g.addEdge(edge));
+    return g;
+  }
+
+  protected Graph instance() {
+    return new Graph();
   }
 
   public Graph addNode(Node node) {

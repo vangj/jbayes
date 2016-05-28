@@ -22,6 +22,11 @@ public class Dag extends Graph {
   }
 
   @Override
+  protected Graph instance() {
+    return new Dag();
+  }
+
+  @Override
   public Graph addEdge(Edge edge) {
     edge.type = Edge.Type.DIRECTED;
 
