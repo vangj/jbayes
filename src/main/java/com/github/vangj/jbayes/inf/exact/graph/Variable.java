@@ -1,5 +1,6 @@
 package com.github.vangj.jbayes.inf.exact.graph;
 
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
@@ -66,6 +67,7 @@ public class Variable {
     private Set<String> values;
 
     private Builder() {
+      values = new LinkedHashSet<>();
     }
 
     public Builder id(String val) {
@@ -75,6 +77,11 @@ public class Variable {
 
     public Builder name(String val) {
       name = val;
+      return this;
+    }
+
+    public Builder value(String val) {
+      values.add(val);
       return this;
     }
 
