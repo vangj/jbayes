@@ -6,10 +6,28 @@ import com.github.vangj.jbayes.inf.exact.graph.lpd.PotentialEntry;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 public class PotentialUtil {
   private PotentialUtil() {
 
+  }
+
+  public static String asString(Map<String, String> entries) {
+    return entries.entrySet().stream()
+        .map(entry -> (new StringBuilder())
+            .append(entry.getKey())
+            .append('=')
+            .append(entry.getValue())
+            .toString())
+        .collect(Collectors.joining(",", "[" , "]"));
+  }
+
+  public static Map<String, String> sortByKeys(Map<String, String> map) {
+    Map<String, String> out = new TreeMap<>(map);
+    return out;
   }
 
   public static Potential getPotential(Node node, List<Node> parents) {

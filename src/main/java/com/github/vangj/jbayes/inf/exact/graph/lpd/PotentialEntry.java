@@ -1,8 +1,9 @@
 package com.github.vangj.jbayes.inf.exact.graph.lpd;
 
+import static com.github.vangj.jbayes.inf.exact.graph.util.PotentialUtil.*;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class PotentialEntry {
   private Map<String, String> entries;
@@ -31,7 +32,7 @@ public class PotentialEntry {
 
   @Override
   public int hashCode() {
-    return toString().hashCode();
+    return asString(sortByKeys(entries)).hashCode();
   }
 
   @Override
@@ -40,17 +41,11 @@ public class PotentialEntry {
       return false;
     }
     PotentialEntry that = (PotentialEntry)object;
-    return this.toString().equals(that.toString());
+    return (this.hashCode() == that.hashCode());
   }
 
   @Override
   public String toString() {
-    return entries.entrySet().stream()
-        .map(entry -> (new StringBuilder())
-                .append(entry.getKey())
-                .append('=')
-                .append(entry.getValue())
-                .toString())
-        .collect(Collectors.joining(",", "[" , "]"));
+    return asString(entries);
   }
 }
