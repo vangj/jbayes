@@ -43,38 +43,56 @@ public class PotentialUtil {
     return out;
   }
 
+  private static List<Node> merge(Node node, List<Node> parents) {
+    List<Node> list = new ArrayList<>(parents);
+    list.add(node);
+    return list;
+  }
+
   /**
-   * Creates a potential from the node and its parents.
+   * Creates a potential from the node and its parents. If
+   * the specified node has any conditional probabilities, the potential
+   * entries will be set to them.
    * @param node Node.
    * @param parents Parent nodes.
    * @return Potential.
    */
   public static Potential getPotential(Node node, List<Node> parents) {
-    List<List<String>> valueLists = new ArrayList<>();
-    parents.forEach(parent -> {
-      valueLists.add(new ArrayList<String>(parent.getValues()));
-    });
-    valueLists.add(new ArrayList<>(node.getValues()));
-
-    List<List<String>> cartesian = cartesian(valueLists);
-    final int size = parents.size();
-    Potential potential = new Potential();
-    cartesian.forEach(values -> {
-      PotentialEntry entry = new PotentialEntry();
-      for(int i=0; i < size; i++) {
-        String value = values.get(i);
-        String id = parents.get(i).getId();
-        entry.add(id, value);
-      }
-      entry.add(node.getId(), values.get(size));
-      potential.addEntry(entry);
-    });
+    Potential potential = getPotential(merge(node, parents));
 
     final int total = Math.min(node.probs().size(), potential.entries().size());
     for(int i=0; i < total; i++) {
       Double prob = node.probs().get(i);
       potential.entries().get(i).value(prob);
     }
+
+    return potential;
+  }
+
+  /**
+   * Creates a potential from the specified list of nodes. All probabilities
+   * are initialized to 1.
+   * @param nodes List of nodes.
+   * @return Potential.
+   */
+  public static Potential getPotential(List<Node> nodes) {
+    List<List<String>> valueLists = new ArrayList<>();
+    nodes.forEach(node -> {
+      valueLists.add(new ArrayList<>(node.getValues()));
+    });
+
+    List<List<String>> cartesian = cartesian(valueLists);
+    final int size = nodes.size();
+    Potential potential = new Potential();
+    cartesian.forEach(values -> {
+      PotentialEntry entry = new PotentialEntry();
+      for(int i=0; i < size; i++) {
+        String value = values.get(i);
+        String id = nodes.get(i).getId();
+        entry.add(id, value);
+      }
+      potential.addEntry(entry);
+    });
 
     return potential;
   }
