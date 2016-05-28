@@ -25,10 +25,10 @@ public class Edge {
 
   @Override
   public boolean equals(Object object) {
-    if(null == object || !(object instanceof Clique)) {
+    if(null == object || !(object instanceof Edge)) {
       return false;
     }
-    Clique that = (Clique)object;
+    Edge that = (Edge)object;
     return this.hashCode() == that.hashCode();
   }
 
