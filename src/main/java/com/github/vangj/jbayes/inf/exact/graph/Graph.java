@@ -32,6 +32,10 @@ public class Graph {
     return new ArrayList<>(nodes.values());
   }
 
+  public Node node(String id) {
+    return nodes.get(id);
+  }
+
   public List<Edge> edges() {
     return edges;
   }
@@ -47,6 +51,39 @@ public class Graph {
       neighbors.put(id, list);
     }
     return list;
+  }
+
+  public boolean edgeExists(String id1, String id2) {
+    return edgeExists(id1, id2, Edge.Type.UNDIRECTED);
+  }
+
+  public boolean edgeExists(String id1, String id2, Edge.Type type) {
+    return edges().stream().filter(edge -> {
+      if(!type.equals(edge.type)) {
+        return false;
+      }
+
+      String left = edge.left.id;
+      String right = edge.right.id;
+
+      if(Edge.Type.UNDIRECTED.equals(type)) {
+        if((left.equalsIgnoreCase(id1) && right.equalsIgnoreCase(id2)) ||
+            (left.equalsIgnoreCase(id2) && right.equalsIgnoreCase(id1))) {
+          return true;
+        }
+      } else {
+        if(left.equalsIgnoreCase(id1) && right.equalsIgnoreCase(id2)) {
+          return true;
+        }
+      }
+
+
+      return false;
+    }).count() > 0;
+  }
+
+  public Graph addEdge(String id1, String id2) {
+    return addEdge(node(id1), node(id2));
   }
 
   public Graph addEdge(Node n1, Node n2) {
