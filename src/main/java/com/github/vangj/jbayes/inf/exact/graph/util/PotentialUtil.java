@@ -3,8 +3,8 @@ package com.github.vangj.jbayes.inf.exact.graph.util;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DomainUtil {
-  private DomainUtil() {
+public class PotentialUtil {
+  private PotentialUtil() {
 
   }
 

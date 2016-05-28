@@ -7,7 +7,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public class DomainUtilTest {
+public class PotentialUtilTest {
 
   @Test
   public void testCartesian() {
@@ -15,7 +15,7 @@ public class DomainUtilTest {
         Arrays.asList("a", "b"),
         Arrays.asList("c", "d")
     );
-    List<List<String>> product = DomainUtil.cartesian(domains);
+    List<List<String>> product = PotentialUtil.cartesian(domains);
     product.forEach(p -> System.out.println(String.join(",", p)));
 
     assertEquals(4, product.size());
