@@ -50,6 +50,13 @@ public class PotentialUtil {
       entry.add(node.getId(), values.get(size));
       potential.addEntry(entry);
     });
+
+    final int total = Math.min(node.probs().size(), potential.entries().size());
+    for(int i=0; i < total; i++) {
+      Double prob = node.probs().get(i);
+      potential.entries().get(i).value(prob);
+    }
+
     return potential;
   }
 

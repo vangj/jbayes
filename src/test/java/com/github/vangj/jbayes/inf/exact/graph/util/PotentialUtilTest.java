@@ -41,5 +41,10 @@ public class PotentialUtilTest extends HuangExample {
     assertEquals((new PotentialEntry()).add("a", "on").add("b", "off"), potential.entries().get(1));
     assertEquals((new PotentialEntry()).add("a", "off").add("b", "on"), potential.entries().get(2));
     assertEquals((new PotentialEntry()).add("a", "off").add("b", "off"), potential.entries().get(3));
+
+    assertEquals(0.5d, potential.entries().get(0).value(), 0.001d);
+    assertEquals(0.5d, potential.entries().get(1).value(), 0.001d);
+    assertEquals(0.4d, potential.entries().get(2).value(), 0.001d);
+    assertEquals(0.6d, potential.entries().get(3).value(), 0.001d);
   }
 }
