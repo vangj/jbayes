@@ -4,23 +4,23 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class TableEntry {
+public class PotentialEntry {
   private Map<String, String> entries;
   private Double value;
 
-  public TableEntry() {
+  public PotentialEntry() {
     entries = new LinkedHashMap<>();
-    value = new Double(0.0d);
+    value = new Double(1.0d);
   }
 
-  public TableEntry add(String id, String value) {
+  public PotentialEntry add(String id, String value) {
     if(!entries.containsKey(id)) {
       entries.put(id, value);
     }
     return this;
   }
 
-  public TableEntry value(Double value) {
+  public PotentialEntry value(Double value) {
     this.value = value;
     return this;
   }
