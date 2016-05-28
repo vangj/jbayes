@@ -1,11 +1,11 @@
-package com.github.vangj.jbayes.inf.exact.graph.lpd;
-
-import static org.junit.Assert.*;
+package com.github.vangj.jbayes.inf.exact.graph.util;
 
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 public class DomainUtilTest {
 

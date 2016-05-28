@@ -1,4 +1,4 @@
-package com.github.vangj.jbayes.inf.exact.graph.lpd;
+package com.github.vangj.jbayes.inf.exact.graph.util;
 
 import java.util.ArrayList;
 import java.util.List;
