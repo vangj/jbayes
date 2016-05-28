@@ -3,7 +3,13 @@ package com.github.vangj.jbayes.inf.exact.graph.pptc;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+/**
+ * Shortest path algorithm for join tree.
+ */
 public class JoinTreeShortestPath {
+  /**
+   * Listener interface for shortest path algorithm.
+   */
   public interface Listener {
     void pre(JoinTree joinTree, Clique start, Clique stop);
     void visited(Clique clique);
@@ -16,6 +22,13 @@ public class JoinTreeShortestPath {
   private Set<Clique> seen;
   private Listener listener;
 
+  /**
+   * Ctor.
+   * @param joinTree Join tree.
+   * @param start Start clique.
+   * @param stop Stop clique.
+   * @param listener Listener.
+   */
   private JoinTreeShortestPath(JoinTree joinTree, Clique start, Clique stop, Listener listener) {
     this.joinTree = joinTree;
     this.start = start;
@@ -24,10 +37,22 @@ public class JoinTreeShortestPath {
     this.listener = listener;
   }
 
+  /**
+   * Checks to see if there is a path between the specified start and stop cliques.
+   * @param joinTree Join tree.
+   * @param start Start clique.
+   * @param stop Stop clique.
+   * @param listener Listener.
+   * @return Boolean.
+   */
   public static boolean exists(JoinTree joinTree, Clique start, Clique stop, Listener listener) {
     return (new JoinTreeShortestPath(joinTree, start, stop, listener)).search();
   }
 
+  /**
+   * Searches for shortest path.
+   * @return Boolean indicating if path exists.
+   */
   private boolean search() {
     if(null != listener) {
       listener.pre(joinTree, start, stop);
@@ -49,6 +74,11 @@ public class JoinTreeShortestPath {
     return result;
   }
 
+  /**
+   * Recursive search for path.
+   * @param clique Clique.
+   * @return Boolean indicating if path exists.
+   */
   private boolean search(Clique clique) {
     if(null != listener) {
       listener.visited(clique);

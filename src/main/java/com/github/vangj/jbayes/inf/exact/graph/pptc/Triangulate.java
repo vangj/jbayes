@@ -10,6 +10,10 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Triangulates an undirected graph and in the process identifies the induced
+ * cliques.
+ */
 public class Triangulate {
   private static class NodeClique {
     private Node node;

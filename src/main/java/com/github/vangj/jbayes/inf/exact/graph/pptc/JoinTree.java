@@ -12,6 +12,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Join tree.
+ */
 public class JoinTree {
   private Map<String, Clique> cliques;
   private Map<String, Set<Clique>> neighbors;
@@ -31,35 +34,68 @@ public class JoinTree {
     }
   }
 
+  /**
+   * Gets the neighbors of the specified clique.
+   * @param clique Clique.
+   * @return Set of neighbors. This includes cliques and separation sets.
+   */
   public Set<Clique> neighbors(Clique clique) {
     return neighbors.get(clique.id());
   }
 
+  /**
+   * Gets the clique that matches exactly to the specified nodes.
+   * @param nodes Nodes.
+   * @return Clique.
+   */
   public Clique clique(Node... nodes) {
     String id = NodeUtil.id(Arrays.asList(nodes));
     return cliques.get(id);
   }
 
+  /**
+   * Gets the separation set that matches exactly to the specifed nodes.
+   * @param nodes Nodes.
+   * @return Separation set.
+   */
   public SepSet sepSet(Node... nodes) {
     String id = NodeUtil.id(Arrays.asList(nodes), "|", "|");
     return (SepSet)cliques.get(id);
   }
 
+  /**
+   * Gets the neighbors of the clique that matches exactly with the
+   * specified nodes.
+   * @param nodes Nodes.
+   * @return Set of neighbors. This includes cliques and separation sets.
+   */
   public Set<Clique> neighbors(Node... nodes) {
     final String id = NodeUtil.id(Arrays.asList(nodes));
     return neighbors.get(id);
   }
 
+  /**
+   * Gets all the cliques (cliques + separation sets).
+   * @return Cliques.
+   */
   public List<Clique> allCliques() {
     return cliques.values().stream().collect(Collectors.toList());
   }
 
+  /**
+   * Gets the cliques (no separation sets).
+   * @return Cliques.
+   */
   public List<Clique> cliques() {
     return cliques.values().stream()
         .filter(clique -> !(clique instanceof SepSet))
         .collect(Collectors.toList());
   }
 
+  /**
+   * Gets the separation sets.
+   * @return Separation sets.
+   */
   public List<SepSet> sepSets() {
     return cliques.values().stream()
         .filter(clique -> (clique instanceof SepSet))
@@ -67,10 +103,19 @@ public class JoinTree {
         .collect(Collectors.toList());
   }
 
+  /**
+   * Gets the edges.
+   * @return Edges.
+   */
   public List<Edge> edges() {
     return edges.stream().collect(Collectors.toList());
   }
 
+  /**
+   * Adds a clique to the join tree if it doesn't exist already.
+   * @param clique Clique.
+   * @return Join tree.
+   */
   public JoinTree addClique(Clique clique) {
     final String id = clique.id();
     if(!cliques.containsKey(id)) {
@@ -79,6 +124,11 @@ public class JoinTree {
     return this;
   }
 
+  /**
+   * Adds the edge to the join tree if it doesn't exist already.
+   * @param edge Edge.
+   * @return Join tree.
+   */
   public JoinTree addEdge(Edge edge) {
     addClique(edge.left).addClique(edge.right);
     if(!edges.contains(edge)) {

@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Transforms a list of cliques into a join tree.
+ */
 public class Transform {
   private Transform() {
 
