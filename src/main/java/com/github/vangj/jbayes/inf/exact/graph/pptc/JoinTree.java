@@ -40,6 +40,14 @@ public class JoinTree {
   }
 
   /**
+   * Gets the potential.
+   * @return List of potential.
+   */
+  public List<Potential> potentials() {
+    return potentials.values().stream().collect(Collectors.toList());
+  }
+
+  /**
    * Gets all the cliques containing the specified node.
    * @param node Node.
    * @return List of cliques.
