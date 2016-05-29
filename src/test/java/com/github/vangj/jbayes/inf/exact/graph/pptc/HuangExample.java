@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 public class HuangExample {
   protected Dag getDag() {
-    return (Dag) (new Dag())
+    return ((Dag) (new Dag()
         .addNode(getNode("a"))
         .addNode(getNode("b"))
         .addNode(getNode("c"))
@@ -24,7 +24,9 @@ public class HuangExample {
         .addEdge("e", "f")
         .addEdge("c", "g")
         .addEdge("e", "h")
-        .addEdge("g", "h");
+        .addEdge("g", "h")))
+        .initializePotentials();
+
   }
   protected Node getNode(String id) {
     if("a".equals(id)) {

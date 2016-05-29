@@ -1,11 +1,14 @@
 package com.github.vangj.jbayes.inf.exact.graph.pptc;
 
 import com.github.vangj.jbayes.inf.exact.graph.Node;
+import com.github.vangj.jbayes.inf.exact.graph.lpd.Potential;
 import com.github.vangj.jbayes.inf.exact.graph.util.NodeUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +22,7 @@ public class JoinTree {
   private Map<String, Clique> cliques;
   private Map<String, Set<Clique>> neighbors;
   private Set<Edge> edges;
+  private Map<String, Potential> potentials;
 
   public JoinTree() {
     this(new ArrayList<>());
@@ -28,10 +32,54 @@ public class JoinTree {
     this.cliques = new HashMap<>();
     neighbors = new HashMap<>();
     edges = new LinkedHashSet<>();
+    potentials = new LinkedHashMap<>();
 
     for(Clique clique : cliques) {
       addClique(clique);
     }
+  }
+
+  /**
+   * Gets all the cliques containing the specified node.
+   * @param node Node.
+   * @return List of cliques.
+   */
+  public List<Clique> getCliquesContaining(Node node) {
+    return cliques().stream()
+        .filter(clique -> clique.contains(node.getId()))
+        .collect(Collectors.toList());
+  }
+
+  /**
+   * Gest all the nodes in this join tree.
+   * @return Set of nodes.
+   */
+  public Set<Node> nodes() {
+    Set<Node> nodes = new HashSet<>();
+    cliques().forEach(clique -> {
+      nodes.addAll(clique.nodes());
+    });
+    return nodes;
+  }
+
+  /**
+   * Gets the potential associated with the specified clique.
+   * @param clique Clique.
+   * @return Potential.
+   */
+  public Potential getPotential(Clique clique) {
+    return potentials.get(clique.id());
+  }
+
+  /**
+   * Adds potential associated with the specified clique.
+   * @param clique Clique.
+   * @param potential Potential.
+   * @return Join tree.
+   */
+  public JoinTree addPotential(Clique clique, Potential potential) {
+    potentials.put(clique.id(), potential);
+    return this;
   }
 
   /**

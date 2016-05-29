@@ -1,5 +1,7 @@
 package com.github.vangj.jbayes.inf.exact.graph;
 
+import com.github.vangj.jbayes.inf.exact.graph.lpd.Potential;
+
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -10,6 +12,7 @@ import java.util.Set;
  */
 public class Node extends Variable {
   private List<Double> probs;
+  private Potential potential;
 
   public Node() {
     probs = new ArrayList<>();
@@ -27,6 +30,14 @@ public class Node extends Variable {
     name = builder.name;
     values = builder.values;
     probs = builder.probs;
+  }
+
+  public void setPotential(Potential potential) {
+    this.potential = potential;
+  }
+
+  public Potential getPotential() {
+    return potential;
   }
 
   public Node addProb(Double prob) {

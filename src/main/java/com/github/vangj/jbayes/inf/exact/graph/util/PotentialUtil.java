@@ -18,6 +18,10 @@ public class PotentialUtil {
 
   }
 
+  public static void multiply(Potential p1, Potential p2) {
+
+  }
+
   /**
    * Makes a string from the map.
    * @param entries Map.
