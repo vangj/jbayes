@@ -1,9 +1,10 @@
 package com.github.vangj.jbayes.inf.exact.graph.lpd;
 
-import static com.github.vangj.jbayes.inf.exact.graph.util.PotentialUtil.*;
-
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import static com.github.vangj.jbayes.inf.exact.graph.util.PotentialUtil.asString;
+import static com.github.vangj.jbayes.inf.exact.graph.util.PotentialUtil.sortByKeys;
 
 /**
  * An entry of a potential. If it helps, think of a potential entry as a table row.

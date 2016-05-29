@@ -1,7 +1,5 @@
 package com.github.vangj.jbayes.inf.exact.graph;
 
-import static com.github.vangj.jbayes.inf.exact.graph.util.PotentialUtil.*;
-
 import com.github.vangj.jbayes.inf.exact.graph.lpd.Potential;
 import com.github.vangj.jbayes.inf.exact.graph.traversal.DagShortestPath;
 
@@ -11,6 +9,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import static com.github.vangj.jbayes.inf.exact.graph.util.PotentialUtil.getPotential;
 
 /**
  * A directed acylic graph (DAG).

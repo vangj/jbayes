@@ -1,11 +1,13 @@
 package com.github.vangj.jbayes.inf.exact.graph.pptc.blocks;
 
-import static com.github.vangj.jbayes.inf.exact.graph.util.PotentialUtil.*;
-
 import com.github.vangj.jbayes.inf.exact.graph.lpd.Potential;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.Clique;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.JoinTree;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.SepSet;
+
+import static com.github.vangj.jbayes.inf.exact.graph.util.PotentialUtil.divide;
+import static com.github.vangj.jbayes.inf.exact.graph.util.PotentialUtil.marginalizeFor;
+import static com.github.vangj.jbayes.inf.exact.graph.util.PotentialUtil.multiply;
 
 /**
  * Part of global propagation.

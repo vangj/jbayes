@@ -1,8 +1,8 @@
 package com.github.vangj.jbayes.inf.prob.util;
 
-import com.github.vangj.jbayes.inf.prob.cpt.CptPoDfsTraversal;
 import com.github.vangj.jbayes.inf.prob.Cpt;
 import com.github.vangj.jbayes.inf.prob.Node;
+import com.github.vangj.jbayes.inf.prob.cpt.CptPoDfsTraversal;
 
 import java.util.ArrayList;
 import java.util.List;

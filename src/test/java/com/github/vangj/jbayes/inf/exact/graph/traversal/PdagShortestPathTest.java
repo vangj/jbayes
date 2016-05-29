@@ -1,8 +1,5 @@
 package com.github.vangj.jbayes.inf.exact.graph.traversal;
 
-import static org.junit.Assert.*;
-
-import com.github.vangj.jbayes.inf.exact.graph.Dag;
 import com.github.vangj.jbayes.inf.exact.graph.Edge;
 import com.github.vangj.jbayes.inf.exact.graph.Graph;
 import com.github.vangj.jbayes.inf.exact.graph.Node;

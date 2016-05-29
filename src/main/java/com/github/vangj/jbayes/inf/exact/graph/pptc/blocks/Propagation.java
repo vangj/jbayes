@@ -1,11 +1,11 @@
 package com.github.vangj.jbayes.inf.exact.graph.pptc.blocks;
 
-import static com.github.vangj.jbayes.inf.exact.graph.pptc.blocks.SingleMessagePass.*;
-
 import com.github.vangj.jbayes.inf.exact.graph.pptc.Clique;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.JoinTree;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.traversal.CollectEvidence;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.traversal.DistributeEvidence;
+
+import static com.github.vangj.jbayes.inf.exact.graph.pptc.blocks.SingleMessagePass.singleMessagePass;
 
 /**
  * Step 5. Global propagation.

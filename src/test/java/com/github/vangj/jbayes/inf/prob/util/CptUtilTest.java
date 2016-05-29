@@ -4,7 +4,8 @@ import com.github.vangj.jbayes.inf.prob.Cpt;
 import com.github.vangj.jbayes.inf.prob.Node;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Tests CptUtil.

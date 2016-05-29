@@ -2,7 +2,7 @@ package com.github.vangj.jbayes.inf.exact.graph;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class PdagTest {
   @Test

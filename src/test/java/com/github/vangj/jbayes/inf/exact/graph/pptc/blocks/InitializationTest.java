@@ -1,7 +1,5 @@
 package com.github.vangj.jbayes.inf.exact.graph.pptc.blocks;
 
-import static org.junit.Assert.*;
-
 import com.github.vangj.jbayes.inf.exact.graph.Dag;
 import com.github.vangj.jbayes.inf.exact.graph.Ug;
 import com.github.vangj.jbayes.inf.exact.graph.lpd.Potential;
@@ -11,6 +9,8 @@ import com.github.vangj.jbayes.inf.exact.graph.pptc.JoinTree;
 import org.junit.Test;
 
 import java.util.List;
+
+import static org.junit.Assert.assertTrue;
 
 public class InitializationTest extends HuangExample {
   @Test

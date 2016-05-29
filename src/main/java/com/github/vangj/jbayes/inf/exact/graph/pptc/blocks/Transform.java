@@ -3,8 +3,8 @@ package com.github.vangj.jbayes.inf.exact.graph.pptc.blocks;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.Clique;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.Edge;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.JoinTree;
-import com.github.vangj.jbayes.inf.exact.graph.pptc.traversal.JoinTreeShortestPath;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.SepSet;
+import com.github.vangj.jbayes.inf.exact.graph.pptc.traversal.JoinTreeShortestPath;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,5 @@
 package com.github.vangj.jbayes.inf.exact.graph.pptc;
 
-import static com.github.vangj.jbayes.inf.exact.graph.util.PotentialUtil.*;
-
 import com.github.vangj.jbayes.inf.exact.graph.Node;
 import com.github.vangj.jbayes.inf.exact.graph.lpd.Potential;
 import com.github.vangj.jbayes.inf.exact.graph.util.NodeUtil;
@@ -16,6 +14,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import static com.github.vangj.jbayes.inf.exact.graph.util.PotentialUtil.marginalizeFor;
 
 /**
  * Join tree.

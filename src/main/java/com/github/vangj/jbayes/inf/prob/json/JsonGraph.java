@@ -3,8 +3,8 @@ package com.github.vangj.jbayes.inf.prob.json;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.github.vangj.jbayes.inf.prob.Graph;
-import com.github.vangj.jbayes.inf.prob.util.CptUtil;
 import com.github.vangj.jbayes.inf.prob.Node;
+import com.github.vangj.jbayes.inf.prob.util.CptUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;

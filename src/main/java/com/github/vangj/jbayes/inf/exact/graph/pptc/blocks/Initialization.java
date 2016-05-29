@@ -1,12 +1,13 @@
 package com.github.vangj.jbayes.inf.exact.graph.pptc.blocks;
 
-import static com.github.vangj.jbayes.inf.exact.graph.util.PotentialUtil.*;
-
 import com.github.vangj.jbayes.inf.exact.graph.lpd.Potential;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.Clique;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.JoinTree;
 
 import java.util.List;
+
+import static com.github.vangj.jbayes.inf.exact.graph.util.PotentialUtil.getPotential;
+import static com.github.vangj.jbayes.inf.exact.graph.util.PotentialUtil.multiply;
 
 /**
  * Step 4. Assigns initial join-tree potentials using the conditional probabilities

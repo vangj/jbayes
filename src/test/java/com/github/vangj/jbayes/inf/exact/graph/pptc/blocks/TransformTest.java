@@ -1,7 +1,5 @@
 package com.github.vangj.jbayes.inf.exact.graph.pptc.blocks;
 
-import static org.junit.Assert.*;
-
 import com.github.vangj.jbayes.inf.exact.graph.pptc.Clique;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.Edge;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.HuangExample;
@@ -11,6 +9,10 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class TransformTest extends HuangExample {
   @Test

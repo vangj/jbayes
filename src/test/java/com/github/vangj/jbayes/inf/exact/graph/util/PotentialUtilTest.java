@@ -17,8 +17,9 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.github.vangj.jbayes.inf.exact.graph.util.PotentialUtil.*;
-import static org.junit.Assert.*;
+import static com.github.vangj.jbayes.inf.exact.graph.util.PotentialUtil.divide;
+import static com.github.vangj.jbayes.inf.exact.graph.util.PotentialUtil.multiply;
+import static org.junit.Assert.assertEquals;
 
 public class PotentialUtilTest extends HuangExample {
 
