@@ -1,0 +1,63 @@
+package com.github.vangj.jbayes.inf.exact.graph.pptc.traversal;
+
+import static org.junit.Assert.*;
+
+import com.github.vangj.jbayes.inf.exact.graph.Dag;
+import com.github.vangj.jbayes.inf.exact.graph.Ug;
+import com.github.vangj.jbayes.inf.exact.graph.pptc.Clique;
+import com.github.vangj.jbayes.inf.exact.graph.pptc.HuangExample;
+import com.github.vangj.jbayes.inf.exact.graph.pptc.JoinTree;
+import com.github.vangj.jbayes.inf.exact.graph.pptc.SepSet;
+import com.github.vangj.jbayes.inf.exact.graph.pptc.blocks.Initialization;
+import com.github.vangj.jbayes.inf.exact.graph.pptc.blocks.Moralize;
+import com.github.vangj.jbayes.inf.exact.graph.pptc.blocks.Transform;
+import com.github.vangj.jbayes.inf.exact.graph.pptc.blocks.Triangulate;
+import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class CollectEvidenceTraversalTest extends HuangExample {
+  @Test
+  public void testTraversal() {
+    Dag dag = getDag();
+    Ug m = Moralize.moralize(dag);
+    List<Clique> cliques = Triangulate.triangulate(m);
+    JoinTree joinTree = Transform.transform(cliques, null);
+    Initialization.initialization(joinTree);
+
+    final List<Clique> visited = new ArrayList<>();
+//    System.out.println(joinTree);
+    CollectEvidenceTraversal.Listener listener = new CollectEvidenceTraversal.Listener() {
+      @Override public void cliqueVisited(JoinTree joinTree, Clique x, SepSet s, Clique y) {
+//        System.out.println(x + " -- " + s + " -- " + y);
+        visited.add(x);
+      }
+    };
+
+    CollectEvidenceTraversal traversal = new CollectEvidenceTraversal(joinTree, joinTree.cliques().get(0), listener);
+    traversal.start();
+
+    assertEquals(5, visited.size());
+
+    assertTrue(visited.get(0).contains("a"));
+    assertTrue(visited.get(0).contains("b"));
+    assertTrue(visited.get(0).contains("c"));
+
+    assertTrue(visited.get(1).contains("b"));
+    assertTrue(visited.get(1).contains("c"));
+    assertTrue(visited.get(1).contains("d"));
+
+    assertTrue(visited.get(2).contains("d"));
+    assertTrue(visited.get(2).contains("e"));
+    assertTrue(visited.get(2).contains("f"));
+
+    assertTrue(visited.get(3).contains("c"));
+    assertTrue(visited.get(3).contains("d"));
+    assertTrue(visited.get(3).contains("e"));
+
+    assertTrue(visited.get(4).contains("c"));
+    assertTrue(visited.get(4).contains("e"));
+    assertTrue(visited.get(4).contains("g"));
+  }
+}

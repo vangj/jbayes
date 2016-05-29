@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
  * A clique; contains a set of nodes. Used as a node in a join tree.
  */
 public class Clique {
+  protected boolean marked = false;
   protected Map<String, Node> nodes;
 
   public Clique() {
@@ -35,6 +36,33 @@ public class Clique {
     }
   }
 
+  /**
+   * Checks if this clique is marked.
+   * @return Boolean.
+   */
+  public boolean isMarked() {
+    return marked;
+  }
+
+  /**
+   * Marks this clique.
+   */
+  public void mark() {
+    marked = true;
+  }
+
+  /**
+   * Unmarks this clique.
+   */
+  public void unmark() {
+    marked = false;
+  }
+
+  /**
+   * Gets all the nodes in this clique minuse the ones specified by the list of nodes passed in.
+   * @param nodes List of nodes.
+   * @return List of nodes.
+   */
   public List<Node> nodesMinus(List<Node> nodes) {
     return nodes().stream()
         .filter(node -> {
