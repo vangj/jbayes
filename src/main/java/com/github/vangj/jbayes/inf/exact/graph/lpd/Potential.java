@@ -14,6 +14,21 @@ public class Potential {
     entries = new ArrayList<>();
   }
 
+  /**
+   * Finds matching potential entries to the specified one passed in.
+   * @param potentialEntry Potential entry.
+   * @return List of ootential entries.
+   */
+  public List<PotentialEntry> match(PotentialEntry potentialEntry) {
+    List<PotentialEntry> entries = new ArrayList<>();
+    for(PotentialEntry entry : this.entries) {
+      if(entry.match(potentialEntry)) {
+        entries.add(entry);
+      }
+    }
+    return entries;
+  }
+
   public List<PotentialEntry> entries() {
     return entries;
   }

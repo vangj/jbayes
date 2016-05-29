@@ -24,13 +24,36 @@ public class PotentialEntry {
     return this;
   }
 
-  public Double value() {
+  public Double getValue() {
     return value;
   }
 
-  public PotentialEntry value(Double value) {
+  public PotentialEntry setValue(Double value) {
     this.value = value;
     return this;
+  }
+
+  /**
+   * Checks if the specified potential entry matches. This potential entry
+   * must contain, at the very least, all the same key-value pairs as the
+   * specified potential entry passed in.
+   * @param that Potential entry.
+   * @return Boolean.
+   */
+  public boolean match(PotentialEntry that) {
+    for(Map.Entry<String, String> entry : that.entries.entrySet()) {
+      String k = entry.getKey();
+      String v = entry.getValue();
+
+      if(!this.entries.containsKey(k)) {
+        return false;
+      } else {
+        if(!this.entries.get(k).equalsIgnoreCase(v)) {
+          return false;
+        }
+      }
+    }
+    return true;
   }
 
   @Override

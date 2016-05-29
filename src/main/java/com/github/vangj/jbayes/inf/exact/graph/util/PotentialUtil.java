@@ -7,6 +7,7 @@ import com.github.vangj.jbayes.inf.exact.graph.lpd.PotentialEntry;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
@@ -19,6 +20,16 @@ public class PotentialUtil {
   }
 
   public static void multiply(Potential p1, Potential p2) {
+    Potential smaller = (p1.entries().size() <= p2.entries().size()) ? p1 : p2;
+    Potential bigger = p1.equals(smaller) ? p2 : p1;
+
+    smaller.entries().forEach(entry -> {
+      List<PotentialEntry> entries = bigger.match(entry);
+      entries.forEach(e -> {
+        double d = e.getValue() * entry.getValue();
+        e.setValue(d);
+      });
+    });
 
   }
 
@@ -67,7 +78,7 @@ public class PotentialUtil {
     final int total = Math.min(node.probs().size(), potential.entries().size());
     for(int i=0; i < total; i++) {
       Double prob = node.probs().get(i);
-      potential.entries().get(i).value(prob);
+      potential.entries().get(i).setValue(prob);
     }
 
     return potential;

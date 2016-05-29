@@ -1,5 +1,6 @@
 package com.github.vangj.jbayes.inf.exact.graph.util;
 
+import com.github.vangj.jbayes.inf.exact.graph.Dag;
 import com.github.vangj.jbayes.inf.exact.graph.Node;
 import com.github.vangj.jbayes.inf.exact.graph.lpd.Potential;
 import com.github.vangj.jbayes.inf.exact.graph.lpd.PotentialEntry;
@@ -9,7 +10,8 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static com.github.vangj.jbayes.inf.exact.graph.util.PotentialUtil.*;
+import static org.junit.Assert.*;
 
 public class PotentialUtilTest extends HuangExample {
 
@@ -42,9 +44,60 @@ public class PotentialUtilTest extends HuangExample {
     assertEquals((new PotentialEntry()).add("a", "off").add("b", "on"), potential.entries().get(2));
     assertEquals((new PotentialEntry()).add("a", "off").add("b", "off"), potential.entries().get(3));
 
-    assertEquals(0.5d, potential.entries().get(0).value(), 0.001d);
-    assertEquals(0.5d, potential.entries().get(1).value(), 0.001d);
-    assertEquals(0.4d, potential.entries().get(2).value(), 0.001d);
-    assertEquals(0.6d, potential.entries().get(3).value(), 0.001d);
+    assertEquals(0.5d, potential.entries().get(0).getValue(), 0.001d);
+    assertEquals(0.5d, potential.entries().get(1).getValue(), 0.001d);
+    assertEquals(0.4d, potential.entries().get(2).getValue(), 0.001d);
+    assertEquals(0.6d, potential.entries().get(3).getValue(), 0.001d);
+  }
+
+  @Test
+  public void testMultiply() {
+    Dag dag = getDag();
+    Potential c = dag.node("c").getPotential();
+    Potential e = dag.node("e").getPotential();
+    Potential ace = PotentialUtil.getPotential(Arrays.asList(dag.node("a"), dag.node("c"), dag.node("e")));
+
+    multiply(ace, c);
+    multiply(ace, e);
+
+    double[] expected = { 0.21d, 0.49d, 0.18d, 0.12d, 0.06d, 0.14d, 0.48d, 0.32d };
+    assertEquals(expected.length, ace.entries().size());
+    for(int i=0; i < expected.length; i++) {
+      assertEquals(expected[i], ace.entries().get(i).getValue(), 0.001d);
+    }
+  }
+
+  @Test
+  public void testMultiplyArbitrarily1() {
+    Dag dag = getDag();
+    Potential c = dag.node("c").getPotential();
+    Potential e = dag.node("e").getPotential();
+    Potential ace = PotentialUtil.getPotential(Arrays.asList(dag.node("a"), dag.node("c"), dag.node("e")));
+
+    multiply(c, ace);
+    multiply(ace, e);
+
+    double[] expected = { 0.21d, 0.49d, 0.18d, 0.12d, 0.06d, 0.14d, 0.48d, 0.32d };
+    assertEquals(expected.length, ace.entries().size());
+    for(int i=0; i < expected.length; i++) {
+      assertEquals(expected[i], ace.entries().get(i).getValue(), 0.001d);
+    }
+  }
+
+  @Test
+  public void testMultiplyArbitrarily2() {
+    Dag dag = getDag();
+    Potential c = dag.node("c").getPotential();
+    Potential e = dag.node("e").getPotential();
+    Potential ace = PotentialUtil.getPotential(Arrays.asList(dag.node("a"), dag.node("c"), dag.node("e")));
+
+    multiply(c, ace);
+    multiply(e, ace);
+
+    double[] expected = { 0.21d, 0.49d, 0.18d, 0.12d, 0.06d, 0.14d, 0.48d, 0.32d };
+    assertEquals(expected.length, ace.entries().size());
+    for(int i=0; i < expected.length; i++) {
+      assertEquals(expected[i], ace.entries().get(i).getValue(), 0.001d);
+    }
   }
 }
