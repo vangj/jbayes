@@ -3,8 +3,10 @@ package com.github.vangj.jbayes.inf.exact.graph;
 import com.github.vangj.jbayes.inf.exact.graph.lpd.Potential;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -13,6 +15,7 @@ import java.util.Set;
 public class Node extends Variable {
   private List<Double> probs;
   private Potential potential;
+  private Map<String, Object> metadata;
 
   public Node() {
     probs = new ArrayList<>();
@@ -20,6 +23,7 @@ public class Node extends Variable {
 
   public Node(Variable v) {
     probs = new ArrayList<>();
+    metadata = new HashMap<>();
     this.id = v.id;
     this.name = v.name;
     this.values = v.values;
@@ -30,6 +34,24 @@ public class Node extends Variable {
     name = builder.name;
     values = builder.values;
     probs = builder.probs;
+  }
+
+  /**
+   * Adds any metadata.
+   * @param k Key.
+   * @param v Value.
+   */
+  public void addMetadata(String k, Object v) {
+    metadata.put(k, v);
+  }
+
+  /**
+   * Gets the metadata associated with the specified key.
+   * @param k Key.
+   * @return Value.
+   */
+  public Object getMetadata(String k) {
+    return metadata.get(k);
   }
 
   public void setPotential(Potential potential) {

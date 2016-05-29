@@ -35,6 +35,9 @@ public class Moralize {
         }
       }
     });
+    dag.nodes().forEach(node -> {
+      node.addMetadata("parents", dag.parents(node));
+    });
     return ug;
   }
 }
