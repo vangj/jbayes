@@ -1,5 +1,7 @@
 package com.github.vangj.jbayes.inf.exact.graph.pptc;
 
+import static com.github.vangj.jbayes.inf.exact.graph.util.PotentialUtil.*;
+
 import com.github.vangj.jbayes.inf.exact.graph.Node;
 import com.github.vangj.jbayes.inf.exact.graph.lpd.Potential;
 import com.github.vangj.jbayes.inf.exact.graph.util.NodeUtil;
@@ -37,6 +39,16 @@ public class JoinTree {
     for(Clique clique : cliques) {
       addClique(clique);
     }
+  }
+
+  /**
+   * Gets the potential (holding the probabilities) for the specified node.
+   * @param node Node.
+   * @return Potential.
+   */
+  public Potential getPotential(Node node) {
+    Clique clique = (Clique)node.getMetadata("parent.clique");
+    return marginalizeFor(this, clique, Arrays.asList(node));
   }
 
   /**
