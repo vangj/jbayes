@@ -17,7 +17,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CollectEvidenceTraversalTest extends HuangExample {
+public class CollectEvidenceTest extends HuangExample {
   @Test
   public void testTraversal() {
     Dag dag = getDag();
@@ -28,14 +28,14 @@ public class CollectEvidenceTraversalTest extends HuangExample {
 
     final List<Clique> visited = new ArrayList<>();
 //    System.out.println(joinTree);
-    CollectEvidenceTraversal.Listener listener = new CollectEvidenceTraversal.Listener() {
+    CollectEvidence.Listener listener = new CollectEvidence.Listener() {
       @Override public void cliqueVisited(JoinTree joinTree, Clique x, SepSet s, Clique y) {
 //        System.out.println(x + " -- " + s + " -- " + y);
         visited.add(x);
       }
     };
 
-    CollectEvidenceTraversal traversal = new CollectEvidenceTraversal(joinTree, joinTree.cliques().get(0), listener);
+    CollectEvidence traversal = new CollectEvidence(joinTree, joinTree.cliques().get(0), listener);
     traversal.start();
 
     assertEquals(5, visited.size());

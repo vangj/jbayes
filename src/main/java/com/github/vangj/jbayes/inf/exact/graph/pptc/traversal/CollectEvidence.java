@@ -4,7 +4,7 @@ import com.github.vangj.jbayes.inf.exact.graph.pptc.Clique;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.JoinTree;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.SepSet;
 
-public class CollectEvidenceTraversal {
+public class CollectEvidence {
   public interface Listener {
     void cliqueVisited(JoinTree joinTree, Clique x, SepSet s, Clique y);
   }
@@ -13,7 +13,7 @@ public class CollectEvidenceTraversal {
   private Clique startClique;
   private Listener listener;
 
-  public CollectEvidenceTraversal(JoinTree joinTree, Clique startClique, Listener listener) {
+  public CollectEvidence(JoinTree joinTree, Clique startClique, Listener listener) {
     this.joinTree = joinTree;
     this.startClique = startClique;
     this.listener = listener;
