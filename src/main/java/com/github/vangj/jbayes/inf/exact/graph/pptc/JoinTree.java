@@ -40,22 +40,6 @@ public class JoinTree {
   }
 
   /**
-   * Gets all neighbors that are cliques (not sepset) of the specified clique.
-   * @param clique Clique.
-   * @return Set of cliques.
-   */
-  public Set<Clique> cliqueNeighbors(Clique clique) {
-    Set<Clique> sepSets = neighbors(clique);
-    Set<Clique> neighbors = new LinkedHashSet<>();
-    sepSets.forEach(sepSet -> {
-      Set<Clique> cliques = neighbors(sepSet);
-      neighbors.addAll(cliques);
-    });
-    neighbors.remove(clique);
-    return neighbors;
-  }
-
-  /**
    * Unmarks all cliques.
    */
   public void unmarkCliques() {
