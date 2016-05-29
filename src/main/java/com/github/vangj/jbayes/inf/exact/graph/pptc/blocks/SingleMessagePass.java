@@ -25,7 +25,12 @@ public class SingleMessagePass {
   public static void singleMessagePass(JoinTree joinTree, Clique x, SepSet s, Clique y) {
     Potential oldSepSetPotential = joinTree.getPotential(s);
     Potential yPotential = joinTree.getPotential(y);
+
+    //projection
     Potential newSepSetPotential = marginalizeFor(joinTree, x, s.nodes());
+    joinTree.addPotential(s, newSepSetPotential);
+
+    //absorption
     multiply(yPotential, divide(newSepSetPotential, oldSepSetPotential));
   }
 }
