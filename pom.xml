@@ -12,7 +12,7 @@
   </properties>
 
   <name>Simple Bayesian Belief Network inference library for Java.</name>
-  <description>A very cool project for BBN inference using likelihood-weight sampling.</description>
+  <description>A very cool project for BBN inference using approximate and exact algorithms.</description>
   <url>https://github.com/vangj/jbayes</url>
 
   <licenses>
