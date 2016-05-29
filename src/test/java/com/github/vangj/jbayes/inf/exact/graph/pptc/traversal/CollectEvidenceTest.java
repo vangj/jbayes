@@ -28,11 +28,9 @@ public class CollectEvidenceTest extends HuangExample {
 
     final List<Clique> visited = new ArrayList<>();
 //    System.out.println(joinTree);
-    CollectEvidence.Listener listener = new CollectEvidence.Listener() {
-      @Override public void cliqueVisited(JoinTree joinTree, Clique x, SepSet s, Clique y) {
+    CollectEvidence.Listener listener = (joinTree1, x, s, y) -> {
 //        System.out.println(x + " -- " + s + " -- " + y);
-        visited.add(x);
-      }
+      visited.add(x);
     };
 
     CollectEvidence traversal = new CollectEvidence(joinTree, joinTree.cliques().get(0), listener);
