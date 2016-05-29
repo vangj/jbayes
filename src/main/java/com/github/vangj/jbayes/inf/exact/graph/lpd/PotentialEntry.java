@@ -17,6 +17,17 @@ public class PotentialEntry {
     value = new Double(1.0d);
   }
 
+  private PotentialEntry(Map<String, String> entries, Double value) {
+    this.entries = entries;
+    this.value = value;
+  }
+
+  public PotentialEntry duplicate() {
+    Map<String, String> entries = new LinkedHashMap<>(this.entries);
+    Double value = new Double(this.value);
+    return new PotentialEntry(entries, value);
+  }
+
   public PotentialEntry add(String id, String value) {
     if(!entries.containsKey(id)) {
       entries.put(id, value);

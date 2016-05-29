@@ -35,6 +35,17 @@ public class Clique {
     }
   }
 
+  public List<Node> nodesMinus(List<Node> nodes) {
+    return nodes().stream()
+        .filter(node -> {
+          if(nodes.contains(node)) {
+            return false;
+          }
+          return true;
+        })
+        .collect(Collectors.toList());
+  }
+
   /**
    * Checks if this clique is a superset of the
    * specified clique passed in.

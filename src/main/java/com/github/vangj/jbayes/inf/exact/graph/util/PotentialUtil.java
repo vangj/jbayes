@@ -3,11 +3,12 @@ package com.github.vangj.jbayes.inf.exact.graph.util;
 import com.github.vangj.jbayes.inf.exact.graph.Node;
 import com.github.vangj.jbayes.inf.exact.graph.lpd.Potential;
 import com.github.vangj.jbayes.inf.exact.graph.lpd.PotentialEntry;
+import com.github.vangj.jbayes.inf.exact.graph.pptc.Clique;
+import com.github.vangj.jbayes.inf.exact.graph.pptc.JoinTree;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
@@ -17,6 +18,77 @@ import java.util.stream.Collectors;
 public class PotentialUtil {
   private PotentialUtil() {
 
+  }
+
+  /**
+   * Marginalizes the potential (associated with the specified clique) over the specified list of nodes.
+   * In words, marginalize out the specified list of nodes.
+   * @param joinTree Join tree.
+   * @param clique Clique.
+   * @param nodes List of nodes.
+   * @return Potential.
+   */
+  public static Potential marginalizeOut(JoinTree joinTree, Clique clique, List<Node> nodes) {
+    Potential potential = getPotential(clique.nodesMinus(nodes));
+    Potential cliquePotential = joinTree.getPotential(clique);
+
+    potential.entries().forEach(entry -> {
+      List<PotentialEntry> matchedEntries = cliquePotential.match(entry);
+      double t = 0.0;
+      for(PotentialEntry matchedEntry : matchedEntries) {
+        t += matchedEntry.getValue();
+      }
+      entry.setValue(t);
+    });
+
+    return potential;
+  }
+
+  /**
+   * Marginalizes the potential (associated with the specified clique) for the specified list of nodes.
+   * In words, marginalize for the specified list of nodes (removing other nodes).
+   * @param joinTree Join tree.
+   * @param clique Clique.
+   * @param nodes List of nodes.
+   * @return Potential.
+   */
+  public static Potential marginalizeFor(JoinTree joinTree, Clique clique, List<Node> nodes) {
+    Potential potential = getPotential(nodes);
+    Potential cliquePotential = joinTree.getPotential(clique);
+
+    potential.entries().forEach(entry -> {
+      List<PotentialEntry> matchedEntries = cliquePotential.match(entry);
+      double t = 0.0;
+      for(PotentialEntry matchedEntry : matchedEntries) {
+        t += matchedEntry.getValue();
+      }
+      entry.setValue(t);
+    });
+
+    return potential;
+  }
+
+  /**
+   * Divides two potentials. The potentials must have identical entries.
+   * @param numerator Potential.
+   * @param denominator Potential.
+   * @return Potential.
+   */
+  public static Potential divide(Potential numerator, Potential denominator) {
+    Potential potential = new Potential();
+    numerator.entries().forEach(entry -> {
+      List<PotentialEntry> entries = denominator.match(entry);
+      if(null != entries && entries.size() > 0) {
+        PotentialEntry e = entries.get(0);
+        double d = (isZero(entry.getValue()) || isZero(e.getValue())) ? 0.0d : entry.getValue() / e.getValue();
+        potential.addEntry(entry.duplicate().setValue(d));
+      }
+    });
+    return potential;
+  }
+
+  private static boolean isZero(double d) {
+    return (0.0d == d);
   }
 
   /**
