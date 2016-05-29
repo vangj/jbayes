@@ -26,10 +26,15 @@ public class Initialization {
     joinTree.nodes().forEach(node -> {
       List<Clique> cliques = joinTree.getCliquesContaining(node);
       if(cliques.size() > 0) {
-        Potential p1 = joinTree.getPotential(cliques.get(0));
+        Clique clique = cliques.get(0);
+        Potential p1 = joinTree.getPotential(clique);
         Potential p2 = node.getPotential();
+
+        System.out.println("assigned " + node.getId() + " to " + clique.id());
+
         if(null != p1 && null != p2) {
           multiply(p1, p2);
+          System.out.println(p1);
         } else {
           //hrmm.. why wasn't couldn't we get the potentials?
         }
