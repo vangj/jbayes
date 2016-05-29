@@ -26,6 +26,7 @@ public class Dag extends Graph {
 
   /**
    * Initializes the potential for each node.
+   * @return Dag.
    */
   public Dag initializePotentials() {
     nodes().forEach(node -> {

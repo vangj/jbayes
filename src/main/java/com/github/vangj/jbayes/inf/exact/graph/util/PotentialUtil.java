@@ -190,7 +190,7 @@ public class PotentialUtil {
   /**
    * Creates cartesian product between the list of lists.
    * @param lists List of lists.
-   * @param <T>
+   * @param <T> Type.
    * @return List of lists representing cartesian product.
    */
   public static <T> List<List<T>> cartesian(List<List<T>> lists) {
