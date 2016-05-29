@@ -4,15 +4,21 @@ import static com.github.vangj.jbayes.inf.exact.graph.pptc.blocks.SingleMessageP
 
 import com.github.vangj.jbayes.inf.exact.graph.pptc.Clique;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.JoinTree;
-import com.github.vangj.jbayes.inf.exact.graph.pptc.SepSet;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.traversal.CollectEvidence;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.traversal.DistributeEvidence;
 
+/**
+ * Step 5. Global propagation.
+ */
 public class Propagation {
   private Propagation() {
 
   }
 
+  /**
+   * Performs global propagation on the join tree so that it can become consistent.
+   * @param joinTree Join tree.
+   */
   public static void propagate(JoinTree joinTree) {
     Clique x = joinTree.cliques().get(0);
 
@@ -23,23 +29,27 @@ public class Propagation {
     distributeEvidence(joinTree, x);
   }
 
-  private static void collectEvidence(JoinTree joinTree, Clique x) {
-    CollectEvidence.Listener listener = new CollectEvidence.Listener() {
-      @Override public void cliqueVisited(JoinTree joinTree, Clique x, SepSet s, Clique y) {
-        singleMessagePass(joinTree, x, s, y);
-      }
-    };
+  /**
+   * Collect evidence phase.
+   * @param joinTree Join tree.
+   * @param start Clique (the starting clique).
+   */
+  private static void collectEvidence(JoinTree joinTree, Clique start) {
+    CollectEvidence.Listener listener =
+        (joinTree1, x, s, y) -> singleMessagePass(joinTree1, x, s, y);
 
-    new CollectEvidence(joinTree, x, listener).start();
+    new CollectEvidence(joinTree, start, listener).start();
   }
 
-  private static void distributeEvidence(JoinTree joinTree, Clique x) {
-    DistributeEvidence.Listener listener = new DistributeEvidence.Listener() {
-      @Override public void cliqueVisited(JoinTree joinTree, Clique x, SepSet s, Clique y) {
-        singleMessagePass(joinTree, x, s, y);
-      }
-    };
+  /**
+   * Distribute evidence phase.
+   * @param joinTree Join tree.
+   * @param start Clique (the starting clique).
+   */
+  private static void distributeEvidence(JoinTree joinTree, Clique start) {
+    DistributeEvidence.Listener listener =
+        (joinTree1, x, s, y) -> singleMessagePass(joinTree1, x, s, y);
 
-    new DistributeEvidence(joinTree, x, listener).start();
+    new DistributeEvidence(joinTree, start, listener).start();
   }
 }
