@@ -19,10 +19,13 @@ public class PotentialUtil {
 
   }
 
-  public static void multiply(Potential p1, Potential p2) {
-    Potential smaller = (p1.entries().size() <= p2.entries().size()) ? p1 : p2;
-    Potential bigger = p1.equals(smaller) ? p2 : p1;
-
+  /**
+   * Multiplies the two potentials. NOTE: order is important. The first potential
+   * must subsume the smaller potential.
+   * @param bigger Potential.
+   * @param smaller Potential.
+   */
+  public static void multiply(Potential bigger, Potential smaller) {
     smaller.entries().forEach(entry -> {
       List<PotentialEntry> entries = bigger.match(entry);
       entries.forEach(e -> {

@@ -66,38 +66,4 @@ public class PotentialUtilTest extends HuangExample {
       assertEquals(expected[i], ace.entries().get(i).getValue(), 0.001d);
     }
   }
-
-  @Test
-  public void testMultiplyArbitrarily1() {
-    Dag dag = getDag();
-    Potential c = dag.node("c").getPotential();
-    Potential e = dag.node("e").getPotential();
-    Potential ace = PotentialUtil.getPotential(Arrays.asList(dag.node("a"), dag.node("c"), dag.node("e")));
-
-    multiply(c, ace);
-    multiply(ace, e);
-
-    double[] expected = { 0.21d, 0.49d, 0.18d, 0.12d, 0.06d, 0.14d, 0.48d, 0.32d };
-    assertEquals(expected.length, ace.entries().size());
-    for(int i=0; i < expected.length; i++) {
-      assertEquals(expected[i], ace.entries().get(i).getValue(), 0.001d);
-    }
-  }
-
-  @Test
-  public void testMultiplyArbitrarily2() {
-    Dag dag = getDag();
-    Potential c = dag.node("c").getPotential();
-    Potential e = dag.node("e").getPotential();
-    Potential ace = PotentialUtil.getPotential(Arrays.asList(dag.node("a"), dag.node("c"), dag.node("e")));
-
-    multiply(c, ace);
-    multiply(e, ace);
-
-    double[] expected = { 0.21d, 0.49d, 0.18d, 0.12d, 0.06d, 0.14d, 0.48d, 0.32d };
-    assertEquals(expected.length, ace.entries().size());
-    for(int i=0; i < expected.length; i++) {
-      assertEquals(expected[i], ace.entries().get(i).getValue(), 0.001d);
-    }
-  }
 }

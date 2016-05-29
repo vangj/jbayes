@@ -48,13 +48,26 @@ public class JoinTree {
   }
 
   /**
-   * Gets all the cliques containing the specified node.
+   * Gets all the cliques containing the specified node and its parents.
    * @param node Node.
    * @return List of cliques.
    */
-  public List<Clique> getCliquesContaining(Node node) {
+  public List<Clique> cliquesContainingNodeAndParents(Node node) {
     return cliques().stream()
-        .filter(clique -> clique.contains(node.getId()))
+        .filter(clique -> {
+          if(!clique.contains(node.getId())) {
+            return  false;
+          }
+          List<Node> parents = (List<Node>)node.getMetadata("parents");
+          if(parents != null && parents.size() > 0) {
+            for(Node parent : parents) {
+              if(!clique.contains(parent.getId())) {
+                return false;
+              }
+            }
+          }
+          return true;
+        })
         .collect(Collectors.toList());
   }
 

@@ -31,6 +31,7 @@ public class Node extends Variable {
 
   private Node(NodeBuilder builder) {
     id = builder.id;
+    metadata = new HashMap<>();
     name = builder.name;
     values = builder.values;
     probs = builder.probs;
