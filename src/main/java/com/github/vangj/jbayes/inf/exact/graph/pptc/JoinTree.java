@@ -211,13 +211,30 @@ public class JoinTree {
 
   @Override
   public String toString() {
+    String c = allCliques().stream()
+        .map(Clique::toString)
+        .collect(Collectors.joining(System.lineSeparator()));
+    String e = edges().stream()
+        .map(Edge::toString)
+        .collect(Collectors.joining(System.lineSeparator()));
+    String p = potentials.entrySet().stream()
+        .map(entry -> {
+          Clique clique = cliques.get(entry.getKey());
+          Potential potential = entry.getValue();
+          return (new StringBuilder())
+              .append(clique.toString())
+              .append(" potential")
+              .append(System.lineSeparator())
+              .append(potential.toString());
+        })
+        .collect(Collectors.joining(System.lineSeparator()));
+
     return (new StringBuilder())
-        .append(String.join(
-            System.lineSeparator(),
-            allCliques().stream().map(Clique::toString).collect(Collectors.toList())))
+        .append(c)
         .append(System.lineSeparator())
-        .append(String.join(System.lineSeparator(),
-            edges().stream().map(Edge::toString).collect(Collectors.toList())))
+        .append(e)
+        .append(System.lineSeparator())
+        .append(p)
         .toString();
   }
 }
