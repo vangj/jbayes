@@ -6,6 +6,7 @@ import com.github.vangj.jbayes.inf.exact.graph.pptc.Clique;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.JoinTree;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.SepSet;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.traversal.CollectEvidence;
+import com.github.vangj.jbayes.inf.exact.graph.pptc.traversal.DistributeEvidence;
 
 public class Propagation {
   private Propagation() {
@@ -33,6 +34,12 @@ public class Propagation {
   }
 
   private static void distributeEvidence(JoinTree joinTree, Clique x) {
+    DistributeEvidence.Listener listener = new DistributeEvidence.Listener() {
+      @Override public void cliqueVisited(JoinTree joinTree, Clique x, SepSet s, Clique y) {
+        singleMessagePass(joinTree, x, s, y);
+      }
+    };
 
+    new DistributeEvidence(joinTree, x, listener).start();
   }
 }
