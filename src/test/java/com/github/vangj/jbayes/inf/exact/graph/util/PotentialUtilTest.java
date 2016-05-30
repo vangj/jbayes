@@ -118,6 +118,32 @@ public class PotentialUtilTest extends HuangExample {
   }
 
   @Test
+  public void testMultiply1() {
+    Potential potential = new Potential()
+        .addEntry(new PotentialEntry().add("a", "on").add("b", "on").setValue(0.3d))
+        .addEntry(new PotentialEntry().add("a", "on").add("b", "off").setValue(0.3d))
+        .addEntry(new PotentialEntry().add("a", "off").add("b", "on").setValue(0.2d))
+        .addEntry(new PotentialEntry().add("a", "off").add("b", "off").setValue(0.2d));
+
+    Potential aOn = new Potential()
+        .addEntry(new PotentialEntry().add("a", "on").setValue(1.0d));
+    Potential aOff = new Potential()
+        .addEntry(new PotentialEntry().add("a", "off").setValue(1.0d));
+    Potential bOn = new Potential()
+        .addEntry(new PotentialEntry().add("b", "on").setValue(1.0d));
+    Potential bOff = new Potential()
+        .addEntry(new PotentialEntry().add("b", "off").setValue(0.0d));
+
+    multiply(potential, aOn);
+    multiply(potential, aOff);
+    multiply(potential, bOn);
+    multiply(potential, bOff);
+
+//    System.out.println(potential);
+    assertEquals(0.3d, potential.entries().get(0).getValue(), 0.001d);
+  }
+
+  @Test
   public void testDivide() {
     Potential potential1 = new Potential()
         .addEntry(new PotentialEntry().add("a", "on").add("b", "on").setValue(2.0d))
