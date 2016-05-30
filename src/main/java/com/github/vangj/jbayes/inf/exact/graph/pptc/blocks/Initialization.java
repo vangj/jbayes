@@ -25,28 +25,33 @@ public class Initialization {
     });
 
     joinTree.nodes().forEach(node -> {
-      List<Clique> cliques = joinTree.cliquesContainingNodeAndParents(node);
-      if(cliques.size() > 0) {
-        Clique clique = cliques.get(0);
-        node.addMetadata("parent.clique", clique);
+      Clique clique = (null == node.getMetadata("parent.clique"))
+          ? joinTree.cliquesContainingNodeAndParents(node).get(0)
+          : (Clique)node.getMetadata("parent.clique");
 
-        Potential p1 = joinTree.getPotential(clique);
-        Potential p2 = node.getPotential();
+      node.addMetadata("parent.clique", clique);
 
-//        System.out.println("assigned " + node.getId() + " to " + clique.id());
+      Potential p1 = joinTree.getPotential(clique);
+      Potential p2 = node.getPotential();
 
-        if(null != p1 && null != p2) {
-          multiply(p1, p2);
-//          System.out.println(p1);
-//          System.out.println("******************************");
-        } else {
-          //hrmm.. why wasn't couldn't we get the potentials?
-        }
-      } else {
-        //hrmmm.. why couldn't we find a clique containing the node?
-      }
+      multiply(p1, p2);
+    });
+
+    //set likelihood to 1
+    joinTree.nodes().forEach(node -> {
+      node.getValues().forEach(value -> {
+        joinTree.setEvidence(node, value, 1.0d);
+      });
+    });
+
+    //observation entry
+    joinTree.nodes().forEach(node -> {
+      node.getValues().forEach(value -> {
+        Clique clique = (Clique)node.getMetadata("parent.clique");
+        Potential cliquePotential = joinTree.getPotential(clique);
+        Potential evidencePotential = joinTree.getEvidence(node, value);
+        multiply(cliquePotential, evidencePotential);
+      });
     });
   }
-
-
 }

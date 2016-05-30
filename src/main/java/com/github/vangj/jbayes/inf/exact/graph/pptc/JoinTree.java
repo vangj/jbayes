@@ -2,6 +2,7 @@ package com.github.vangj.jbayes.inf.exact.graph.pptc;
 
 import com.github.vangj.jbayes.inf.exact.graph.Node;
 import com.github.vangj.jbayes.inf.exact.graph.lpd.Potential;
+import com.github.vangj.jbayes.inf.exact.graph.lpd.PotentialEntry;
 import com.github.vangj.jbayes.inf.exact.graph.util.NodeUtil;
 
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class JoinTree {
   private Map<String, Set<Clique>> neighbors;
   private Set<Edge> edges;
   private Map<String, Potential> potentials;
+  private Map<String, Map<String, Potential>> evidences;
 
   public JoinTree() {
     this(new ArrayList<>());
@@ -35,10 +37,79 @@ public class JoinTree {
     neighbors = new HashMap<>();
     edges = new LinkedHashSet<>();
     potentials = new LinkedHashMap<>();
+    evidences = new HashMap<>();
 
     for(Clique clique : cliques) {
       addClique(clique);
     }
+  }
+
+  /**
+   * Gets the evidence associated with the specified node and value. If none exists, will return
+   * a potential with likelihood of 1.0.
+   * @param node Node.
+   * @param value Value.
+   * @return Potential.
+   */
+  public Potential getEvidence(Node node, String value) {
+    Map<String, Potential> nodeEvidences = evidences.get(node.getId());
+    if(null == nodeEvidences) {
+      nodeEvidences = new HashMap<>();
+      evidences.put(node.getId(), nodeEvidences);
+    }
+
+    Potential potential = nodeEvidences.get(value);
+    if(null == potential) {
+      potential = new Potential()
+          .addEntry(new PotentialEntry().add(node.getId(), value).setValue(1.0d));
+      nodeEvidences.put(value, potential);
+    }
+
+    return potential;
+  }
+
+  /**
+   * Checks if evidence already exists for the specified node and value.
+   * @param node Node.
+   * @param value Value.
+   * @return Boolean.
+   */
+  private boolean evidenceExists(Node node, String value) {
+    Map<String, Potential> nodeEvidences = evidences.get(node.getId());
+    if(null == nodeEvidences) {
+      return false;
+    }
+
+    return (null != nodeEvidences.get(value));
+  }
+
+  /**
+   * Sets the evidence for the specified node and value. The evidence will only be set if it doesn't
+   * already exists. Use updateEvidence to update the evidence.
+   * @param node Node.
+   * @param value Value.
+   * @param likelihood Likelihood.
+   * @return Join tree.
+   */
+  public JoinTree setEvidence(Node node, String value, Double likelihood) {
+    if(evidenceExists(node, value)) {
+      return this;
+    }
+
+    Potential potential = new Potential()
+        .addEntry(new PotentialEntry().add(node.getId(), value).setValue(likelihood));
+    Map<String, Potential> nodeEvidences = evidences.get(node.getId());
+    if(null == nodeEvidences) {
+      nodeEvidences = new HashMap<>();
+      evidences.put(node.getId(), nodeEvidences);
+    }
+    nodeEvidences.put(value, potential);
+    return this;
+  }
+
+  public JoinTree updateEvidence(Node node, String value, Double likelihood) {
+    //TODO: implement
+    return this;
   }
 
   /**
