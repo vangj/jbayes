@@ -69,6 +69,25 @@ public class PotentialUtil {
   }
 
   /**
+   * Normalizes the entry values for the specified potentials so they sum to 1.
+   * @param potential Potential.
+   * @return Potential.
+   */
+  public static Potential normalize(Potential potential) {
+    double sum = 0.0d;
+    for(PotentialEntry entry : potential.entries()) {
+      sum += entry.getValue();
+    }
+
+    for(PotentialEntry entry : potential.entries()) {
+      double d = entry.getValue() / sum;
+      entry.setValue(d);
+    }
+
+    return potential;
+  }
+
+  /**
    * Divides two potentials. The potentials must have identical entries.
    * @param numerator Potential.
    * @param denominator Potential.

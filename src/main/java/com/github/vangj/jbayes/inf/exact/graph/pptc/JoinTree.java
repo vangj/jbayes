@@ -17,6 +17,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import static com.github.vangj.jbayes.inf.exact.graph.util.PotentialUtil.marginalizeFor;
+import static com.github.vangj.jbayes.inf.exact.graph.util.PotentialUtil.normalize;
 
 /**
  * Join tree.
@@ -119,7 +120,7 @@ public class JoinTree {
    */
   public Potential getPotential(Node node) {
     Clique clique = (Clique)node.getMetadata("parent.clique");
-    return marginalizeFor(this, clique, Arrays.asList(node));
+    return normalize(marginalizeFor(this, clique, Arrays.asList(node)));
   }
 
   /**
