@@ -175,6 +175,17 @@ public class JoinTree {
   }
 
   /**
+   * Gets the node associated with the specified id.
+   * @param id Id.
+   * @return Node.
+   */
+  public Node node(String id) {
+    return nodes().stream()
+        .filter(node -> (id.equals(node.getId())))
+        .findFirst().get();
+  }
+
+  /**
    * Gets the potential associated with the specified clique.
    * @param clique Clique.
    * @return Potential.
