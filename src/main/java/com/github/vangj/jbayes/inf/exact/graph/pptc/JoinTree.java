@@ -26,6 +26,7 @@ public class JoinTree {
   public interface Listener {
     void evidenceRetracted(JoinTree joinTree);
     void evidenceUpdated(JoinTree joinTree);
+    void evidenceNoChange(JoinTree joinTree);
   }
 
   private Map<String, Clique> cliques;
@@ -85,7 +86,30 @@ public class JoinTree {
     return potential;
   }
 
+  /**
+   * Adds ability to update evidence.
+   * @param evidence Evidence.
+   * @return Join tree.
+   */
   public JoinTree updateEvidence(Evidence evidence) {
+    Node node = evidence.getNode();
+    Map<String, Potential> potentials = evidences.get(node.getId());
+    Evidence.Change change = evidence.compare(potentials);
+
+    evidence.getValues().entrySet().stream().forEach(entry -> {
+      Potential potential = potentials.get(entry.getKey());
+      potential.entries().get(0).setValue(entry.getValue());
+    });
+
+    if(null != listener) {
+      if(Evidence.Change.Retraction == change) {
+        listener.evidenceRetracted(this);
+      } else if(Evidence.Change.Update == change) {
+        listener.evidenceUpdated(this);
+      } else {
+        listener.evidenceNoChange(this);
+      }
+    }
     return this;
   }
 

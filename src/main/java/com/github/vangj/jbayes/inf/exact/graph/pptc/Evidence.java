@@ -1,7 +1,9 @@
 package com.github.vangj.jbayes.inf.exact.graph.pptc;
 
 import com.github.vangj.jbayes.inf.exact.graph.Node;
+import com.github.vangj.jbayes.inf.exact.graph.lpd.Potential;
 
+import java.util.DoubleSummaryStatistics;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -37,11 +39,105 @@ public class Evidence {
     return type;
   }
 
+  public Change compare(Map<String, Potential> potentials) {
+    Map<String, Double> that = convert(potentials);
+
+    boolean unobservedThat = isUnobserved(that);
+    boolean unobservedThis = isUnobserved(values);
+
+    if(unobservedThat && unobservedThis) {
+      return Change.None;
+    }
+
+    boolean observedThat = isObserved(that);
+    boolean observedThis = isObserved(values);
+
+    if(observedThat && observedThis) {
+      String s1 = getObservedValue(that);
+      String s2 = getObservedValue(values);
+      if(s1.equals(s2)) {
+        return Change.None;
+      } else {
+        return Change.Retraction;
+      }
+    }
+
+    if(unobservedThat && observedThis) {
+      return Change.Update;
+    }
+
+    if(observedThat && unobservedThis) {
+      return Change.Retraction;
+    }
+
+    return Change.Retraction;
+  }
+
+  /**
+   * Converts a map of values to potentials to a map of values to likelihoods.
+   * @param map Map.
+   * @return Map.
+   */
+  private static Map<String, Double> convert(Map<String, Potential> map) {
+    Map<String, Double> m = new LinkedHashMap<>();
+    for(Map.Entry<String, Potential> e : map.entrySet()) {
+      m.put(e.getKey(), e.getValue().entries().get(0).getValue());
+    }
+    return m;
+  }
+
+  /**
+   * Checks to see if the evidence is unobserved. All likelihoods must be 1.
+   * @param values Map of values to likelihoods.
+   * @return Boolean.
+   */
+  private static boolean isUnobserved(Map<String, Double> values) {
+    int counts = (int)values.entrySet().stream()
+        .filter(entry -> (entry.getValue() == 1.0d))
+        .count();
+    return (counts == values.size());
+  }
+
+  /**
+   * Checks to see if the evidence is observed. Exactly one value must be 1 and all others
+   * are 0.
+   * @param values Map of values to likelihoods.
+   * @return Boolean.
+   */
+  private static boolean isObserved(Map<String, Double> values) {
+    long countOne = values.entrySet().stream()
+        .filter(entry -> (entry.getValue() == 1.0d))
+        .count();
+    long countZero = values.entrySet().stream()
+        .filter(entry -> (entry.getValue() == 0.0d))
+        .count();
+    int total = (int)(countOne + countZero);
+    return (total == values.size());
+  }
+
+  /**
+   * Gets the observed value. Should be called only after isObserved returns true.
+   * @param values Map of values to likelihoods.
+   * @return The value which is observed.
+   */
+  private static String getObservedValue(Map<String, Double> values) {
+    return values.entrySet().stream()
+        .filter(entry -> (entry.getValue() == 1.0d))
+        .map(Map.Entry::getKey)
+        .findFirst().get();
+  }
+
+  /**
+   * Gest a new builder.
+   * @return Builder.
+   */
   public static Builder newBuilder() {
     return new Builder();
   }
 
-
+  /**
+   * Builder for evidence.
+   */
   public static final class Builder {
     private Node node;
     private Map<String, Double> values;
