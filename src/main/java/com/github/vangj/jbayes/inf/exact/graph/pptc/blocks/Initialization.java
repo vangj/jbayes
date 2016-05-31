@@ -4,8 +4,6 @@ import com.github.vangj.jbayes.inf.exact.graph.lpd.Potential;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.Clique;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.JoinTree;
 
-import java.util.List;
-
 import static com.github.vangj.jbayes.inf.exact.graph.util.PotentialUtil.getPotential;
 import static com.github.vangj.jbayes.inf.exact.graph.util.PotentialUtil.multiply;
 
@@ -49,8 +47,8 @@ public class Initialization {
       node.getValues().forEach(value -> {
         Clique clique = (Clique)node.getMetadata("parent.clique");
         Potential cliquePotential = joinTree.getPotential(clique);
-        Potential evidencePotential = joinTree.getEvidence(node, value);
-        multiply(cliquePotential, evidencePotential);
+        Potential nodePotential = joinTree.getPotential(node, value);
+        multiply(cliquePotential, nodePotential);
       });
     });
   }

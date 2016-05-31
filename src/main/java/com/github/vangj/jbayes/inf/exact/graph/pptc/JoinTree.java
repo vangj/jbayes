@@ -23,11 +23,21 @@ import static com.github.vangj.jbayes.inf.exact.graph.util.PotentialUtil.normali
  * Join tree.
  */
 public class JoinTree {
+  public interface Listener {
+    void evidenceRetracted(JoinTree joinTree);
+    void evidenceUpdated(JoinTree joinTree);
+  }
+
+  enum EvidenceChangeType {
+    None, Update, Retraction
+  }
+
   private Map<String, Clique> cliques;
   private Map<String, Set<Clique>> neighbors;
   private Set<Edge> edges;
   private Map<String, Potential> potentials;
   private Map<String, Map<String, Potential>> evidences;
+  private Listener listener;
 
   public JoinTree() {
     this(new ArrayList<>());
@@ -46,13 +56,23 @@ public class JoinTree {
   }
 
   /**
+   * Sets the listener.
+   * @param listener Listener.
+   * @return Join tree.
+   */
+  public JoinTree setListener(Listener listener) {
+    this.listener = listener;
+    return this;
+  }
+
+  /**
    * Gets the evidence associated with the specified node and value. If none exists, will return
    * a potential with likelihood of 1.0.
    * @param node Node.
    * @param value Value.
    * @return Potential.
    */
-  public Potential getEvidence(Node node, String value) {
+  public Potential getPotential(Node node, String value) {
     Map<String, Potential> nodeEvidences = evidences.get(node.getId());
     if(null == nodeEvidences) {
       nodeEvidences = new HashMap<>();
@@ -109,8 +129,31 @@ public class JoinTree {
   }
 
   public JoinTree updateEvidence(Node node, String value, Double likelihood) {
-    //TODO: implement
+    EvidenceChangeType type = getEvidenceChangeType(node, value, likelihood);
+
+    Map<String, Potential> nodeEvidences = evidences.get(node.getId());
+    if(null == nodeEvidences) {
+      nodeEvidences = new HashMap<>();
+      evidences.put(node.getId(), nodeEvidences);
+    }
+
+    Potential potential = new Potential()
+        .addEntry(new PotentialEntry().add(node.getId(), value).setValue(likelihood));
+    nodeEvidences.put(value, potential);
+
+    if(null != listener) {
+      if(EvidenceChangeType.Retraction == type) {
+        listener.evidenceRetracted(this);
+      } else if(EvidenceChangeType.Update == type) {
+        listener.evidenceUpdated(this);
+      }
+    }
+
     return this;
+  }
+
+  private EvidenceChangeType getEvidenceChangeType(Node node, String value, Double likelihood) {
+    return EvidenceChangeType.None;
   }
 
   /**
