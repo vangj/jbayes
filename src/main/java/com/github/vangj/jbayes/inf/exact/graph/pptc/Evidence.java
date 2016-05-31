@@ -3,16 +3,37 @@ package com.github.vangj.jbayes.inf.exact.graph.pptc;
 import com.github.vangj.jbayes.inf.exact.graph.Node;
 import com.github.vangj.jbayes.inf.exact.graph.lpd.Potential;
 
-import java.util.DoubleSummaryStatistics;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * Evidence.
+ */
 public class Evidence {
 
+  /**
+   * The type of evidence.
+   * <ul>
+   *   <li>virtual: each value lies in the domain [0, 1]</li>
+   *   <li>finding: each value must be 1 or 0; at least one value must be 1</li>
+   *   <li>observation: one value is 1 and all others are 0</li>
+   *   <li>unobserve: all values are 1</li>
+   * </ul>
+   */
   public enum Type {
     Virtual, Finding, Observation, Unobserve
   }
 
+
+  /**
+   * The type of change that the evidence can bring about.
+   * <ul>
+   *   <li>none: nothing changed</li>
+   *   <li>update: node was unobseved, now it is observed</li>
+   *   <li>retraction: node was unobserved and now observed, or previous observed value is now
+   *   not the same as the observed one</li>
+   * </ul>
+   */
   public enum Change {
     None, Update, Retraction
   }
@@ -27,18 +48,35 @@ public class Evidence {
     type = builder.type;
   }
 
+  /**
+   * Gets the node.
+   * @return Node.
+   */
   public Node getNode() {
     return node;
   }
 
+  /**
+   * Gets a map where keys are node's values and the values are likelihoods.
+   * @return
+   */
   public Map<String, Double> getValues() {
     return values;
   }
 
+  /**
+   * Gets the type of evidence.
+   * @return Type.
+   */
   public Type getType() {
     return type;
   }
 
+  /**
+   * Compares this evidence to the current one and determines the change type.
+   * @param potentials Map of potentials.
+   * @return Change type.
+   */
   public Change compare(Map<String, Potential> potentials) {
     Map<String, Double> that = convert(potentials);
 
