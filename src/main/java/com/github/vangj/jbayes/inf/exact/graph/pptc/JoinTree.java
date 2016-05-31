@@ -72,7 +72,7 @@ public class JoinTree {
    * @param value Value.
    * @return Potential.
    */
-  public Potential getPotential(Node node, String value) {
+  public Potential getEvidence(Node node, String value) {
     Map<String, Potential> nodeEvidences = evidences.get(node.getId());
     if(null == nodeEvidences) {
       nodeEvidences = new HashMap<>();

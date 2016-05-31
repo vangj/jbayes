@@ -47,7 +47,7 @@ public class Initialization {
       node.getValues().forEach(value -> {
         Clique clique = (Clique)node.getMetadata("parent.clique");
         Potential cliquePotential = joinTree.getPotential(clique);
-        Potential nodePotential = joinTree.getPotential(node, value);
+        Potential nodePotential = joinTree.getEvidence(node, value);
         multiply(cliquePotential, nodePotential);
       });
     });
