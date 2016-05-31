@@ -28,10 +28,6 @@ public class JoinTree {
     void evidenceUpdated(JoinTree joinTree);
   }
 
-  enum EvidenceChangeType {
-    None, Update, Retraction
-  }
-
   private Map<String, Clique> cliques;
   private Map<String, Set<Clique>> neighbors;
   private Set<Edge> edges;
@@ -89,32 +85,8 @@ public class JoinTree {
     return potential;
   }
 
-  public JoinTree updateEvidence(Node node, String value, Double likelihood) {
-    EvidenceChangeType type = getEvidenceChangeType(node, value, likelihood);
-
-    Map<String, Potential> nodeEvidences = evidences.get(node.getId());
-    if(null == nodeEvidences) {
-      nodeEvidences = new HashMap<>();
-      evidences.put(node.getId(), nodeEvidences);
-    }
-
-    Potential potential = new Potential()
-        .addEntry(new PotentialEntry().add(node.getId(), value).setValue(likelihood));
-    nodeEvidences.put(value, potential);
-
-    if(null != listener) {
-      if(EvidenceChangeType.Retraction == type) {
-        listener.evidenceRetracted(this);
-      } else if(EvidenceChangeType.Update == type) {
-        listener.evidenceUpdated(this);
-      }
-    }
-
+  public JoinTree updateEvidence(Evidence evidence) {
     return this;
-  }
-
-  private EvidenceChangeType getEvidenceChangeType(Node node, String value, Double likelihood) {
-    return EvidenceChangeType.None;
   }
 
   /**

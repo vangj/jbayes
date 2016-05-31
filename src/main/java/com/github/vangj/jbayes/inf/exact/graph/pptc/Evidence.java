@@ -2,16 +2,17 @@ package com.github.vangj.jbayes.inf.exact.graph.pptc;
 
 import com.github.vangj.jbayes.inf.exact.graph.Node;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class Evidence {
 
   public enum Type {
     Virtual, Finding, Observation
+  }
+
+  public enum Change {
+    None, Update, Retraction
   }
 
   private Node node;
