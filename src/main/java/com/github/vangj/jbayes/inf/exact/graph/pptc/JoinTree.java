@@ -104,30 +104,6 @@ public class JoinTree {
     return (null != nodeEvidences.get(value));
   }
 
-  /**
-   * Sets the evidence for the specified node and value. The evidence will only be set if it doesn't
-   * already exists. Use updateEvidence to update the evidence.
-   * @param node Node.
-   * @param value Value.
-   * @param likelihood Likelihood.
-   * @return Join tree.
-   */
-  public JoinTree setEvidence(Node node, String value, Double likelihood) {
-    if(evidencePotentialExists(node, value)) {
-      return this;
-    }
-
-    Potential potential = new Potential()
-        .addEntry(new PotentialEntry().add(node.getId(), value).setValue(likelihood));
-    Map<String, Potential> nodeEvidences = evidences.get(node.getId());
-    if(null == nodeEvidences) {
-      nodeEvidences = new HashMap<>();
-      evidences.put(node.getId(), nodeEvidences);
-    }
-    nodeEvidences.put(value, potential);
-    return this;
-  }
-
   public JoinTree updateEvidence(Node node, String value, Double likelihood) {
     EvidenceChangeType type = getEvidenceChangeType(node, value, likelihood);
 

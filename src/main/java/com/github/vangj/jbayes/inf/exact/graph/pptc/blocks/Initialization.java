@@ -35,13 +35,6 @@ public class Initialization {
       multiply(p1, p2);
     });
 
-    //set likelihood to 1
-    joinTree.nodes().forEach(node -> {
-      node.getValues().forEach(value -> {
-        joinTree.setEvidence(node, value, 1.0d);
-      });
-    });
-
     //observation entry
     joinTree.nodes().forEach(node -> {
       node.getValues().forEach(value -> {
