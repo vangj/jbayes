@@ -95,7 +95,7 @@ public class JoinTree {
    * @param value Value.
    * @return Boolean.
    */
-  private boolean evidenceExists(Node node, String value) {
+  private boolean evidencePotentialExists(Node node, String value) {
     Map<String, Potential> nodeEvidences = evidences.get(node.getId());
     if(null == nodeEvidences) {
       return false;
@@ -113,7 +113,7 @@ public class JoinTree {
    * @return Join tree.
    */
   public JoinTree setEvidence(Node node, String value, Double likelihood) {
-    if(evidenceExists(node, value)) {
+    if(evidencePotentialExists(node, value)) {
       return this;
     }
 
