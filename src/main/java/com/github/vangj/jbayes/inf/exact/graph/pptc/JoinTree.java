@@ -89,21 +89,6 @@ public class JoinTree {
     return potential;
   }
 
-  /**
-   * Checks if evidence already exists for the specified node and value.
-   * @param node Node.
-   * @param value Value.
-   * @return Boolean.
-   */
-  private boolean evidencePotentialExists(Node node, String value) {
-    Map<String, Potential> nodeEvidences = evidences.get(node.getId());
-    if(null == nodeEvidences) {
-      return false;
-    }
-
-    return (null != nodeEvidences.get(value));
-  }
-
   public JoinTree updateEvidence(Node node, String value, Double likelihood) {
     EvidenceChangeType type = getEvidenceChangeType(node, value, likelihood);
 
