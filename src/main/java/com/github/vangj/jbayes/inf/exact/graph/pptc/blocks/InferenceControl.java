@@ -10,13 +10,12 @@ import static com.github.vangj.jbayes.inf.exact.graph.pptc.blocks.Triangulate.*;
 import static com.github.vangj.jbayes.inf.exact.graph.pptc.blocks.Transform.*;
 
 public class InferenceControl implements JoinTree.Listener {
-  private JoinTree joinTree;
 
-  public InferenceControl(Dag dag) {
-    joinTree = propagate(initialization(transform(triangulate(moralize(dag))))).setListener(this);
+  public static JoinTree apply(Dag dag) {
+    JoinTree joinTree = propagate(initialization(transform(triangulate(moralize(dag)))))
+        .setListener(new InferenceControl());
+    return joinTree;
   }
-
-
   @Override
   public void evidenceRetracted(JoinTree joinTree) {
     initialization(joinTree);
