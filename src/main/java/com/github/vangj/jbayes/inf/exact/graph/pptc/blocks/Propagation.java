@@ -18,6 +18,7 @@ public class Propagation {
   /**
    * Performs global propagation on the join tree so that it can become consistent.
    * @param joinTree Join tree.
+   * @return Join tree.
    */
   public static JoinTree propagate(JoinTree joinTree) {
     Clique x = joinTree.cliques().get(0);
