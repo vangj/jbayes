@@ -126,6 +126,51 @@ public class JoinTree {
   }
 
   /**
+   * Creates evidence where all likelihoods are set to 1 (unobserved).
+   * @param node Node.
+   * @return Evidence.
+   */
+  private Evidence getUnobservedEvidence(Node node) {
+    Evidence.Builder builder = Evidence.newBuilder()
+        .node(node)
+        .type(Evidence.Type.Unobserve);
+    node.getValues().forEach(value -> builder.value(value, 1.0d));
+    return builder.build();
+  }
+
+  /**
+   * Unobserves the specified node.
+   * @param node Node.
+   * @return Join tree.
+   */
+  public JoinTree unobserve(Node node) {
+    updateEvidence(getUnobservedEvidence(node));
+    return this;
+  }
+
+  /**
+   * Unobserves the specified list of nodes.
+   * @param nodes List of nodes.
+   * @return Join tree.
+   */
+  public JoinTree unobserve(List<Node> nodes) {
+    List<Evidence> evidences = nodes.stream()
+        .map(node -> getUnobservedEvidence(node))
+        .collect(Collectors.toList());
+    updateEvidence(evidences);
+    return this;
+  }
+
+  /**
+   * Unobserves all nodes.
+   * @return Join tree.
+   */
+  public JoinTree unobserveAll() {
+    unobserve(new ArrayList<>(nodes()));
+    return this;
+  }
+
+  /**
    * Update with a single evidence. Will trigger inference.
    * @param evidence Evidence.
    * @return Join tree.

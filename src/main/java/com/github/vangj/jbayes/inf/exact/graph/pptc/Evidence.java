@@ -10,7 +10,7 @@ import java.util.Map;
 public class Evidence {
 
   public enum Type {
-    Virtual, Finding, Observation
+    Virtual, Finding, Observation, Unobserve
   }
 
   public enum Change {
@@ -63,7 +63,8 @@ public class Evidence {
     }
 
     if(unobservedThat && observedThis) {
-      return Change.Update;
+      //FIXME should signal update, but that doesn't work
+      return Change.Retraction;
     }
 
     if(observedThat && unobservedThis) {
@@ -111,8 +112,7 @@ public class Evidence {
     long countZero = values.entrySet().stream()
         .filter(entry -> (entry.getValue() == 0.0d))
         .count();
-    int total = (int)(countOne + countZero);
-    return (total == values.size());
+    return (1 == countOne && values.size() - 1 == countZero);
   }
 
   /**
@@ -216,6 +216,10 @@ public class Evidence {
           } else {
             values.put(k, 0.0d);
           }
+        });
+      } else if(Type.Unobserve == type) {
+        values.keySet().forEach(k -> {
+          values.put(k, 1.0d);
         });
       }
     }
