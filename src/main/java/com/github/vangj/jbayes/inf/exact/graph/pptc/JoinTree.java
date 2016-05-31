@@ -87,20 +87,73 @@ public class JoinTree {
   }
 
   /**
-   * Adds ability to update evidence.
+   * Gets the change type.
+   * @param evidence Evidence.
+   * @return Change type.
+   */
+  private Evidence.Change getChangeType(Evidence evidence) {
+    Node node = evidence.getNode();
+    Map<String, Potential> potentials = evidences.get(node.getId());
+    Evidence.Change change = evidence.compare(potentials);
+    return change;
+  }
+
+  /**
+   * Gets the change type for the list of evidences. Precendence is
+   * retraction, update, then none.
+   * @param evidences List of evidence.
+   * @return Change type.
+   */
+  private Evidence.Change getChangeType(List<Evidence> evidences) {
+    List<Evidence.Change> changes = evidences.stream()
+        .map(evidence -> getChangeType(evidence))
+        .collect(Collectors.toList());
+    int count = (int)changes.stream()
+        .filter(change -> (Evidence.Change.Retraction == change))
+        .count();
+    if(count > 0) {
+      return Evidence.Change.Retraction;
+    }
+
+    count = (int)changes.stream()
+        .filter(change -> (Evidence.Change.Update == change))
+        .count();
+    if(count > 0) {
+      return Evidence.Change.Update;
+    }
+
+    return Evidence.Change.None;
+  }
+
+  /**
+   * Update with a single evidence. Will trigger inference.
    * @param evidence Evidence.
    * @return Join tree.
    */
   public JoinTree updateEvidence(Evidence evidence) {
-    Node node = evidence.getNode();
-    Map<String, Potential> potentials = evidences.get(node.getId());
-    Evidence.Change change = evidence.compare(potentials);
+    Evidence.Change change = getChangeType(evidence);
+    update(evidence);
+    notifiyListener(change);
+    return this;
+  }
 
-    evidence.getValues().entrySet().stream().forEach(entry -> {
-      Potential potential = potentials.get(entry.getKey());
-      potential.entries().get(0).setValue(entry.getValue());
-    });
+  /**
+   * Updates with a list of evidences. Will trigger inference.
+   * @param evidences List of evidences.
+   * @return Join tree.
+   */
+  public JoinTree updateEvidence(List<Evidence> evidences) {
+    Evidence.Change change = getChangeType(evidences);
+    evidences.stream().forEach(evidence -> update(evidence));
+    notifiyListener(change);
+    return this;
+  }
 
+  /**
+   * Notifies the listener of evidence change.
+   * @param change Change.
+   */
+  private void notifiyListener(Evidence.Change change) {
     if(null != listener) {
       if(Evidence.Change.Retraction == change) {
         listener.evidenceRetracted(this);
@@ -110,7 +163,16 @@ public class JoinTree {
         listener.evidenceNoChange(this);
       }
     }
-    return this;
+  }
+
+  private void update(Evidence evidence) {
+    Node node = evidence.getNode();
+    Map<String, Potential> potentials = evidences.get(node.getId());
+
+    evidence.getValues().entrySet().stream().forEach(entry -> {
+      Potential potential = potentials.get(entry.getKey());
+      potential.entries().get(0).setValue(entry.getValue());
+    });
   }
 
   /**
