@@ -19,7 +19,7 @@ public class Propagation {
    * Performs global propagation on the join tree so that it can become consistent.
    * @param joinTree Join tree.
    */
-  public static void propagate(JoinTree joinTree) {
+  public static JoinTree propagate(JoinTree joinTree) {
     Clique x = joinTree.cliques().get(0);
 
     joinTree.unmarkCliques();
@@ -27,6 +27,8 @@ public class Propagation {
 
     joinTree.unmarkCliques();
     distributeEvidence(joinTree, x);
+
+    return joinTree;
   }
 
   /**

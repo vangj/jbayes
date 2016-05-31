@@ -16,7 +16,7 @@ public class Initialization {
 
   }
 
-  public static void initialization(JoinTree joinTree) {
+  public static JoinTree initialization(JoinTree joinTree) {
     joinTree.allCliques().forEach(clique -> {
       Potential potential = getPotential(clique.nodes());
       joinTree.addPotential(clique, potential);
@@ -44,5 +44,7 @@ public class Initialization {
         multiply(cliquePotential, nodePotential);
       });
     });
+
+    return joinTree;
   }
 }

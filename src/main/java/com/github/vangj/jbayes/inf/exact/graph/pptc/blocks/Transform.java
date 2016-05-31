@@ -18,6 +18,10 @@ public class Transform {
 
   }
 
+  public static JoinTree transform(List<Clique> cliques) {
+    return transform(cliques, null);
+  }
+
   public static JoinTree transform(List<Clique> cliques, JoinTreeShortestPath.Listener listener) {
     JoinTree joinTree = new JoinTree(cliques);
     List<SepSet> sepSets = getSepSets(cliques);
