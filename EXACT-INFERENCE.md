@@ -76,7 +76,7 @@ Dag dag = new Dag()
 dag.initializePotentials();
 
 //creates a join tree from the BBN
-JoinTree joinTree = InferenceControl.apply(getDag());
+JoinTree joinTree = InferenceControl.apply(dag);
 
 //print out the probabilities for each node
 joinTree.nodes().forEach(node -> {
