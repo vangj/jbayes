@@ -15,7 +15,7 @@ Using Maven, you make a depedency to jbayes.
 </dependency>
 ```
 
-For construction of a BBN and performing approximate inference, please read APPROXIMATE-INFERENCE.md.
+For construction of a BBN and performing approximate inference, please read [APPROXIMATE-INFERENCE.md](APPROXIMATE-INFERENCE.md).
 
-For construction of a BBN and performing exact inference, please read EXACT-INFERENCE.md.
+For construction of a BBN and performing exact inference, please read [EXACT-INFERENCE.md](EXACT-INFERENCE.md).
 
