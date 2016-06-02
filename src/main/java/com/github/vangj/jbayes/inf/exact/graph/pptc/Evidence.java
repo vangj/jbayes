@@ -58,7 +58,7 @@ public class Evidence {
 
   /**
    * Gets a map where keys are node's values and the values are likelihoods.
-   * @return
+   * @return Map.
    */
   public Map<String, Double> getValues() {
     return values;
