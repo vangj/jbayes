@@ -110,4 +110,21 @@ There are 3 types of evidences.
 * finding: each values is a 0 or 1 (at least one value is 1)
 * observation: only one value is 1 and all others are 0
 
-The most common type of evidence is an observation, where you have a variable set to one value.
+The most common type of evidence is an observation, where you have a variable set to one value. Note that observation evidence is just a special case of finding evidence. Here's how you would set virtual evidence.
+
+```
+joinTree.updateEvidence(Evidence.newBuilder()
+    .node(joinTree.node("a"))
+    .value("on", 0.3)
+    .value("off", 0.8)
+    .type(Evidence.Type.Virtual)
+    .build());
+```
+
+Every time you update evidence or unobserve evidence, this triggers the join tree to recompute the embedded join tree potentials. Depending on what you're doing, it is may be better to update evidences in batches. For example, if you have observations on two variables (nodes), update the evidence together, not one after another.
+
+Note, if you have virtual evidence and specify likelihood values outside the range [0, 1], these values will be normalized back to [0, 1].
+
+Note, if you have finding evidence and specify likelihood values that are not 0 or 1, then any value great than 0 will be made 1.
+
+Note, if you have observation evidence, then the max likelihood value will be converted to 1 and all others will be made 0.
