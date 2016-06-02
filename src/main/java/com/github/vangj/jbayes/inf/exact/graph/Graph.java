@@ -121,8 +121,8 @@ public class Graph {
     if(!edges.contains(edge)) {
       edges.add(edge);
 
-      List neigh1 = neighbors.get(edge.left.id);
-      List neigh2 = neighbors.get(edge.right.id);
+      List<Node> neigh1 = neighbors.get(edge.left.id);
+      List<Node> neigh2 = neighbors.get(edge.right.id);
 
       if(null == neigh1) {
         neigh1 = new ArrayList<>();

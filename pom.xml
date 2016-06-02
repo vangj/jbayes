@@ -73,6 +73,9 @@
         <configuration>
           <source>${java.version}</source>
           <target>${java.version}</target>
+          <compilerArgs>
+            -Xlint:unchecked
+          </compilerArgs>
         </configuration>
       </plugin>
       <plugin>
