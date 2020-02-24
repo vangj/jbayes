@@ -1,4 +1,5 @@
-#approximate inference
+# approximate inference
+
 The following code snippet shows how to create nodes, define parents of nodes, create the conditional probability tables (CPTs), create a graph (a graph in this case equates to a Bayesian Belief Network), and perform approximate inference on the graph.
 
 ```
