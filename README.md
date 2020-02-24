@@ -19,3 +19,7 @@ For construction of a BBN and performing approximate inference, please read [APP
 
 For construction of a BBN and performing exact inference, please read [EXACT-INFERENCE.md](EXACT-INFERENCE.md).
 
+## Maven Repositories
+
+* [Snapshots](https://oss.sonatype.org/content/repositories/snapshots/com/github/vangj/)
+* [Releases](https://mvnrepository.com/artifact/com.github.vangj/jbayes-inference)
