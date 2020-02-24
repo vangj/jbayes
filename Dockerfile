@@ -13,6 +13,7 @@ ENV MAVEN_URL http://apache.mirrors.ionfish.org/maven/maven-3/3.6.1/binaries/apa
 COPY . /jbayes
 RUN apt-get update \
     && apt-get upgrade -y \
+    && apt-get install wget -y \
     && wget -q ${MAVEN_URL} -O /tmp/maven.tar.gz \
     && tar xzvf /tmp/maven.tar.gz -C / \
     && ln -s /apache-maven-3.6.1 /maven
