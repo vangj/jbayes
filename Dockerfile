@@ -8,13 +8,12 @@ ENV OSSRH_USERNAME=$AOSSRH_USERNAME
 ENV OSSRH_PASSWORD=$AOSSRH_PASSWORD
 ENV GPG_PASSPHRASE=$AGPG_PASSPHRASE
 ENV APP_VERSION=$AAPP_VERSION
-ENV PATH /apache-maven-3.6.1/bin:$PATH
-ENV MAVEN_URL http://apache.mirrors.ionfish.org/maven/maven-3/3.6.1/binaries/apache-maven-3.6.1-bin.tar.gz
+ENV PATH /apache-maven-3.6.3/bin:$PATH
+ENV MAVEN_URL ftp://apache.cs.utah.edu/apache.org/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
 COPY . /jbayes
 RUN apt-get update \
     && apt-get upgrade -y \
-    && apt-get install wget -y \
     && wget -q ${MAVEN_URL} -O /tmp/maven.tar.gz \
     && tar xzvf /tmp/maven.tar.gz -C / \
-    && ln -s /apache-maven-3.6.1 /maven
+    && ln -s /apache-maven-3.6.3 /maven
 RUN /jbayes/publish.sh
