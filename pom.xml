@@ -215,7 +215,6 @@
         <activeByDefault>true</activeByDefault>
       </activation>
     </profile>
-    <!--
     <profile>
       <id>env-stg</id>
       <activation>
@@ -286,7 +285,6 @@
         </plugins>
       </build>
     </profile>
-    -->
   </profiles>
 
   <distributionManagement>
