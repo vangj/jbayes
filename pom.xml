@@ -216,7 +216,7 @@
       </activation>
     </profile>
     <profile>
-      <id>env-stg</id>
+      <id>stage</id>
       <activation>
         <activeByDefault>false</activeByDefault>
       </activation>
@@ -251,7 +251,7 @@
       </build>
     </profile>
     <profile>
-      <id>env-prd</id>
+      <id>release</id>
       <activation>
         <activeByDefault>false</activeByDefault>
       </activation>
