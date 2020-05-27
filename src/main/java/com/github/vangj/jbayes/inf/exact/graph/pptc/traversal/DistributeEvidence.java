@@ -5,14 +5,10 @@ import com.github.vangj.jbayes.inf.exact.graph.pptc.JoinTree;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.SepSet;
 
 public class DistributeEvidence {
-  public interface Listener {
-    void cliqueVisited(JoinTree joinTree, Clique x, SepSet s, Clique y);
-  }
 
-  private JoinTree joinTree;
-  private Clique startClique;
-  private Listener listener;
-
+  private final JoinTree joinTree;
+  private final Clique startClique;
+  private final Listener listener;
   public DistributeEvidence(JoinTree joinTree, Clique startClique, Listener listener) {
     this.joinTree = joinTree;
     this.startClique = startClique;
@@ -26,10 +22,10 @@ public class DistributeEvidence {
           .stream()
           .filter(clique -> !clique.isMarked())
           .forEach(y -> {
-            if(null != listener) {
-              listener.cliqueVisited(joinTree, startClique, (SepSet)sepSet, y);
+            if (null != listener) {
+              listener.cliqueVisited(joinTree, startClique, (SepSet) sepSet, y);
             }
-            walk(startClique, (SepSet)sepSet, y);
+            walk(startClique, (SepSet) sepSet, y);
           });
     });
   }
@@ -41,11 +37,16 @@ public class DistributeEvidence {
           .stream()
           .filter(clique -> !clique.isMarked())
           .forEach(clique -> {
-            if(null != listener) {
-              listener.cliqueVisited(joinTree, y, (SepSet)sepSet, clique);
+            if (null != listener) {
+              listener.cliqueVisited(joinTree, y, (SepSet) sepSet, clique);
             }
-            walk(y, (SepSet)sepSet, clique);
+            walk(y, (SepSet) sepSet, clique);
           });
     });
+  }
+
+  public interface Listener {
+
+    void cliqueVisited(JoinTree joinTree, Clique x, SepSet s, Clique y);
   }
 }

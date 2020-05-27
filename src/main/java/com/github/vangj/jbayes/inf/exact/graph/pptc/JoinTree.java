@@ -1,10 +1,12 @@
 package com.github.vangj.jbayes.inf.exact.graph.pptc;
 
+import static com.github.vangj.jbayes.inf.exact.graph.util.PotentialUtil.marginalizeFor;
+import static com.github.vangj.jbayes.inf.exact.graph.util.PotentialUtil.normalize;
+
 import com.github.vangj.jbayes.inf.exact.graph.Node;
 import com.github.vangj.jbayes.inf.exact.graph.lpd.Potential;
 import com.github.vangj.jbayes.inf.exact.graph.lpd.PotentialEntry;
 import com.github.vangj.jbayes.inf.exact.graph.util.NodeUtil;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -16,26 +18,17 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static com.github.vangj.jbayes.inf.exact.graph.util.PotentialUtil.marginalizeFor;
-import static com.github.vangj.jbayes.inf.exact.graph.util.PotentialUtil.normalize;
-
 /**
  * Join tree.
  */
 public class JoinTree {
-  public interface Listener {
-    void evidenceRetracted(JoinTree joinTree);
-    void evidenceUpdated(JoinTree joinTree);
-    void evidenceNoChange(JoinTree joinTree);
-  }
 
-  private Map<String, Clique> cliques;
-  private Map<String, Set<Clique>> neighbors;
-  private Set<Edge> edges;
-  private Map<String, Potential> potentials;
-  private Map<String, Map<String, Potential>> evidences;
+  private final Map<String, Clique> cliques;
+  private final Map<String, Set<Clique>> neighbors;
+  private final Set<Edge> edges;
+  private final Map<String, Potential> potentials;
+  private final Map<String, Map<String, Potential>> evidences;
   private Listener listener;
-
   public JoinTree() {
     this(new ArrayList<>());
   }
@@ -47,13 +40,14 @@ public class JoinTree {
     potentials = new LinkedHashMap<>();
     evidences = new HashMap<>();
 
-    for(Clique clique : cliques) {
+    for (Clique clique : cliques) {
       addClique(clique);
     }
   }
 
   /**
    * Sets the listener.
+   *
    * @param listener Listener.
    * @return Join tree.
    */
@@ -63,21 +57,22 @@ public class JoinTree {
   }
 
   /**
-   * Gets the evidence associated with the specified node and value. If none exists, will return
-   * a potential with likelihood of 1.0.
-   * @param node Node.
+   * Gets the evidence associated with the specified node and value. If none exists, will return a
+   * potential with likelihood of 1.0.
+   *
+   * @param node  Node.
    * @param value Value.
    * @return Potential.
    */
   public Potential getEvidencePotential(Node node, String value) {
     Map<String, Potential> nodeEvidences = evidences.get(node.getId());
-    if(null == nodeEvidences) {
+    if (null == nodeEvidences) {
       nodeEvidences = new HashMap<>();
       evidences.put(node.getId(), nodeEvidences);
     }
 
     Potential potential = nodeEvidences.get(value);
-    if(null == potential) {
+    if (null == potential) {
       potential = new Potential()
           .addEntry(new PotentialEntry().add(node.getId(), value).setValue(1.0d));
       nodeEvidences.put(value, potential);
@@ -88,6 +83,7 @@ public class JoinTree {
 
   /**
    * Gets the change type.
+   *
    * @param evidence Evidence.
    * @return Change type.
    */
@@ -99,8 +95,8 @@ public class JoinTree {
   }
 
   /**
-   * Gets the change type for the list of evidences. Precendence is
-   * retraction, update, then none.
+   * Gets the change type for the list of evidences. Precendence is retraction, update, then none.
+   *
    * @param evidences List of evidence.
    * @return Change type.
    */
@@ -108,17 +104,17 @@ public class JoinTree {
     List<Evidence.Change> changes = evidences.stream()
         .map(evidence -> getChangeType(evidence))
         .collect(Collectors.toList());
-    int count = (int)changes.stream()
+    int count = (int) changes.stream()
         .filter(change -> (Evidence.Change.Retraction == change))
         .count();
-    if(count > 0) {
+    if (count > 0) {
       return Evidence.Change.Retraction;
     }
 
-    count = (int)changes.stream()
+    count = (int) changes.stream()
         .filter(change -> (Evidence.Change.Update == change))
         .count();
-    if(count > 0) {
+    if (count > 0) {
       return Evidence.Change.Update;
     }
 
@@ -127,6 +123,7 @@ public class JoinTree {
 
   /**
    * Creates evidence where all likelihoods are set to 1 (unobserved).
+   *
    * @param node Node.
    * @return Evidence.
    */
@@ -140,6 +137,7 @@ public class JoinTree {
 
   /**
    * Unobserves the specified node.
+   *
    * @param node Node.
    * @return Join tree.
    */
@@ -150,6 +148,7 @@ public class JoinTree {
 
   /**
    * Unobserves the specified list of nodes.
+   *
    * @param nodes List of nodes.
    * @return Join tree.
    */
@@ -163,6 +162,7 @@ public class JoinTree {
 
   /**
    * Unobserves all nodes.
+   *
    * @return Join tree.
    */
   public JoinTree unobserveAll() {
@@ -172,6 +172,7 @@ public class JoinTree {
 
   /**
    * Update with a single evidence. Will trigger inference.
+   *
    * @param evidence Evidence.
    * @return Join tree.
    */
@@ -184,6 +185,7 @@ public class JoinTree {
 
   /**
    * Updates with a list of evidences. Will trigger inference.
+   *
    * @param evidences List of evidences.
    * @return Join tree.
    */
@@ -196,13 +198,14 @@ public class JoinTree {
 
   /**
    * Notifies the listener of evidence change.
+   *
    * @param change Change.
    */
   private void notifiyListener(Evidence.Change change) {
-    if(null != listener) {
-      if(Evidence.Change.Retraction == change) {
+    if (null != listener) {
+      if (Evidence.Change.Retraction == change) {
         listener.evidenceRetracted(this);
-      } else if(Evidence.Change.Update == change) {
+      } else if (Evidence.Change.Update == change) {
         listener.evidenceUpdated(this);
       } else {
         listener.evidenceNoChange(this);
@@ -222,11 +225,12 @@ public class JoinTree {
 
   /**
    * Gets the potential (holding the probabilities) for the specified node.
+   *
    * @param node Node.
    * @return Potential.
    */
   public Potential getPotential(Node node) {
-    Clique clique = (Clique)node.getMetadata("parent.clique");
+    Clique clique = (Clique) node.getMetadata("parent.clique");
     return normalize(marginalizeFor(this, clique, Arrays.asList(node)));
   }
 
@@ -239,6 +243,7 @@ public class JoinTree {
 
   /**
    * Gets the potential.
+   *
    * @return List of potential.
    */
   public List<Potential> potentials() {
@@ -247,19 +252,20 @@ public class JoinTree {
 
   /**
    * Gets all the cliques containing the specified node and its parents.
+   *
    * @param node Node.
    * @return List of cliques.
    */
   public List<Clique> cliquesContainingNodeAndParents(Node node) {
     return cliques().stream()
         .filter(clique -> {
-          if(!clique.contains(node.getId())) {
-            return  false;
+          if (!clique.contains(node.getId())) {
+            return false;
           }
-          List<Node> parents = (List<Node>)node.getMetadata("parents");
-          if(parents != null && parents.size() > 0) {
-            for(Node parent : parents) {
-              if(!clique.contains(parent.getId())) {
+          List<Node> parents = (List<Node>) node.getMetadata("parents");
+          if (parents != null && parents.size() > 0) {
+            for (Node parent : parents) {
+              if (!clique.contains(parent.getId())) {
                 return false;
               }
             }
@@ -271,6 +277,7 @@ public class JoinTree {
 
   /**
    * Gest all the nodes in this join tree.
+   *
    * @return Set of nodes.
    */
   public Set<Node> nodes() {
@@ -283,6 +290,7 @@ public class JoinTree {
 
   /**
    * Gets the node associated with the specified id.
+   *
    * @param id Id.
    * @return Node.
    */
@@ -294,6 +302,7 @@ public class JoinTree {
 
   /**
    * Gets the potential associated with the specified clique.
+   *
    * @param clique Clique.
    * @return Potential.
    */
@@ -303,7 +312,8 @@ public class JoinTree {
 
   /**
    * Adds potential associated with the specified clique.
-   * @param clique Clique.
+   *
+   * @param clique    Clique.
    * @param potential Potential.
    * @return Join tree.
    */
@@ -314,6 +324,7 @@ public class JoinTree {
 
   /**
    * Gets the neighbors of the specified clique.
+   *
    * @param clique Clique.
    * @return Set of neighbors. This includes cliques and separation sets.
    */
@@ -323,6 +334,7 @@ public class JoinTree {
 
   /**
    * Gets the clique that matches exactly to the specified nodes.
+   *
    * @param nodes Nodes.
    * @return Clique.
    */
@@ -333,17 +345,18 @@ public class JoinTree {
 
   /**
    * Gets the separation set that matches exactly to the specifed nodes.
+   *
    * @param nodes Nodes.
    * @return Separation set.
    */
   public SepSet sepSet(Node... nodes) {
     String id = NodeUtil.id(Arrays.asList(nodes), "|", "|");
-    return (SepSet)cliques.get(id);
+    return (SepSet) cliques.get(id);
   }
 
   /**
-   * Gets the neighbors of the clique that matches exactly with the
-   * specified nodes.
+   * Gets the neighbors of the clique that matches exactly with the specified nodes.
+   *
    * @param nodes Nodes.
    * @return Set of neighbors. This includes cliques and separation sets.
    */
@@ -354,6 +367,7 @@ public class JoinTree {
 
   /**
    * Gets all the cliques (cliques + separation sets).
+   *
    * @return Cliques.
    */
   public List<Clique> allCliques() {
@@ -362,6 +376,7 @@ public class JoinTree {
 
   /**
    * Gets the cliques (no separation sets).
+   *
    * @return Cliques.
    */
   public List<Clique> cliques() {
@@ -372,17 +387,19 @@ public class JoinTree {
 
   /**
    * Gets the separation sets.
+   *
    * @return Separation sets.
    */
   public List<SepSet> sepSets() {
     return cliques.values().stream()
         .filter(clique -> (clique instanceof SepSet))
-        .map(clique -> (SepSet)clique)
+        .map(clique -> (SepSet) clique)
         .collect(Collectors.toList());
   }
 
   /**
    * Gets the edges.
+   *
    * @return Edges.
    */
   public List<Edge> edges() {
@@ -391,12 +408,13 @@ public class JoinTree {
 
   /**
    * Adds a clique to the join tree if it doesn't exist already.
+   *
    * @param clique Clique.
    * @return Join tree.
    */
   public JoinTree addClique(Clique clique) {
     final String id = clique.id();
-    if(!cliques.containsKey(id)) {
+    if (!cliques.containsKey(id)) {
       cliques.put(id, clique);
     }
     return this;
@@ -404,12 +422,13 @@ public class JoinTree {
 
   /**
    * Adds the edge to the join tree if it doesn't exist already.
+   *
    * @param edge Edge.
    * @return Join tree.
    */
   public JoinTree addEdge(Edge edge) {
     addClique(edge.left).addClique(edge.right);
-    if(!edges.contains(edge)) {
+    if (!edges.contains(edge)) {
       edges.add(edge);
 
       final String id1 = edge.left.id();
@@ -418,23 +437,19 @@ public class JoinTree {
       Set<Clique> ne1 = neighbors.get(id1);
       Set<Clique> ne2 = neighbors.get(id2);
 
-      if(null == ne1) {
+      if (null == ne1) {
         ne1 = new LinkedHashSet<>();
         neighbors.put(id1, ne1);
       }
 
-      if(null == ne2) {
+      if (null == ne2) {
         ne2 = new LinkedHashSet<>();
         neighbors.put(id2, ne2);
       }
 
-      if(!ne1.contains(edge.right)) {
-        ne1.add(edge.right);
-      }
+      ne1.add(edge.right);
 
-      if(!ne2.contains(edge.left)) {
-        ne2.add(edge.left);
-      }
+      ne2.add(edge.left);
     }
     return this;
   }
@@ -466,5 +481,14 @@ public class JoinTree {
         .append(System.lineSeparator())
         .append(p)
         .toString();
+  }
+
+  public interface Listener {
+
+    void evidenceRetracted(JoinTree joinTree);
+
+    void evidenceUpdated(JoinTree joinTree);
+
+    void evidenceNoChange(JoinTree joinTree);
   }
 }

@@ -4,7 +4,6 @@ import com.github.vangj.jbayes.inf.exact.graph.Edge;
 import com.github.vangj.jbayes.inf.exact.graph.Node;
 import com.github.vangj.jbayes.inf.exact.graph.Ug;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.Clique;
-
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -12,39 +11,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * Step 2. Triangulates an undirected graph and in the process identifies the induced
- * cliques.
+ * Step 2. Triangulates an undirected graph and in the process identifies the induced cliques.
  */
 public class Triangulate {
-  private static class NodeClique {
-    private Node node;
-    private Set<Node> neighbors;
-    private int weight;
-    private List<Edge> edges;
-
-    public NodeClique(Node node, List<Node> neighbors, int weight, List<Edge> edges) {
-      this.node = node;
-      this.neighbors = new LinkedHashSet<>(neighbors);
-      this.weight = weight;
-      this.edges = edges;
-    }
-
-    @Override
-    public String toString() {
-      List<Node> nodes = new ArrayList<>();
-      nodes.add(node);
-      nodes.addAll(neighbors);
-
-      String ids = nodes.stream().map(Node::getId).collect(Collectors.joining(",","[","]"));
-      return (new StringBuilder())
-          .append(ids)
-          .append(" ")
-          .append(edges.size())
-          .append(" ")
-          .append(weight)
-          .toString();
-    }
-  }
 
   private Triangulate() {
 
@@ -52,13 +21,13 @@ public class Triangulate {
 
   public static List<Clique> triangulate(Ug m) {
     List<Clique> cliques = new ArrayList<>();
-    Ug mm = (Ug)m.duplicate();
-    while(mm.nodes().size() > 0) {
+    Ug mm = (Ug) m.duplicate();
+    while (mm.nodes().size() > 0) {
       NodeClique nodeClique = selectNode(mm);
 
       Clique clique = new Clique(nodeClique.node, mm.neighbors(nodeClique.node));
 
-      if(!isSubset(cliques, clique)) {
+      if (!isSubset(cliques, clique)) {
         cliques.add(clique);
       }
       mm.remove(nodeClique.node);
@@ -70,8 +39,8 @@ public class Triangulate {
   }
 
   private static boolean isSubset(List<Clique> cliques, Clique clique) {
-    for(Clique c : cliques) {
-      if(c.isSuperset(clique)) {
+    for (Clique c : cliques) {
+      if (c.isSuperset(clique)) {
         return true;
       }
     }
@@ -92,11 +61,11 @@ public class Triangulate {
           List<Edge> edges = edgesToAdd(node, m);
           return new NodeClique(node, m.neighbors(node), weight, edges);
         })
-        .sorted( (c1, c2) -> {
+        .sorted((c1, c2) -> {
           int result = Integer.compare(c1.edges.size(), c2.edges.size());
-          if(0 == result) {
+          if (0 == result) {
             result = Integer.compare(c1.weight, c2.weight);
-            if(0 == result) {
+            if (0 == result) {
               result = -1 * c1.node.getId().compareTo(c2.node.getId());
             }
           }
@@ -108,7 +77,7 @@ public class Triangulate {
 
   private static int weight(Node n, Ug m) {
     int weight = n.weight();
-    for(Node neighbor : m.neighbors(n)) {
+    for (Node neighbor : m.neighbors(n)) {
       weight *= neighbor.weight();
     }
     return weight;
@@ -118,15 +87,46 @@ public class Triangulate {
     List<Edge> edges = new ArrayList<>();
     List<Node> neighbors = m.neighbors(n);
     final int size = neighbors.size();
-    for(int i=0; i < size; i++) {
+    for (int i = 0; i < size; i++) {
       Node ne1 = neighbors.get(i);
-      for(int j=i+1; j < size; j++) {
+      for (int j = i + 1; j < size; j++) {
         Node ne2 = neighbors.get(j);
-        if(!m.edgeExists(ne1.getId(), ne2.getId())) {
+        if (!m.edgeExists(ne1.getId(), ne2.getId())) {
           edges.add(Edge.newBuilder().left(ne1).right(ne2).build());
         }
       }
     }
     return edges;
+  }
+
+  private static class NodeClique {
+
+    private final Node node;
+    private final Set<Node> neighbors;
+    private final int weight;
+    private final List<Edge> edges;
+
+    public NodeClique(Node node, List<Node> neighbors, int weight, List<Edge> edges) {
+      this.node = node;
+      this.neighbors = new LinkedHashSet<>(neighbors);
+      this.weight = weight;
+      this.edges = edges;
+    }
+
+    @Override
+    public String toString() {
+      List<Node> nodes = new ArrayList<>();
+      nodes.add(node);
+      nodes.addAll(neighbors);
+
+      String ids = nodes.stream().map(Node::getId).collect(Collectors.joining(",", "[", "]"));
+      return (new StringBuilder())
+          .append(ids)
+          .append(" ")
+          .append(edges.size())
+          .append(" ")
+          .append(weight)
+          .toString();
+    }
   }
 }

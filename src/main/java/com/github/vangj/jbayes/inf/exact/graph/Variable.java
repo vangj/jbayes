@@ -7,6 +7,7 @@ import java.util.Set;
  * Represents a discrete variable.
  */
 public class Variable {
+
   protected String id;
   protected String name;
   protected Set<String> values;
@@ -49,10 +50,10 @@ public class Variable {
 
   @Override
   public boolean equals(Object object) {
-    if(null == object || !(object instanceof Node)) {
+    if (null == object || !(object instanceof Node)) {
       return false;
     }
-    Node that = (Node)object;
+    Node that = (Node) object;
     return this.id.equals(that.id);
   }
 
@@ -62,6 +63,7 @@ public class Variable {
   }
 
   public static final class Builder {
+
     private String id;
     private String name;
     private Set<String> values;

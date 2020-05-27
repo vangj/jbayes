@@ -1,13 +1,13 @@
 package com.github.vangj.jbayes.inf.exact.graph.pptc.blocks;
 
+import static com.github.vangj.jbayes.inf.exact.graph.pptc.blocks.Initialization.initialization;
+import static com.github.vangj.jbayes.inf.exact.graph.pptc.blocks.Moralize.moralize;
+import static com.github.vangj.jbayes.inf.exact.graph.pptc.blocks.Propagation.propagate;
+import static com.github.vangj.jbayes.inf.exact.graph.pptc.blocks.Transform.transform;
+import static com.github.vangj.jbayes.inf.exact.graph.pptc.blocks.Triangulate.triangulate;
+
 import com.github.vangj.jbayes.inf.exact.graph.Dag;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.JoinTree;
-
-import static com.github.vangj.jbayes.inf.exact.graph.pptc.blocks.Initialization.*;
-import static com.github.vangj.jbayes.inf.exact.graph.pptc.blocks.Propagation.*;
-import static com.github.vangj.jbayes.inf.exact.graph.pptc.blocks.Moralize.*;
-import static com.github.vangj.jbayes.inf.exact.graph.pptc.blocks.Triangulate.*;
-import static com.github.vangj.jbayes.inf.exact.graph.pptc.blocks.Transform.*;
 
 /**
  * Controls inference based on evidence.
@@ -16,6 +16,7 @@ public class InferenceControl implements JoinTree.Listener {
 
   /**
    * Creates a join tree from a DAG with inference enabled.
+   *
    * @param dag DAG.
    * @return Join tree.
    */

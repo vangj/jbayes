@@ -4,14 +4,10 @@ package com.github.vangj.jbayes.inf.exact.graph;
  * An edge/arc in a graph. Can be used to represent undirected or directed edges.
  */
 public class Edge {
-  public enum Type {
-    DIRECTED, UNDIRECTED
-  }
 
   protected Node left;
   protected Node right;
   protected Type type = Type.UNDIRECTED;
-
   public Edge() {
 
   }
@@ -26,15 +22,25 @@ public class Edge {
     this.type = type;
   }
 
+  private Edge(Builder builder) {
+    left = builder.left;
+    right = builder.right;
+    type = builder.type;
+  }
+
+  public static Builder newBuilder() {
+    return new Builder();
+  }
+
   private Node smaller() {
-    if(left.id.compareTo(right.id) <= 0) {
+    if (left.id.compareTo(right.id) <= 0) {
       return left;
     }
     return right;
   }
 
   private Node bigger() {
-    if(left.id.compareTo(right.id) > 0) {
+    if (left.id.compareTo(right.id) > 0) {
       return left;
     }
     return right;
@@ -56,31 +62,21 @@ public class Edge {
 
   @Override
   public boolean equals(Object object) {
-    if(null == object || !(object instanceof Edge)) {
+    if (null == object || !(object instanceof Edge)) {
       return false;
     }
 
-    Edge that = (Edge)object;
-    if(this.type != that.type) {
+    Edge that = (Edge) object;
+    if (this.type != that.type) {
       return false;
     }
 
-    if(this.type == Type.UNDIRECTED) {
+    if (this.type == Type.UNDIRECTED) {
       return this.smaller().id.equals(that.smaller().id) &&
           this.bigger().id.equals(that.bigger().id);
     }
 
     return (this.left.id.equals(that.left.id) && this.right.id.equals(that.right.id));
-  }
-
-  private Edge(Builder builder) {
-    left = builder.left;
-    right = builder.right;
-    type = builder.type;
-  }
-
-  public static Builder newBuilder() {
-    return new Builder();
   }
 
   public Node getLeft() {
@@ -91,8 +87,12 @@ public class Edge {
     return right;
   }
 
+  public enum Type {
+    DIRECTED, UNDIRECTED
+  }
 
   public static final class Builder {
+
     private Node left;
     private Node right;
     private Type type = Type.UNDIRECTED;

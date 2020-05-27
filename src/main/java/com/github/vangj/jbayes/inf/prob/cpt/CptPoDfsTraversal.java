@@ -6,19 +6,13 @@ import com.github.vangj.jbayes.inf.prob.Cpt;
  * Post-order depth-first-search for CPT.
  */
 public class CptPoDfsTraversal {
-  /**
-   * Listener interface for when a CPT is visited.
-   */
-  public interface CptPoDfsTraversalListener {
-    void visited(Cpt cpt);
-  }
 
-  private Cpt cpt;
-  private CptPoDfsTraversalListener listener;
-
+  private final Cpt cpt;
+  private final CptPoDfsTraversalListener listener;
   /**
    * Constructor.
-   * @param cpt CPT.
+   *
+   * @param cpt      CPT.
    * @param listener Listener.
    */
   public CptPoDfsTraversal(Cpt cpt, CptPoDfsTraversalListener listener) {
@@ -34,11 +28,19 @@ public class CptPoDfsTraversal {
   }
 
   private void postOrder(Cpt cpt) {
-    for(Cpt children : cpt.getChildren()) {
+    for (Cpt children : cpt.getChildren()) {
       postOrder(children);
     }
-    if(null != listener) {
+    if (null != listener) {
       listener.visited(cpt);
     }
+  }
+
+  /**
+   * Listener interface for when a CPT is visited.
+   */
+  public interface CptPoDfsTraversalListener {
+
+    void visited(Cpt cpt);
   }
 }

@@ -1,22 +1,24 @@
 package com.github.vangj.jbayes.inf.exact.graph.pptc.blocks;
 
+import static com.github.vangj.jbayes.inf.exact.graph.pptc.blocks.SingleMessagePass.singleMessagePass;
+
 import com.github.vangj.jbayes.inf.exact.graph.pptc.Clique;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.JoinTree;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.traversal.CollectEvidence;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.traversal.DistributeEvidence;
 
-import static com.github.vangj.jbayes.inf.exact.graph.pptc.blocks.SingleMessagePass.singleMessagePass;
-
 /**
  * Step 5. Global propagation.
  */
 public class Propagation {
+
   private Propagation() {
 
   }
 
   /**
    * Performs global propagation on the join tree so that it can become consistent.
+   *
    * @param joinTree Join tree.
    * @return Join tree.
    */
@@ -34,8 +36,9 @@ public class Propagation {
 
   /**
    * Collect evidence phase.
+   *
    * @param joinTree Join tree.
-   * @param start Clique (the starting clique).
+   * @param start    Clique (the starting clique).
    */
   private static void collectEvidence(JoinTree joinTree, Clique start) {
     CollectEvidence.Listener listener =
@@ -46,8 +49,9 @@ public class Propagation {
 
   /**
    * Distribute evidence phase.
+   *
    * @param joinTree Join tree.
-   * @param start Clique (the starting clique).
+   * @param start    Clique (the starting clique).
    */
   private static void distributeEvidence(JoinTree joinTree, Clique start) {
     DistributeEvidence.Listener listener =

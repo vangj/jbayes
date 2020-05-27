@@ -4,6 +4,7 @@ package com.github.vangj.jbayes.inf.exact.graph.pptc;
  * Edge in join tree.
  */
 public class Edge {
+
   protected Clique left;
   protected Clique right;
 
@@ -28,15 +29,16 @@ public class Edge {
 
   @Override
   public boolean equals(Object object) {
-    if(null == object || !(object instanceof Edge)) {
+    if (null == object || !(object instanceof Edge)) {
       return false;
     }
-    Edge that = (Edge)object;
+    Edge that = (Edge) object;
     return this.hashCode() == that.hashCode();
   }
 
   /**
    * Gets the left clique.
+   *
    * @return Clique.
    */
   public Clique left() {
@@ -45,6 +47,7 @@ public class Edge {
 
   /**
    * Gets the right clique.
+   *
    * @return Clique.
    */
   public Clique right() {
@@ -53,10 +56,11 @@ public class Edge {
 
   /**
    * Gets the clique with a smaller id.
+   *
    * @return Clique.
    */
   private Clique smaller() {
-    if(left.id().compareTo(right.id()) <= 0) {
+    if (left.id().compareTo(right.id()) <= 0) {
       return left;
     }
     return right;
@@ -64,10 +68,11 @@ public class Edge {
 
   /**
    * Gets the clique with a larger id.
+   *
    * @return Clique.
    */
   private Clique bigger() {
-    if(left.id().compareTo(right.id()) > 0) {
+    if (left.id().compareTo(right.id()) > 0) {
       return left;
     }
     return right;

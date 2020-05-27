@@ -5,7 +5,6 @@ import com.github.vangj.jbayes.inf.exact.graph.lpd.Potential;
 import com.github.vangj.jbayes.inf.exact.graph.lpd.PotentialEntry;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.Clique;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.JoinTree;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -16,16 +15,18 @@ import java.util.stream.Collectors;
  * Potential util.
  */
 public class PotentialUtil {
+
   private PotentialUtil() {
 
   }
 
   /**
-   * Marginalizes the potential (associated with the specified clique) over the specified list of nodes.
-   * In words, marginalize out the specified list of nodes.
+   * Marginalizes the potential (associated with the specified clique) over the specified list of
+   * nodes. In words, marginalize out the specified list of nodes.
+   *
    * @param joinTree Join tree.
-   * @param clique Clique.
-   * @param nodes List of nodes.
+   * @param clique   Clique.
+   * @param nodes    List of nodes.
    * @return Potential.
    */
   public static Potential marginalizeOut(JoinTree joinTree, Clique clique, List<Node> nodes) {
@@ -35,7 +36,7 @@ public class PotentialUtil {
     potential.entries().forEach(entry -> {
       List<PotentialEntry> matchedEntries = cliquePotential.match(entry);
       double t = 0.0;
-      for(PotentialEntry matchedEntry : matchedEntries) {
+      for (PotentialEntry matchedEntry : matchedEntries) {
         t += matchedEntry.getValue();
       }
       entry.setValue(t);
@@ -45,11 +46,12 @@ public class PotentialUtil {
   }
 
   /**
-   * Marginalizes the potential (associated with the specified clique) for the specified list of nodes.
-   * In words, marginalize for the specified list of nodes (removing other nodes).
+   * Marginalizes the potential (associated with the specified clique) for the specified list of
+   * nodes. In words, marginalize for the specified list of nodes (removing other nodes).
+   *
    * @param joinTree Join tree.
-   * @param clique Clique.
-   * @param nodes List of nodes.
+   * @param clique   Clique.
+   * @param nodes    List of nodes.
    * @return Potential.
    */
   public static Potential marginalizeFor(JoinTree joinTree, Clique clique, List<Node> nodes) {
@@ -59,7 +61,7 @@ public class PotentialUtil {
     potential.entries().forEach(entry -> {
       List<PotentialEntry> matchedEntries = cliquePotential.match(entry);
       double t = 0.0;
-      for(PotentialEntry matchedEntry : matchedEntries) {
+      for (PotentialEntry matchedEntry : matchedEntries) {
         t += matchedEntry.getValue();
       }
       entry.setValue(t);
@@ -70,16 +72,17 @@ public class PotentialUtil {
 
   /**
    * Normalizes the entry values for the specified potentials so they sum to 1.
+   *
    * @param potential Potential.
    * @return Potential.
    */
   public static Potential normalize(Potential potential) {
     double sum = 0.0d;
-    for(PotentialEntry entry : potential.entries()) {
+    for (PotentialEntry entry : potential.entries()) {
       sum += entry.getValue();
     }
 
-    for(PotentialEntry entry : potential.entries()) {
+    for (PotentialEntry entry : potential.entries()) {
       double d = entry.getValue() / sum;
       entry.setValue(d);
     }
@@ -89,7 +92,8 @@ public class PotentialUtil {
 
   /**
    * Divides two potentials. The potentials must have identical entries.
-   * @param numerator Potential.
+   *
+   * @param numerator   Potential.
    * @param denominator Potential.
    * @return Potential.
    */
@@ -97,9 +101,10 @@ public class PotentialUtil {
     Potential potential = new Potential();
     numerator.entries().forEach(entry -> {
       List<PotentialEntry> entries = denominator.match(entry);
-      if(null != entries && entries.size() > 0) {
+      if (null != entries && entries.size() > 0) {
         PotentialEntry e = entries.get(0);
-        double d = (isZero(entry.getValue()) || isZero(e.getValue())) ? 0.0d : entry.getValue() / e.getValue();
+        double d = (isZero(entry.getValue()) || isZero(e.getValue())) ? 0.0d
+            : entry.getValue() / e.getValue();
         potential.addEntry(entry.duplicate().setValue(d));
       }
     });
@@ -111,9 +116,10 @@ public class PotentialUtil {
   }
 
   /**
-   * Multiplies the two potentials. NOTE: order is important. The first potential
-   * must subsume the smaller potential.
-   * @param bigger Potential.
+   * Multiplies the two potentials. NOTE: order is important. The first potential must subsume the
+   * smaller potential.
+   *
+   * @param bigger  Potential.
    * @param smaller Potential.
    */
   public static void multiply(Potential bigger, Potential smaller) {
@@ -129,6 +135,7 @@ public class PotentialUtil {
 
   /**
    * Makes a string from the map.
+   *
    * @param entries Map.
    * @return String.
    */
@@ -139,11 +146,12 @@ public class PotentialUtil {
             .append('=')
             .append(entry.getValue())
             .toString())
-        .collect(Collectors.joining(",", "[" , "]"));
+        .collect(Collectors.joining(",", "[", "]"));
   }
 
   /**
    * Creates a new map sorted by the id of the specified map.
+   *
    * @param map Map.
    * @return Map sorted by id.
    */
@@ -159,10 +167,10 @@ public class PotentialUtil {
   }
 
   /**
-   * Creates a potential from the node and its parents. If
-   * the specified node has any conditional probabilities, the potential
-   * entries will be set to them.
-   * @param node Node.
+   * Creates a potential from the node and its parents. If the specified node has any conditional
+   * probabilities, the potential entries will be set to them.
+   *
+   * @param node    Node.
    * @param parents Parent nodes.
    * @return Potential.
    */
@@ -170,7 +178,7 @@ public class PotentialUtil {
     Potential potential = getPotential(merge(node, parents));
 
     final int total = Math.min(node.probs().size(), potential.entries().size());
-    for(int i=0; i < total; i++) {
+    for (int i = 0; i < total; i++) {
       Double prob = node.probs().get(i);
       potential.entries().get(i).setValue(prob);
     }
@@ -179,8 +187,8 @@ public class PotentialUtil {
   }
 
   /**
-   * Creates a potential from the specified list of nodes. All probabilities
-   * are initialized to 1.
+   * Creates a potential from the specified list of nodes. All probabilities are initialized to 1.
+   *
    * @param nodes List of nodes.
    * @return Potential.
    */
@@ -195,7 +203,7 @@ public class PotentialUtil {
     Potential potential = new Potential();
     cartesian.forEach(values -> {
       PotentialEntry entry = new PotentialEntry();
-      for(int i=0; i < size; i++) {
+      for (int i = 0; i < size; i++) {
         String value = values.get(i);
         String id = nodes.get(i).getId();
         entry.add(id, value);
@@ -208,8 +216,9 @@ public class PotentialUtil {
 
   /**
    * Creates cartesian product between the list of lists.
+   *
    * @param lists List of lists.
-   * @param <T> Type.
+   * @param <T>   Type.
    * @return List of lists representing cartesian product.
    */
   public static <T> List<List<T>> cartesian(List<List<T>> lists) {

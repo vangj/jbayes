@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.github.vangj.jbayes.inf.prob.util.CptUtil;
 import com.github.vangj.jbayes.inf.prob.util.RandomUtil;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +21,7 @@ public class Node {
   @JsonIgnore
   private int value = -1;
   @JsonIgnore
-  private List<Node> parents;
+  private final List<Node> parents;
   @JsonIgnore
   private boolean observed = false;
   @JsonIgnore
@@ -43,8 +42,25 @@ public class Node {
     this.parents = b.parents;
   }
 
+  /**
+   * Gets a new Builder instance.
+   *
+   * @return Builder.
+   */
+  public static Builder newBuilder() {
+    return new Builder();
+  }
+
   public Cpt getCpt() {
     return cpt;
+  }
+
+  public void setCpt(Cpt cpt) {
+    this.cpt = cpt;
+  }
+
+  public void setCpt(double[][] probs) {
+    cpt = CptUtil.build(this, probs);
   }
 
   public List<String> getValues() {
@@ -55,8 +71,16 @@ public class Node {
     return value;
   }
 
+  public void setValue(int value) {
+    this.value = value;
+  }
+
   public boolean isWasSampled() {
     return wasSampled;
+  }
+
+  public void setWasSampled(boolean wasSampled) {
+    this.wasSampled = wasSampled;
   }
 
   public List<Double> getSampledLw() {
@@ -69,12 +93,12 @@ public class Node {
   }
 
   public void resetSampledLw() {
-    if(null == sampledLw || 0 == sampledLw.size()) {
+    if (null == sampledLw || 0 == sampledLw.size()) {
       return;
     }
 
     final int size = sampledLw.size();
-    for(int i=0; i < size; i++) {
+    for (int i = 0; i < size; i++) {
       sampledLw.set(i, 0.0d);
     }
   }
@@ -92,9 +116,9 @@ public class Node {
   private int valueIndex(String value) {
     int index = -1;
     final int size = values.size();
-    for(int i=0; i < size; i++) {
+    for (int i = 0; i < size; i++) {
       String v = values.get(i);
-      if(value.equals(v)) {
+      if (value.equals(v)) {
         index = i;
         break;
       }
@@ -106,24 +130,8 @@ public class Node {
     return name;
   }
 
-  public void setWasSampled(boolean wasSampled) {
-    this.wasSampled = wasSampled;
-  }
-
-  public void setValue(int value) {
-    this.value = value;
-  }
-
   public boolean isObserved() {
     return observed;
-  }
-
-  public void setCpt(Cpt cpt) {
-    this.cpt = cpt;
-  }
-
-  public void setCpt(double[][] probs) {
-    cpt = CptUtil.build(this, probs);
   }
 
   public List<Node> getParents() {
@@ -147,7 +155,7 @@ public class Node {
   }
 
   public Node addParent(Node pa) {
-    if(!parents.contains(pa)) {
+    if (!parents.contains(pa)) {
       parents.add(pa);
     }
     return this;
@@ -155,17 +163,18 @@ public class Node {
 
   /**
    * Converts the sampled values to probabilities.
+   *
    * @return Marginal probabilities.
    */
   public double[] probs() {
     double sum = 0.0d;
-    for(double lw : sampledLw) {
+    for (double lw : sampledLw) {
       sum += lw;
     }
 
     final int size = sampledLw.size();
     double[] probs = new double[size];
-    for(int i=0; i < size; i++) {
+    for (int i = 0; i < size; i++) {
       probs[i] = sampledLw.get(i) / sum;
     }
 
@@ -173,12 +182,12 @@ public class Node {
   }
 
   public double sampleLw() {
-    if(wasSampled) {
+    if (wasSampled) {
       return 1;
     }
 
     double fa = 1.0d;
-    for(Node pa : parents) {
+    for (Node pa : parents) {
       fa *= pa.sampleLw();
     }
 
@@ -186,19 +195,19 @@ public class Node {
 
     final int numParents = parents.size();
     Cpt dh = cpt;
-    for(int i=0; i < numParents; i++) {
+    for (int i = 0; i < numParents; i++) {
       int v = parents.get(i).value;
       dh = dh.get(v);
     }
 
-    if(value != -1) {
+    if (value != -1) {
       fa *= dh.getValue(value);
     } else {
       double fv = RandomUtil.nextDouble();
       final int dhSize = dh.numOfValues();
-      for(int h=0; h < dhSize; h++) {
+      for (int h = 0; h < dhSize; h++) {
         fv -= dh.getValue(h);
-        if(fv < 0.0d) {
+        if (fv < 0.0d) {
           value = h;
           break;
         }
@@ -209,12 +218,12 @@ public class Node {
   }
 
   public void saveSampleLw(double f) {
-    if(null == sampledLw) {
+    if (null == sampledLw) {
       sampledLw = new ArrayList<>(values.size());
     }
 
-    if(0 == sampledLw.size()) {
-      for(String v : values) {
+    if (0 == sampledLw.size()) {
+      for (String v : values) {
         sampledLw.add(0.0d);
       }
     }
@@ -224,20 +233,13 @@ public class Node {
   }
 
   /**
-   * Gets a new Builder instance.
-   * @return Builder.
-   */
-  public static Builder newBuilder() {
-    return new Builder();
-  }
-
-  /**
    * Builder for Node.
    */
   public static final class Builder {
+
     private String name;
-    private List<String> values = new ArrayList<>();
-    private List<Node> parents = new ArrayList<>();
+    private final List<String> values = new ArrayList<>();
+    private final List<Node> parents = new ArrayList<>();
 
     public Builder name(String name) {
       this.name = name;

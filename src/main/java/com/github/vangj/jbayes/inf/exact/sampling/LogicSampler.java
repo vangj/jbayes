@@ -13,7 +13,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class LogicSampler {
-  private Dag dag;
+
+  private final Dag dag;
   private List<String> nodes;
   private Map<String, Table> tables;
 
@@ -61,7 +62,8 @@ public class LogicSampler {
     }
   }
 
-  public List<Map<String, String>> getSamples(Map<String, String> evidence, final int nSamples, final int seed) {
+  public List<Map<String, String>> getSamples(Map<String, String> evidence, final int nSamples,
+      final int seed) {
     List<Map<String, String>> samples = new ArrayList<>();
     final Random random = new Random(seed);
     final int n = this.nodes.size();

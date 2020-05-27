@@ -1,8 +1,9 @@
 package com.github.vangj.jbayes.inf.exact.graph;
 
+import static com.github.vangj.jbayes.inf.exact.graph.util.PotentialUtil.getPotential;
+
 import com.github.vangj.jbayes.inf.exact.graph.lpd.Potential;
 import com.github.vangj.jbayes.inf.exact.graph.traversal.DagShortestPath;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -10,12 +11,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static com.github.vangj.jbayes.inf.exact.graph.util.PotentialUtil.getPotential;
-
 /**
  * A directed acylic graph (DAG).
  */
 public class Dag extends Graph {
+
   protected Map<String, List<Node>> parents;
   protected Map<String, List<Node>> children;
 
@@ -26,6 +26,7 @@ public class Dag extends Graph {
 
   /**
    * Initializes the potential for each node.
+   *
    * @return Dag.
    */
   public Dag initializePotentials() {
@@ -45,7 +46,7 @@ public class Dag extends Graph {
   public Graph addEdge(Edge edge) {
     edge.type = Edge.Type.DIRECTED;
 
-    if(DagShortestPath.exists(this, edge.right, edge.left, null)) {
+    if (DagShortestPath.exists(this, edge.right, edge.left, null)) {
       //if right -> -> -> left path alrady exists
       //then adding left -> right will form cycle!
       //do not add it
@@ -57,12 +58,12 @@ public class Dag extends Graph {
     Node n2 = edge.right;
 
     List<Node> parents = parents(n2);
-    if(!parents.contains(n1)) {
+    if (!parents.contains(n1)) {
       parents.add(n1);
     }
 
     List<Node> children = children(n1);
-    if(!children.contains(n2)) {
+    if (!children.contains(n2)) {
       children.add(n2);
     }
     return this;
@@ -70,12 +71,13 @@ public class Dag extends Graph {
 
   /**
    * Gets the parent of the specified node.
+   *
    * @param node Node.
    * @return List of parents.
    */
   public List<Node> parents(Node node) {
     List<Node> parents = this.parents.get(node.id);
-    if(null == parents) {
+    if (null == parents) {
       parents = new ArrayList<>();
       this.parents.put(node.id, parents);
     }
@@ -84,12 +86,13 @@ public class Dag extends Graph {
 
   /**
    * Gets the children of the specified node.
+   *
    * @param node Node.
    * @return List of children.
    */
   public List<Node> children(Node node) {
     List<Node> children = this.children.get(node.id);
-    if(null == children) {
+    if (null == children) {
       children = new ArrayList<>();
       this.children.put(node.id, children);
     }
@@ -97,8 +100,9 @@ public class Dag extends Graph {
   }
 
   /**
-   * Gets the coparents of the specified node. Coparents are parents of the
-   * specified node's children.
+   * Gets the coparents of the specified node. Coparents are parents of the specified node's
+   * children.
+   *
    * @param node Node.
    * @return List of coparents.
    */
@@ -112,8 +116,9 @@ public class Dag extends Graph {
   }
 
   /**
-   * Gets the Markov blanket for the specified node. The Markov blanket
-   * is specified as the union of parents, children, and coparents.
+   * Gets the Markov blanket for the specified node. The Markov blanket is specified as the union of
+   * parents, children, and coparents.
+   *
    * @param node Node.
    * @return List of nodes in the Markov blanket.
    */

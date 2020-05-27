@@ -1,7 +1,6 @@
 package com.github.vangj.jbayes.inf.exact.graph;
 
 import com.github.vangj.jbayes.inf.exact.graph.lpd.Potential;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
@@ -14,7 +13,8 @@ import java.util.stream.Collectors;
  * A node in a graph.
  */
 public class Node extends Variable {
-  private List<Double> probs;
+
+  private final List<Double> probs;
   private List<String> valueList;
   private Potential potential;
   private Map<String, Object> metadata;
@@ -43,8 +43,13 @@ public class Node extends Variable {
         .collect(Collectors.toList());
   }
 
+  public static NodeBuilder builder() {
+    return new NodeBuilder();
+  }
+
   /**
    * Adds any metadata.
+   *
    * @param k Key.
    * @param v Value.
    */
@@ -54,6 +59,7 @@ public class Node extends Variable {
 
   /**
    * Gets the metadata associated with the specified key.
+   *
    * @param k Key.
    * @return Value.
    */
@@ -61,12 +67,12 @@ public class Node extends Variable {
     return metadata.get(k);
   }
 
-  public void setPotential(Potential potential) {
-    this.potential = potential;
-  }
-
   public Potential getPotential() {
     return potential;
+  }
+
+  public void setPotential(Potential potential) {
+    this.potential = potential;
   }
 
   public Node addProb(Double prob) {
@@ -86,12 +92,8 @@ public class Node extends Variable {
     return valueList;
   }
 
-  public static NodeBuilder builder() {
-    return new NodeBuilder();
-  }
-
-
   public static final class NodeBuilder {
+
     private String id;
     private String name;
     private Set<String> values;
@@ -120,9 +122,7 @@ public class Node extends Variable {
     }
 
     public NodeBuilder value(String val) {
-      if(!values.contains(val)) {
-        values.add(val);
-      }
+      values.add(val);
       return this;
     }
 

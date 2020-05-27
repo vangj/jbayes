@@ -2,7 +2,6 @@ package com.github.vangj.jbayes.inf.exact.graph.traversal;
 
 import com.github.vangj.jbayes.inf.exact.graph.Graph;
 import com.github.vangj.jbayes.inf.exact.graph.Node;
-
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -28,12 +27,12 @@ public class GraphShortestPath {
   }
 
   private boolean search() {
-    if(null != listener) {
+    if (null != listener) {
       listener.pre(graph, start, stop);
     }
 
-    if(start.equals(stop)) {
-      if(null != listener) {
+    if (start.equals(stop)) {
+      if (null != listener) {
         listener.post(graph, start, stop);
       }
       return false;
@@ -41,7 +40,7 @@ public class GraphShortestPath {
 
     boolean result = search(start);
 
-    if(null != listener) {
+    if (null != listener) {
       listener.post(graph, start, stop);
     }
 
@@ -49,22 +48,22 @@ public class GraphShortestPath {
   }
 
   private boolean search(Node node) {
-    if(null != listener) {
+    if (null != listener) {
       listener.visited(node);
     }
 
     List<Node> neighbors = graph.neighbors(node);
-    if(null == neighbors || neighbors.size() == 0) {
+    if (null == neighbors || neighbors.size() == 0) {
       return false;
     }
 
-    if(neighbors.contains(stop)) {
+    if (neighbors.contains(stop)) {
       return true;
     } else {
       seen.add(node);
-      for(Node neighbor : neighbors) {
-        if(!seen.contains(neighbor)) {
-          if(search(neighbor)) {
+      for (Node neighbor : neighbors) {
+        if (!seen.contains(neighbor)) {
+          if (search(neighbor)) {
             return true;
           }
         }

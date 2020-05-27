@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.github.vangj.jbayes.inf.prob.Graph;
 import com.github.vangj.jbayes.inf.prob.Node;
 import com.github.vangj.jbayes.inf.prob.util.CptUtil;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -57,11 +56,12 @@ public class JsonGraph {
 
   /**
    * Converts JsonGraph to Graph.
+   *
    * @return Graph.
    */
   public Graph toGraph() {
     nodes.forEach((name, node) -> {
-      if(parents.containsKey(name)) {
+      if (parents.containsKey(name)) {
         parents.get(name).forEach(paName -> node.addParent(nodes.get(paName)));
       }
       node.setCpt(cpts.get(name));

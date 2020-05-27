@@ -1,10 +1,8 @@
 package com.github.vangj.jbayes.inf.prob;
 
 
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,13 +12,29 @@ import java.util.List;
 @JsonInclude(content = JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Cpt {
+
   private int index = -1;
   private List<Double> values;
-  private List<Cpt> children;
+  private final List<Cpt> children;
 
   public Cpt() {
     values = new ArrayList<>();
     children = new ArrayList<>();
+  }
+
+  private Cpt(Builder builder) {
+    index = builder.index;
+    values = builder.values;
+    children = builder.children;
+  }
+
+  /**
+   * Gets a new Builder instance.
+   *
+   * @return Builder.
+   */
+  public static Builder newBuilder() {
+    return new Builder();
   }
 
   public int getIndex() {
@@ -31,12 +45,12 @@ public class Cpt {
     return values;
   }
 
-  public List<Cpt> getChildren() {
-    return children;
-  }
-
   public void setValues(List<Double> values) {
     this.values = values;
+  }
+
+  public List<Cpt> getChildren() {
+    return children;
   }
 
   public int numOfChildren() {
@@ -59,24 +73,11 @@ public class Cpt {
     return children.get(index);
   }
 
-  private Cpt(Builder builder) {
-    index = builder.index;
-    values = builder.values;
-    children = builder.children;
-  }
-
-  /**
-   * Gets a new Builder instance.
-   * @return Builder.
-   */
-  public static Builder newBuilder() {
-    return new Builder();
-  }
-
   /**
    * Builder class for Cpt.
    */
   public static final class Builder {
+
     private int index = -1;
     private List<Double> values = new ArrayList<>();
     private List<Cpt> children = new ArrayList<>();

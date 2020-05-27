@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
  * A generic graph.
  */
 public class Graph {
+
   protected Map<String, List<Node>> neighbors;
   protected Map<String, Node> nodes;
   protected List<Edge> edges;
@@ -27,9 +28,9 @@ public class Graph {
     neighbors.forEach((k, v) -> {
       v.remove(node);
     });
-    for(Iterator<Edge> it = edges.iterator(); it.hasNext(); ) {
+    for (Iterator<Edge> it = edges.iterator(); it.hasNext(); ) {
       Edge edge = it.next();
-      if(node.id.equalsIgnoreCase(edge.left.id) || node.id.equalsIgnoreCase(edge.right.id)) {
+      if (node.id.equalsIgnoreCase(edge.left.id) || node.id.equalsIgnoreCase(edge.right.id)) {
         it.remove();
       }
     }
@@ -47,7 +48,7 @@ public class Graph {
   }
 
   public Graph addNode(Node node) {
-    if(nodes.containsKey(node.id)) {
+    if (nodes.containsKey(node.id)) {
       return this;
     }
     nodes.put(node.id, node);
@@ -72,7 +73,7 @@ public class Graph {
 
   public List<Node> neighbors(String id) {
     List<Node> list = neighbors.get(id);
-    if(null == list) {
+    if (null == list) {
       list = new ArrayList<>();
       neighbors.put(id, list);
     }
@@ -85,26 +86,19 @@ public class Graph {
 
   public boolean edgeExists(String id1, String id2, Edge.Type type) {
     return edges().stream().filter(edge -> {
-      if(!type.equals(edge.type)) {
+      if (!type.equals(edge.type)) {
         return false;
       }
 
       String left = edge.left.id;
       String right = edge.right.id;
 
-      if(Edge.Type.UNDIRECTED.equals(type)) {
-        if((left.equalsIgnoreCase(id1) && right.equalsIgnoreCase(id2)) ||
-            (left.equalsIgnoreCase(id2) && right.equalsIgnoreCase(id1))) {
-          return true;
-        }
+      if (Edge.Type.UNDIRECTED.equals(type)) {
+        return (left.equalsIgnoreCase(id1) && right.equalsIgnoreCase(id2)) ||
+            (left.equalsIgnoreCase(id2) && right.equalsIgnoreCase(id1));
       } else {
-        if(left.equalsIgnoreCase(id1) && right.equalsIgnoreCase(id2)) {
-          return true;
-        }
+        return left.equalsIgnoreCase(id1) && right.equalsIgnoreCase(id2);
       }
-
-
-      return false;
     }).count() > 0;
   }
 
@@ -118,27 +112,27 @@ public class Graph {
 
   public Graph addEdge(Edge edge) {
     addNode(edge.left).addNode(edge.right);
-    if(!edges.contains(edge)) {
+    if (!edges.contains(edge)) {
       edges.add(edge);
 
       List<Node> neigh1 = neighbors.get(edge.left.id);
       List<Node> neigh2 = neighbors.get(edge.right.id);
 
-      if(null == neigh1) {
+      if (null == neigh1) {
         neigh1 = new ArrayList<>();
         neighbors.put(edge.left.id, neigh1);
       }
 
-      if(null == neigh2) {
+      if (null == neigh2) {
         neigh2 = new ArrayList<>();
         neighbors.put(edge.right.id, neigh2);
       }
 
-      if(!neigh1.contains(edge.right)) {
+      if (!neigh1.contains(edge.right)) {
         neigh1.add(edge.right);
       }
 
-      if(!neigh2.contains(edge.left)) {
+      if (!neigh2.contains(edge.left)) {
         neigh2.add(edge.left);
       }
     }
@@ -148,12 +142,12 @@ public class Graph {
   @Override
   public String toString() {
     return (new StringBuilder())
-      .append(String.join(
-          System.lineSeparator(),
-          nodes().stream().map(Node::toString).collect(Collectors.toList())))
-      .append(System.lineSeparator())
-      .append(String.join(System.lineSeparator(),
-          edges().stream().map(Edge::toString).collect(Collectors.toList())))
-      .toString();
+        .append(String.join(
+            System.lineSeparator(),
+            nodes().stream().map(Node::toString).collect(Collectors.toList())))
+        .append(System.lineSeparator())
+        .append(String.join(System.lineSeparator(),
+            edges().stream().map(Edge::toString).collect(Collectors.toList())))
+        .toString();
   }
 }

@@ -4,7 +4,6 @@ import static java.util.Arrays.asList;
 import static java.util.Optional.of;
 
 import com.github.vangj.jbayes.inf.exact.graph.Node;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -14,12 +13,14 @@ import java.util.stream.Collectors;
  * Node util.
  */
 public class NodeUtil {
+
   private NodeUtil() {
 
   }
 
   /**
    * Gets the string id composed of the specified nodes.
+   *
    * @param nodes List of nodes.
    * @return Id.
    */
@@ -29,7 +30,8 @@ public class NodeUtil {
 
   /**
    * Gets the string id composed of the specified nodes.
-   * @param nodes List of nodes.
+   *
+   * @param nodes  List of nodes.
    * @param prefix Prefix. e.g. [
    * @param suffix Suffix. e.g. ]
    * @return Id.
@@ -42,6 +44,7 @@ public class NodeUtil {
 
   /**
    * Sorts the nodes according to id.
+   *
    * @param nodes List of nodes.
    * @return Sorted list of nodes.
    */
@@ -53,6 +56,7 @@ public class NodeUtil {
 
   /**
    * Generates the cartesian product of a list of lists.
+   *
    * @param lists List.
    * @return List of lists.
    */
@@ -70,14 +74,16 @@ public class NodeUtil {
 
   private static <A, B> List<?> product(List<A> a, List<B> b) {
     return of(a.stream()
-        .map(e1 -> of(b.stream().map(e2 -> asList(e1, e2)).collect(Collectors.toList())).orElse(Collections.emptyList()))
+        .map(e1 -> of(b.stream().map(e2 -> asList(e1, e2)).collect(Collectors.toList()))
+            .orElse(Collections.emptyList()))
         .flatMap(List::stream)
         .collect(Collectors.toList())).orElse(Collections.emptyList());
   }
 
   /**
    * Groups a list into sub-lists of size n.
-   * @param n Size of each list.
+   *
+   * @param n    Size of each list.
    * @param list List to group.
    * @return List of lists.
    */
@@ -106,9 +112,12 @@ public class NodeUtil {
 
   private static int bisect_right(List<Double> A, double x, int lo, int hi) {
     while (lo < hi) {
-      int mid = (lo+hi)/2;
-      if (x < A.get(mid)) hi = mid;
-      else lo = mid+1;
+      int mid = (lo + hi) / 2;
+      if (x < A.get(mid)) {
+        hi = mid;
+      } else {
+        lo = mid + 1;
+      }
     }
     return lo;
   }

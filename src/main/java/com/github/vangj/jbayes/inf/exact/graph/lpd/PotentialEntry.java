@@ -1,16 +1,17 @@
 package com.github.vangj.jbayes.inf.exact.graph.lpd;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import static com.github.vangj.jbayes.inf.exact.graph.util.PotentialUtil.asString;
 import static com.github.vangj.jbayes.inf.exact.graph.util.PotentialUtil.sortByKeys;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * An entry of a potential. If it helps, think of a potential entry as a table row.
  */
 public class PotentialEntry {
-  private Map<String, String> entries;
+
+  private final Map<String, String> entries;
   private Double value;
 
   public PotentialEntry() {
@@ -30,7 +31,7 @@ public class PotentialEntry {
   }
 
   public PotentialEntry add(String id, String value) {
-    if(!entries.containsKey(id)) {
+    if (!entries.containsKey(id)) {
       entries.put(id, value);
     }
     return this;
@@ -46,21 +47,21 @@ public class PotentialEntry {
   }
 
   /**
-   * Checks if the specified potential entry matches. This potential entry
-   * must contain, at the very least, all the same key-value pairs as the
-   * specified potential entry passed in.
+   * Checks if the specified potential entry matches. This potential entry must contain, at the very
+   * least, all the same key-value pairs as the specified potential entry passed in.
+   *
    * @param that Potential entry.
    * @return Boolean.
    */
   public boolean match(PotentialEntry that) {
-    for(Map.Entry<String, String> entry : that.entries.entrySet()) {
+    for (Map.Entry<String, String> entry : that.entries.entrySet()) {
       String k = entry.getKey();
       String v = entry.getValue();
 
-      if(!this.entries.containsKey(k)) {
+      if (!this.entries.containsKey(k)) {
         return false;
       } else {
-        if(!this.entries.get(k).equalsIgnoreCase(v)) {
+        if (!this.entries.get(k).equalsIgnoreCase(v)) {
           return false;
         }
       }
@@ -75,10 +76,10 @@ public class PotentialEntry {
 
   @Override
   public boolean equals(Object object) {
-    if(null == object || !(object instanceof PotentialEntry)) {
+    if (null == object || !(object instanceof PotentialEntry)) {
       return false;
     }
-    PotentialEntry that = (PotentialEntry)object;
+    PotentialEntry that = (PotentialEntry) object;
     return (this.hashCode() == that.hashCode());
   }
 

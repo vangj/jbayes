@@ -5,14 +5,10 @@ import com.github.vangj.jbayes.inf.exact.graph.pptc.JoinTree;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.SepSet;
 
 public class CollectEvidence {
-  public interface Listener {
-    void cliqueVisited(JoinTree joinTree, Clique x, SepSet s, Clique y);
-  }
 
-  private JoinTree joinTree;
-  private Clique startClique;
-  private Listener listener;
-
+  private final JoinTree joinTree;
+  private final Clique startClique;
+  private final Listener listener;
   public CollectEvidence(JoinTree joinTree, Clique startClique, Listener listener) {
     this.joinTree = joinTree;
     this.startClique = startClique;
@@ -26,7 +22,7 @@ public class CollectEvidence {
           .stream()
           .filter(clique -> !clique.isMarked())
           .forEach(y -> {
-            walk(startClique, (SepSet)sepSet, y);
+            walk(startClique, (SepSet) sepSet, y);
           });
     });
   }
@@ -38,12 +34,17 @@ public class CollectEvidence {
           .stream()
           .filter(clique -> !clique.isMarked())
           .forEach(clique -> {
-            walk(y, (SepSet)sepSet, clique);
+            walk(y, (SepSet) sepSet, clique);
           });
     });
 
-    if(null != listener) {
+    if (null != listener) {
       listener.cliqueVisited(joinTree, y, s, x);
     }
+  }
+
+  public interface Listener {
+
+    void cliqueVisited(JoinTree joinTree, Clique x, SepSet s, Clique y);
   }
 }

@@ -11,9 +11,10 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Table {
-  private Node node;
-  private List<Node> parents;
-  private List<String> parentIds;
+
+  private final Node node;
+  private final List<Node> parents;
+  private final List<String> parentIds;
   private Map<String, List<Double>> probs;
 
   public Table(Node node, List<Node> parents) {
@@ -39,7 +40,7 @@ public class Table {
           .map(s -> new ArrayList(s))
           .collect(Collectors.toList());
 
-      List<List<String>> cartesian = (List<List<String>>)NodeUtil.product(lists);
+      List<List<String>> cartesian = (List<List<String>>) NodeUtil.product(lists);
       List<String> keys = cartesian.stream()
           .map(values -> {
             final int paSize = this.parents.size();

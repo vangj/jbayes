@@ -5,18 +5,19 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.github.vangj.jbayes.inf.prob.Graph;
 import com.github.vangj.jbayes.inf.prob.json.JsonGraph;
-import org.apache.commons.io.IOUtils;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
+import org.apache.commons.io.IOUtils;
 
 /**
  * JSON util.
  */
 public class JsonUtil {
+
   private static final ObjectMapper _mapper = new ObjectMapper();
 
   static {
@@ -29,7 +30,8 @@ public class JsonUtil {
 
   /**
    * Serializes Graph.
-   * @param g Graph.
+   *
+   * @param g  Graph.
    * @param os OutputStream.
    * @throws IOException For any IO errors.
    */
@@ -39,19 +41,21 @@ public class JsonUtil {
 
   /**
    * Deserializes back to Graph.
+   *
    * @param is InputStream.
    * @return Graph.
    * @throws IOException For any IO errors.
    */
   public static Graph deserialize(InputStream is) throws IOException {
-    return ((JsonGraph)fromJson(IOUtils.toString(is, "UTF-8"), JsonGraph.class)).toGraph();
+    return ((JsonGraph) fromJson(IOUtils.toString(is, StandardCharsets.UTF_8), JsonGraph.class)).toGraph();
   }
 
   /**
    * Converts JSON to object based on type reference.
+   *
    * @param type TypeReference.
    * @param json JSON.
-   * @param <T> Type.
+   * @param <T>  Type.
    * @return Object.
    * @throws IOException If any errors occur.
    */
@@ -62,7 +66,8 @@ public class JsonUtil {
 
   /**
    * Converts Map to object the specified clazz.
-   * @param map Map.
+   *
+   * @param map   Map.
    * @param clazz Clazz.
    * @return Object.
    */
@@ -72,7 +77,8 @@ public class JsonUtil {
 
   /**
    * Converts JSON to clazz.
-   * @param json JSON.
+   *
+   * @param json  JSON.
    * @param clazz Clazz to deserialize object instance from JSON.
    * @return Object.
    */
@@ -86,6 +92,7 @@ public class JsonUtil {
 
   /**
    * Converts an object to JSON.
+   *
    * @param o Object.
    * @return JSON.
    */

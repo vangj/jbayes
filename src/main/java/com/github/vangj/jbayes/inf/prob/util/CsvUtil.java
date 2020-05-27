@@ -2,7 +2,6 @@ package com.github.vangj.jbayes.inf.prob.util;
 
 import au.com.bytecode.opencsv.CSVWriter;
 import com.github.vangj.jbayes.inf.prob.Graph;
-
 import java.io.IOException;
 import java.io.Writer;
 
@@ -10,6 +9,7 @@ import java.io.Writer;
  * CSV util.
  */
 public class CsvUtil {
+
   private CsvUtil() {
 
   }

@@ -2,12 +2,11 @@ package com.github.vangj.jbayes.inf.exact.graph.traversal;
 
 import com.github.vangj.jbayes.inf.exact.graph.Dag;
 import com.github.vangj.jbayes.inf.exact.graph.Node;
-
 import java.util.List;
 
 public class DagShortestPath extends GraphShortestPath {
 
-  private Dag dag;
+  private final Dag dag;
 
   private DagShortestPath(Dag graph, Node start, Node stop, ShortestPathListener listener) {
     super(graph, start, stop, listener);
@@ -19,12 +18,12 @@ public class DagShortestPath extends GraphShortestPath {
   }
 
   private boolean search() {
-    if(null != listener) {
+    if (null != listener) {
       listener.pre(graph, start, stop);
     }
 
-    if(start.equals(stop)) {
-      if(null != listener) {
+    if (start.equals(stop)) {
+      if (null != listener) {
         listener.post(graph, start, stop);
       }
       return false;
@@ -32,7 +31,7 @@ public class DagShortestPath extends GraphShortestPath {
 
     boolean result = search(start);
 
-    if(null != listener) {
+    if (null != listener) {
       listener.post(graph, start, stop);
     }
 
@@ -40,22 +39,22 @@ public class DagShortestPath extends GraphShortestPath {
   }
 
   private boolean search(Node node) {
-    if(null != listener) {
+    if (null != listener) {
       listener.visited(node);
     }
 
     List<Node> children = dag.children(node);
-    if(null == children || children.size() == 0) {
+    if (null == children || children.size() == 0) {
       return false;
     }
 
-    if(children.contains(stop)) {
+    if (children.contains(stop)) {
       return true;
     } else {
       seen.add(node);
-      for(Node child : children) {
-        if(!seen.contains(child)) {
-          if(search(child)) {
+      for (Node child : children) {
+        if (!seen.contains(child)) {
+          if (search(child)) {
             return true;
           }
         }

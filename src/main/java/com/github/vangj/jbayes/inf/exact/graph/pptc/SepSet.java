@@ -2,7 +2,6 @@ package com.github.vangj.jbayes.inf.exact.graph.pptc;
 
 import com.github.vangj.jbayes.inf.exact.graph.Node;
 import com.github.vangj.jbayes.inf.exact.graph.util.NodeUtil;
-
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -11,8 +10,8 @@ import java.util.Set;
  */
 public class SepSet extends Clique {
 
-  private Clique left;
-  private Clique right;
+  private final Clique left;
+  private final Clique right;
 
   public SepSet(Clique left, Clique right) {
     super();
@@ -26,6 +25,7 @@ public class SepSet extends Clique {
 
   /**
    * Left clique.
+   *
    * @return Clique.
    */
   public Clique left() {
@@ -34,6 +34,7 @@ public class SepSet extends Clique {
 
   /**
    * Right clique.
+   *
    * @return Clique.
    */
   public Clique right() {
@@ -42,6 +43,7 @@ public class SepSet extends Clique {
 
   /**
    * Cost is the weight of the left and right cliques added.
+   *
    * @return Cost.
    */
   public int cost() {
@@ -50,6 +52,7 @@ public class SepSet extends Clique {
 
   /**
    * Mass is the number of nodes in this separation set.
+   *
    * @return Mass.
    */
   public int mass() {
