@@ -57,27 +57,38 @@ public class NodeUtil {
   /**
    * Generates the cartesian product of a list of lists.
    *
-   * @param lists List.
-   * @return List of lists.
+   * @param lists List of lists.
+   * @param <T> Type.
+   * @return List of Lists.
    */
-  public static List<?> product(List<?>... lists) {
-    if (lists.length >= 2) {
-      List<?> product = lists[0];
-      for (int i = 1; i < lists.length; i++) {
-        product = product(product, lists[i]);
-      }
-      return product;
+  public static <T> List<List<T>> product(List<List<T>> lists) {
+    List<List<T>> result = new ArrayList<>();
+    int nZeroSizes = lists.stream()
+        .filter(list -> list.size() == 0)
+        .mapToInt(list -> 1)
+        .sum();
+    if (nZeroSizes > 0) {
+      return result;
     }
 
-    return Collections.emptyList();
-  }
+    for (T e : lists.get(0)) {
+      List<T> l = new ArrayList<T>();
+      l.add(e);
+      result.add(l);
+    }
 
-  private static <A, B> List<?> product(List<A> a, List<B> b) {
-    return of(a.stream()
-        .map(e1 -> of(b.stream().map(e2 -> asList(e1, e2)).collect(Collectors.toList()))
-            .orElse(Collections.emptyList()))
-        .flatMap(List::stream)
-        .collect(Collectors.toList())).orElse(Collections.emptyList());
+    for (int i = 1; i < lists.size(); ++i) {
+      List<List<T>> temp = new ArrayList<>();
+      for (List<T> e : result) {
+        for (T f : lists.get(i)) {
+          List<T> eTmp = new ArrayList<>(e);
+          eTmp.add(f);
+          temp.add(eTmp);
+        }
+      }
+      result = temp;
+    }
+    return result;
   }
 
   /**
@@ -102,6 +113,8 @@ public class NodeUtil {
       }
       subList.add(list.get(i));
     }
+
+    subLists.add(subList);
 
     return subLists;
   }
