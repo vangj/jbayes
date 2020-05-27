@@ -8,12 +8,14 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * A node in a graph.
  */
 public class Node extends Variable {
   private List<Double> probs;
+  private List<String> valueList;
   private Potential potential;
   private Map<String, Object> metadata;
 
@@ -27,6 +29,8 @@ public class Node extends Variable {
     this.id = v.id;
     this.name = v.name;
     this.values = v.values;
+    this.valueList = this.values.stream()
+        .collect(Collectors.toList());
   }
 
   private Node(NodeBuilder builder) {
@@ -35,6 +39,8 @@ public class Node extends Variable {
     name = builder.name;
     values = builder.values;
     probs = builder.probs;
+    this.valueList = this.values.stream()
+        .collect(Collectors.toList());
   }
 
   /**
@@ -74,6 +80,10 @@ public class Node extends Variable {
 
   public List<Double> probs() {
     return probs;
+  }
+
+  public List<String> getValueList() {
+    return valueList;
   }
 
   public static NodeBuilder builder() {
