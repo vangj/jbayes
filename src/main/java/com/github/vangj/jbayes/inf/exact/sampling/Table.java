@@ -1,10 +1,9 @@
 package com.github.vangj.jbayes.inf.exact.sampling;
 
 import com.github.vangj.jbayes.inf.exact.graph.Node;
+import com.github.vangj.jbayes.inf.exact.graph.Variable;
 import com.github.vangj.jbayes.inf.exact.graph.util.NodeUtil;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,15 +18,10 @@ public class Table {
 
   public Table(Node node, List<Node> parents) {
     this.node = node;
-    Collections.sort(parents, new Comparator<Node>() {
-      @Override
-      public int compare(Node n1, Node n2) {
-        return n1.getId().compareTo(n2.getId());
-      }
-    });
+    parents.sort((n1, n2) -> n1.getId().compareTo(n2.getId()));
     this.parents = parents;
     this.parentIds = this.parents.stream()
-        .map(n -> n.getId())
+        .map(Variable::getId)
         .collect(Collectors.toList());
 
     this.probs = new HashMap<>();
@@ -36,8 +30,8 @@ public class Table {
       this.probs.put("default", cumsums);
     } else {
       List<List<String>> lists = parents.stream()
-          .map(pa -> pa.getValues())
-          .map(s -> new ArrayList(s))
+          .map(Variable::getValues)
+          .map(s -> (List<String>) new ArrayList(s))
           .collect(Collectors.toList());
 
       List<List<String>> cartesian = (List<List<String>>) NodeUtil.product(lists);
@@ -61,7 +55,7 @@ public class Table {
       final int n = node.getValues().size();
       List<Double> nodeProbs = node.probs();
       List<List<Double>> probs = NodeUtil.groupList(n, nodeProbs).stream()
-          .map(list -> getCumsums(list))
+          .map(Table::getCumsums)
           .collect(Collectors.toList());
 
       this.probs = new HashMap<>();
