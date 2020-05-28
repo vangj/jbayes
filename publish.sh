@@ -33,14 +33,16 @@ publish() {
   echo "publishing to OSSRH"
 
   if [[ -f /jbayes/.docker/public.pgp && -f /jbayes/.docker/private.pgp ]]; then
+    export GPG_TTY=$(tty)
     cd /jbayes \
-      && mvn clean deploy
+      && mvn clean deploy -P ${MVN_PROFILES}
   else
     echo "no pgp keys found!"
   fi
 }
 
 cleanUp() {
+  echo "overriding maven settings.xml"
   cp -f /maven/conf/settings.bak /maven/conf/settings.xml
 
   gpg --list-secret-keys --with-colons --fingerprint ${GPG_KEY} |\
@@ -52,9 +54,6 @@ cleanUp() {
     grep "^fpr" |\
     sed -n 's/^fpr:::::::::\([[:alnum:]]\+\):/\1/p' |\
     xargs gpg --batch --delete-key
-
-  gpg --list-keys
-  gpg --list-secret-keys
 }
 
 updateVersion
