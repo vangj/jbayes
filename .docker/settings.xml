@@ -252,7 +252,7 @@ under the License.
     <profile>
       <id>ossrh</id>
       <activation>
-        <activeByDefault>false</activeByDefault>
+        <activeByDefault>true</activeByDefault>
       </activation>
       <properties>
         <gpg.executable>gpg</gpg.executable>
