@@ -9,6 +9,7 @@ public class CptPoDfsTraversal {
 
   private final Cpt cpt;
   private final CptPoDfsTraversalListener listener;
+
   /**
    * Constructor.
    *

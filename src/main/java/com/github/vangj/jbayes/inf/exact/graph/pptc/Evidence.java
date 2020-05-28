@@ -13,6 +13,7 @@ public class Evidence {
   private final Node node;
   private final Map<String, Double> values;
   private final Type type;
+
   private Evidence(Builder builder) {
     node = builder.node;
     values = builder.values;
@@ -183,8 +184,8 @@ public class Evidence {
    */
   public static final class Builder {
 
-    private Node node;
     private final Map<String, Double> values;
+    private Node node;
     private Type type = Type.Observation;
 
     private Builder() {

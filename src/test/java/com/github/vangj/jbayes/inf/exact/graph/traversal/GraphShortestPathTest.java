@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class GraphShortestPathTest {
+
   @Test
   public void testShortestPath() {
     Node n0 = Node.builder()
@@ -50,15 +51,18 @@ public class GraphShortestPathTest {
         .addEdge(n1, n3);
 
     ShortestPathListener listener = new ShortestPathListener() {
-      @Override public void pre(Graph graph, Node start, Node stop) {
+      @Override
+      public void pre(Graph graph, Node start, Node stop) {
         System.out.println("start " + start + " ===> " + stop);
       }
 
-      @Override public void visited(Node node) {
+      @Override
+      public void visited(Node node) {
         System.out.println(node);
       }
 
-      @Override public void post(Graph graph, Node start, Node stop) {
+      @Override
+      public void post(Graph graph, Node start, Node stop) {
         System.out.println("stop");
       }
     };

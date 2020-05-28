@@ -137,7 +137,7 @@ public class LogicSamplerTest {
     LogicSampler sampler = new LogicSampler(dag);
     int seed = 37;
     int nSamples = 10000;
-    Map<String, String> evidence = new HashMap<String, String>(){{
+    Map<String, String> evidence = new HashMap<String, String>() {{
       put("0", "on");
     }};
 

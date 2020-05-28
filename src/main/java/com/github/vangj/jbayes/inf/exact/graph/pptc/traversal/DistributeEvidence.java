@@ -9,6 +9,7 @@ public class DistributeEvidence {
   private final JoinTree joinTree;
   private final Clique startClique;
   private final Listener listener;
+
   public DistributeEvidence(JoinTree joinTree, Clique startClique, Listener listener) {
     this.joinTree = joinTree;
     this.startClique = startClique;

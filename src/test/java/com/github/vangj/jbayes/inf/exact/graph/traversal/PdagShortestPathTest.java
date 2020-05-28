@@ -7,6 +7,7 @@ import com.github.vangj.jbayes.inf.exact.graph.Pdag;
 import org.junit.Test;
 
 public class PdagShortestPathTest {
+
   @Test
   public void testShortestPath() {
     Node n0 = Node.builder()
@@ -75,15 +76,18 @@ public class PdagShortestPathTest {
                 .build());
 
     ShortestPathListener listener = new ShortestPathListener() {
-      @Override public void pre(Graph graph, Node start, Node stop) {
+      @Override
+      public void pre(Graph graph, Node start, Node stop) {
         System.out.println("start " + start + " ===> " + stop);
       }
 
-      @Override public void visited(Node node) {
+      @Override
+      public void visited(Node node) {
         System.out.println(node);
       }
 
-      @Override public void post(Graph graph, Node start, Node stop) {
+      @Override
+      public void post(Graph graph, Node start, Node stop) {
         System.out.println("stop");
       }
     };

@@ -17,10 +17,10 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Graph {
 
-  private boolean saveSamples = false;
   @JsonIgnore
   private final List<String[]> _samples = new ArrayList<>();
   private final List<Node> nodes;
+  private boolean saveSamples = false;
   @JsonIgnore
   private Map<String, Node> _nodes = new HashMap<>();
 

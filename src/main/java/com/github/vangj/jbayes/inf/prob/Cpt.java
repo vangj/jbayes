@@ -13,9 +13,9 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Cpt {
 
+  private final List<Cpt> children;
   private int index = -1;
   private List<Double> values;
-  private final List<Cpt> children;
 
   public Cpt() {
     values = new ArrayList<>();

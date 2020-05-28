@@ -54,8 +54,8 @@ public class TableTest {
 
     Assert.assertTrue(table.hasParents());
 
-    Map<String, String> evidence = new HashMap<String, String>(){{
-        put("0", "on");
+    Map<String, String> evidence = new HashMap<String, String>() {{
+      put("0", "on");
     }};
     String expected = "on";
     String observed = table.getValue(0.4, evidence);
@@ -65,8 +65,8 @@ public class TableTest {
     observed = table.getValue(0.7, evidence);
     Assert.assertEquals(expected, observed);
 
-    evidence = new HashMap<String, String>(){{
-        put("0", "off");
+    evidence = new HashMap<String, String>() {{
+      put("0", "off");
     }};
     expected = "on";
     observed = table.getValue(0.3, evidence);
@@ -107,7 +107,7 @@ public class TableTest {
 
     Table table = new Table(r, Arrays.asList(d, g));
     Map<String, List<Double>> lhs = table.getProbs();
-    Map<String, List<Double>> rhs = new HashMap<String, List<Double>>(){{
+    Map<String, List<Double>> rhs = new HashMap<String, List<Double>>() {{
       put("0=female,1=false", Arrays.asList(0.31, 1.0));
       put("0=female,1=true", Arrays.asList(0.27, 1.0));
       put("0=male,1=false", Arrays.asList(0.13, 1.0));
@@ -116,7 +116,7 @@ public class TableTest {
 
     Assert.assertEquals(lhs.size(), rhs.size());
 
-    for (String k: lhs.keySet()) {
+    for (String k : lhs.keySet()) {
       List<Double> lProbs = lhs.get(k);
       List<Double> rProbs = rhs.get(k);
 

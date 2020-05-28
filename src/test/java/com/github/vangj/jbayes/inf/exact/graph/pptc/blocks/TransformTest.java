@@ -1,20 +1,20 @@
 package com.github.vangj.jbayes.inf.exact.graph.pptc.blocks;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import com.github.vangj.jbayes.inf.exact.graph.pptc.Clique;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.Edge;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.HuangExample;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.JoinTree;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.traversal.JoinTreeShortestPath;
-import org.junit.Test;
-
 import java.util.Arrays;
 import java.util.List;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import org.junit.Test;
 
 public class TransformTest extends HuangExample {
+
   @Test
   public void testTransform() {
     Clique egh = new Clique(getNode("e"), getNode("g"), getNode("h"));
@@ -27,15 +27,18 @@ public class TransformTest extends HuangExample {
     List<Clique> cliques = Arrays.asList(egh, ceg, def, ace, abd, ade);
 
     JoinTreeShortestPath.Listener listener = new JoinTreeShortestPath.Listener() {
-      @Override public void pre(JoinTree joinTree, Clique start, Clique stop) {
+      @Override
+      public void pre(JoinTree joinTree, Clique start, Clique stop) {
 //        System.out.println("starting check for shortest path from " + start + " to " + stop);
       }
 
-      @Override public void visited(Clique clique) {
+      @Override
+      public void visited(Clique clique) {
 //        System.out.println("visited " + clique);
       }
 
-      @Override public void post(JoinTree joinTree, Clique start, Clique stop) {
+      @Override
+      public void post(JoinTree joinTree, Clique start, Clique stop) {
 //        System.out.println("finished check for shortest path from " + start + " to " + stop);
       }
     };
@@ -60,7 +63,6 @@ public class TransformTest extends HuangExample {
     assertNotNull(joinTree.sepSet(getNode("d"), getNode("e")));
     assertNotNull(joinTree.sepSet(getNode("e"), getNode("g")));
 
-
     List<Edge> edges = joinTree.edges();
     assertEquals(10, edges.size());
 
@@ -78,7 +80,7 @@ public class TransformTest extends HuangExample {
         new Edge(egh, joinTree.sepSet(getNode("e"), getNode("g")))
     );
 
-    for(Edge expected : expectedEdges) {
+    for (Edge expected : expectedEdges) {
       assertTrue(edges.contains(expected));
     }
   }

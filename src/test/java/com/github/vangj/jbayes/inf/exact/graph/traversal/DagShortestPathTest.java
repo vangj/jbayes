@@ -1,11 +1,11 @@
 package com.github.vangj.jbayes.inf.exact.graph.traversal;
 
+import static org.junit.Assert.assertEquals;
+
 import com.github.vangj.jbayes.inf.exact.graph.Dag;
 import com.github.vangj.jbayes.inf.exact.graph.Graph;
 import com.github.vangj.jbayes.inf.exact.graph.Node;
 import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
 
 public class DagShortestPathTest {
 
@@ -53,15 +53,18 @@ public class DagShortestPathTest {
         .addEdge(n1, n3);
 
     ShortestPathListener listener = new ShortestPathListener() {
-      @Override public void pre(Graph graph, Node start, Node stop) {
+      @Override
+      public void pre(Graph graph, Node start, Node stop) {
         System.out.println("start " + start + " ===> " + stop);
       }
 
-      @Override public void visited(Node node) {
+      @Override
+      public void visited(Node node) {
         System.out.println(node);
       }
 
-      @Override public void post(Graph graph, Node start, Node stop) {
+      @Override
+      public void post(Graph graph, Node start, Node stop) {
         System.out.println("stop");
       }
     };
@@ -85,24 +88,24 @@ public class DagShortestPathTest {
     result = DagShortestPath.exists(graph, n4, n0, listener);
     assertEquals(false, result);
 
-    assertEquals(false, DagShortestPath.exists(graph, n1, n0 ,null));
-    assertEquals(true, DagShortestPath.exists(graph, n1, n2 ,null));
-    assertEquals(true, DagShortestPath.exists(graph, n1, n3 ,null));
-    assertEquals(false, DagShortestPath.exists(graph, n1, n4 ,null));
+    assertEquals(false, DagShortestPath.exists(graph, n1, n0, null));
+    assertEquals(true, DagShortestPath.exists(graph, n1, n2, null));
+    assertEquals(true, DagShortestPath.exists(graph, n1, n3, null));
+    assertEquals(false, DagShortestPath.exists(graph, n1, n4, null));
 
-    assertEquals(false, DagShortestPath.exists(graph, n2, n0 ,null));
-    assertEquals(false, DagShortestPath.exists(graph, n2, n1 ,null));
-    assertEquals(false, DagShortestPath.exists(graph, n2, n3 ,null));
-    assertEquals(false, DagShortestPath.exists(graph, n2, n4 ,null));
+    assertEquals(false, DagShortestPath.exists(graph, n2, n0, null));
+    assertEquals(false, DagShortestPath.exists(graph, n2, n1, null));
+    assertEquals(false, DagShortestPath.exists(graph, n2, n3, null));
+    assertEquals(false, DagShortestPath.exists(graph, n2, n4, null));
 
-    assertEquals(false, DagShortestPath.exists(graph, n3, n0 ,null));
-    assertEquals(false, DagShortestPath.exists(graph, n3, n1 ,null));
-    assertEquals(false, DagShortestPath.exists(graph, n3, n2 ,null));
-    assertEquals(false, DagShortestPath.exists(graph, n3, n4 ,null));
+    assertEquals(false, DagShortestPath.exists(graph, n3, n0, null));
+    assertEquals(false, DagShortestPath.exists(graph, n3, n1, null));
+    assertEquals(false, DagShortestPath.exists(graph, n3, n2, null));
+    assertEquals(false, DagShortestPath.exists(graph, n3, n4, null));
 
-    assertEquals(false, DagShortestPath.exists(graph, n4, n0 ,null));
-    assertEquals(false, DagShortestPath.exists(graph, n4, n1 ,null));
-    assertEquals(false, DagShortestPath.exists(graph, n4, n2 ,null));
-    assertEquals(false, DagShortestPath.exists(graph, n4, n3 ,null));
+    assertEquals(false, DagShortestPath.exists(graph, n4, n0, null));
+    assertEquals(false, DagShortestPath.exists(graph, n4, n1, null));
+    assertEquals(false, DagShortestPath.exists(graph, n4, n2, null));
+    assertEquals(false, DagShortestPath.exists(graph, n4, n3, null));
   }
 }

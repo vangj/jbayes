@@ -1,5 +1,7 @@
 package com.github.vangj.jbayes.inf.exact.graph.pptc;
 
+import static org.junit.Assert.assertEquals;
+
 import com.github.vangj.jbayes.inf.exact.graph.Dag;
 import com.github.vangj.jbayes.inf.exact.graph.Ug;
 import com.github.vangj.jbayes.inf.exact.graph.lpd.Potential;
@@ -9,13 +11,11 @@ import com.github.vangj.jbayes.inf.exact.graph.pptc.blocks.Moralize;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.blocks.Propagation;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.blocks.Transform;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.blocks.Triangulate;
+import java.util.List;
 import org.junit.Test;
 
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
-
 public class JoinTreeTest extends HuangExample {
+
   @Test
   public void testGetPotential() {
     Dag dag = getDag();
@@ -29,7 +29,7 @@ public class JoinTreeTest extends HuangExample {
       Potential potential = joinTree.getPotential(node);
 //      System.out.println(potential);
       double sum = 0.0d;
-      for(PotentialEntry entry : potential.entries()) {
+      for (PotentialEntry entry : potential.entries()) {
         sum += entry.getValue();
       }
       assertEquals(1.0d, sum, 0.0001);

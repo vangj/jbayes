@@ -1,20 +1,20 @@
 package com.github.vangj.jbayes.inf.prob.cpt;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import com.github.vangj.jbayes.inf.prob.Cpt;
 import com.github.vangj.jbayes.inf.prob.Node;
 import com.github.vangj.jbayes.inf.prob.util.CptUtil;
-import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import org.junit.Test;
 
 /**
  * Tests CptPoDfsTraversal.
  */
 public class CptPoDfsTraversalTest {
+
   @Test
   public void testTraversal() {
     Node n1 = Node.newBuilder()
@@ -41,14 +41,14 @@ public class CptPoDfsTraversalTest {
 
     final List<List<Double>> probs = new ArrayList<>();
     CptPoDfsTraversal.CptPoDfsTraversalListener listener = (c) -> {
-      if(c.numOfValues() > 0) {
+      if (c.numOfValues() > 0) {
         probs.add(c.getValues());
       }
     };
     (new CptPoDfsTraversal(cpt, listener)).start();
 
     assertEquals(4, probs.size());
-    for(List<Double> p : probs) {
+    for (List<Double> p : probs) {
       assertEquals(3, p.size());
     }
 

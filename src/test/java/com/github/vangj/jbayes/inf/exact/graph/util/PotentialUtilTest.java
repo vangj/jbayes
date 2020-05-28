@@ -1,5 +1,9 @@
 package com.github.vangj.jbayes.inf.exact.graph.util;
 
+import static com.github.vangj.jbayes.inf.exact.graph.util.PotentialUtil.divide;
+import static com.github.vangj.jbayes.inf.exact.graph.util.PotentialUtil.multiply;
+import static org.junit.Assert.assertEquals;
+
 import com.github.vangj.jbayes.inf.exact.graph.Dag;
 import com.github.vangj.jbayes.inf.exact.graph.Node;
 import com.github.vangj.jbayes.inf.exact.graph.Ug;
@@ -12,14 +16,9 @@ import com.github.vangj.jbayes.inf.exact.graph.pptc.blocks.Initialization;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.blocks.Moralize;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.blocks.Transform;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.blocks.Triangulate;
-import org.junit.Test;
-
 import java.util.Arrays;
 import java.util.List;
-
-import static com.github.vangj.jbayes.inf.exact.graph.util.PotentialUtil.divide;
-import static com.github.vangj.jbayes.inf.exact.graph.util.PotentialUtil.multiply;
-import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 
 public class PotentialUtilTest extends HuangExample {
 
@@ -34,21 +33,24 @@ public class PotentialUtilTest extends HuangExample {
 //    System.out.println(joinTree);
 
     Clique clique = joinTree.clique(getNode("e"), getNode("g"), getNode("h"));
-    Potential potential = PotentialUtil.marginalizeOut(joinTree, clique, Arrays.asList(getNode("g"), getNode("h")));
+    Potential potential = PotentialUtil
+        .marginalizeOut(joinTree, clique, Arrays.asList(getNode("g"), getNode("h")));
 //    System.out.println("--------------");
 //    System.out.println(potential);
     assertEquals(2, potential.entries().size());
     assertEquals(2.0d, potential.entries().get(0).getValue(), 0.01d);
     assertEquals(2.0d, potential.entries().get(1).getValue(), 0.01d);
 
-    potential = PotentialUtil.marginalizeOut(joinTree, clique, Arrays.asList(getNode("e"), getNode("h")));
+    potential = PotentialUtil
+        .marginalizeOut(joinTree, clique, Arrays.asList(getNode("e"), getNode("h")));
 //    System.out.println("--------------");
 //    System.out.println(potential);
     assertEquals(2, potential.entries().size());
     assertEquals(2.0d, potential.entries().get(0).getValue(), 0.01d);
     assertEquals(2.0d, potential.entries().get(1).getValue(), 0.01d);
 
-    potential = PotentialUtil.marginalizeOut(joinTree, clique, Arrays.asList(getNode("e"), getNode("g")));
+    potential = PotentialUtil
+        .marginalizeOut(joinTree, clique, Arrays.asList(getNode("e"), getNode("g")));
 //    System.out.println("--------------");
 //    System.out.println(potential);
     assertEquals(2, potential.entries().size());
@@ -76,10 +78,14 @@ public class PotentialUtilTest extends HuangExample {
 
     assertEquals(4, product.size());
     product.forEach(p -> assertEquals(2, p.size()));
-    assertEquals("a", product.get(0).get(0)); assertEquals("c", product.get(0).get(1));
-    assertEquals("a", product.get(1).get(0)); assertEquals("d", product.get(1).get(1));
-    assertEquals("b", product.get(2).get(0)); assertEquals("c", product.get(2).get(1));
-    assertEquals("b", product.get(3).get(0)); assertEquals("d", product.get(3).get(1));
+    assertEquals("a", product.get(0).get(0));
+    assertEquals("c", product.get(0).get(1));
+    assertEquals("a", product.get(1).get(0));
+    assertEquals("d", product.get(1).get(1));
+    assertEquals("b", product.get(2).get(0));
+    assertEquals("c", product.get(2).get(1));
+    assertEquals("b", product.get(3).get(0));
+    assertEquals("d", product.get(3).get(1));
   }
 
   @Test
@@ -92,7 +98,8 @@ public class PotentialUtilTest extends HuangExample {
     assertEquals((new PotentialEntry()).add("a", "on").add("b", "on"), potential.entries().get(0));
     assertEquals((new PotentialEntry()).add("a", "on").add("b", "off"), potential.entries().get(1));
     assertEquals((new PotentialEntry()).add("a", "off").add("b", "on"), potential.entries().get(2));
-    assertEquals((new PotentialEntry()).add("a", "off").add("b", "off"), potential.entries().get(3));
+    assertEquals((new PotentialEntry()).add("a", "off").add("b", "off"),
+        potential.entries().get(3));
 
     assertEquals(0.5d, potential.entries().get(0).getValue(), 0.001d);
     assertEquals(0.5d, potential.entries().get(1).getValue(), 0.001d);
@@ -105,14 +112,15 @@ public class PotentialUtilTest extends HuangExample {
     Dag dag = getDag();
     Potential c = dag.node("c").getPotential();
     Potential e = dag.node("e").getPotential();
-    Potential ace = PotentialUtil.getPotential(Arrays.asList(dag.node("a"), dag.node("c"), dag.node("e")));
+    Potential ace = PotentialUtil
+        .getPotential(Arrays.asList(dag.node("a"), dag.node("c"), dag.node("e")));
 
     multiply(ace, c);
     multiply(ace, e);
 
-    double[] expected = { 0.21d, 0.49d, 0.18d, 0.12d, 0.06d, 0.14d, 0.48d, 0.32d };
+    double[] expected = {0.21d, 0.49d, 0.18d, 0.12d, 0.06d, 0.14d, 0.48d, 0.32d};
     assertEquals(expected.length, ace.entries().size());
-    for(int i=0; i < expected.length; i++) {
+    for (int i = 0; i < expected.length; i++) {
       assertEquals(expected[i], ace.entries().get(i).getValue(), 0.001d);
     }
   }

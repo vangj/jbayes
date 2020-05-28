@@ -34,7 +34,7 @@ public class Table {
           .map(s -> (List<String>) new ArrayList(s))
           .collect(Collectors.toList());
 
-      List<List<String>> cartesian = (List<List<String>>) NodeUtil.product(lists);
+      List<List<String>> cartesian = NodeUtil.product(lists);
       List<String> keys = cartesian.stream()
           .map(values -> {
             final int paSize = this.parents.size();

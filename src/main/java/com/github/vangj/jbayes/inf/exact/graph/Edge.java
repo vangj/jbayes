@@ -8,6 +8,7 @@ public class Edge {
   protected Node left;
   protected Node right;
   protected Type type = Type.UNDIRECTED;
+
   public Edge() {
 
   }

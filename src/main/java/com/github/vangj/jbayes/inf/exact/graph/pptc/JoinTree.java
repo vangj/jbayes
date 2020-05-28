@@ -29,6 +29,7 @@ public class JoinTree {
   private final Map<String, Potential> potentials;
   private final Map<String, Map<String, Potential>> evidences;
   private Listener listener;
+
   public JoinTree() {
     this(new ArrayList<>());
   }

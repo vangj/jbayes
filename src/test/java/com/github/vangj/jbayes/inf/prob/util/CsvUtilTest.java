@@ -1,20 +1,20 @@
 package com.github.vangj.jbayes.inf.prob.util;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import com.github.vangj.jbayes.inf.prob.Graph;
 import com.github.vangj.jbayes.inf.prob.Node;
-import org.junit.Test;
-
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Arrays;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import org.junit.Test;
 
 /**
  * Test CsvUtil.
  */
 public class CsvUtilTest {
+
   @Test
   public void testSaveSample() {
     Node n1 = Node.newBuilder().name("n1").value("t").value("f").build();
@@ -24,14 +24,14 @@ public class CsvUtilTest {
     n2.addParent(n1);
     n3.addParent(n2);
 
-    n1.setCpt(new double[][] {
+    n1.setCpt(new double[][]{
         {0.5, 0.5}
     });
-    n2.setCpt(new double[][] {
+    n2.setCpt(new double[][]{
         {0.5, 0.5},
         {0.5, 0.5}
     });
-    n3.setCpt(new double[][] {
+    n3.setCpt(new double[][]{
         {0.5, 0.5},
         {0.5, 0.5}
     });
@@ -54,7 +54,7 @@ public class CsvUtilTest {
         String[] values = row.split(",");
         assertEquals(3, values.length);
       });
-    } catch(IOException e) {
+    } catch (IOException e) {
       assertTrue(e.getMessage(), false);
     }
   }

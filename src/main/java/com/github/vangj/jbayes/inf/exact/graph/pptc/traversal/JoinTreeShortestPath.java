@@ -15,6 +15,7 @@ public class JoinTreeShortestPath {
   private final Clique stop;
   private final Set<Clique> seen;
   private final Listener listener;
+
   /**
    * Ctor.
    *

@@ -1,10 +1,11 @@
 package com.github.vangj.jbayes.inf.exact.graph;
 
-import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Test;
+
 public class UgTest {
+
   @Test
   public void testCreate() {
     Node n0 = Node.builder()

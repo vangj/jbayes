@@ -1,18 +1,18 @@
 package com.github.vangj.jbayes.inf.exact.graph.pptc.blocks;
 
-import com.github.vangj.jbayes.inf.exact.graph.Dag;
-import com.github.vangj.jbayes.inf.exact.graph.Ug;
-import com.github.vangj.jbayes.inf.exact.graph.pptc.Clique;
-import com.github.vangj.jbayes.inf.exact.graph.pptc.HuangExample;
-import org.junit.Test;
-
-import java.util.List;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import com.github.vangj.jbayes.inf.exact.graph.Dag;
+import com.github.vangj.jbayes.inf.exact.graph.Ug;
+import com.github.vangj.jbayes.inf.exact.graph.pptc.Clique;
+import com.github.vangj.jbayes.inf.exact.graph.pptc.HuangExample;
+import java.util.List;
+import org.junit.Test;
+
 public class TriangulateTest extends HuangExample {
+
   @Test
   public void triangulate() {
     Dag dag = getDag();

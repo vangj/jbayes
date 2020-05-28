@@ -16,12 +16,12 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Node {
 
+  @JsonIgnore
+  private final List<Node> parents;
   private String name;
   private List<String> values;
   @JsonIgnore
   private int value = -1;
-  @JsonIgnore
-  private final List<Node> parents;
   @JsonIgnore
   private boolean observed = false;
   @JsonIgnore
@@ -237,9 +237,9 @@ public class Node {
    */
   public static final class Builder {
 
-    private String name;
     private final List<String> values = new ArrayList<>();
     private final List<Node> parents = new ArrayList<>();
+    private String name;
 
     public Builder name(String name) {
       this.name = name;

@@ -1,12 +1,13 @@
 package com.github.vangj.jbayes.inf.exact.graph.pptc;
 
-import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Test;
+
 public class CliqueTest extends HuangExample {
+
   @Test
   public void testSepSet() {
     Clique clique1 = new Clique(
@@ -45,8 +46,8 @@ public class CliqueTest extends HuangExample {
     assertTrue(abd.isSuperset(a));
     assertTrue(ade.isSuperset(a));
 
-    Clique[] cliques = { egh, ceg, def };
-    for(Clique clique : cliques) {
+    Clique[] cliques = {egh, ceg, def};
+    for (Clique clique : cliques) {
       assertFalse(clique.isSuperset(ae));
       assertFalse(clique.isSuperset(a));
     }

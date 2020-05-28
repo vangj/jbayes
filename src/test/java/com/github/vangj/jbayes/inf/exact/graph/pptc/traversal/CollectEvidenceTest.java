@@ -1,5 +1,8 @@
 package com.github.vangj.jbayes.inf.exact.graph.pptc.traversal;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import com.github.vangj.jbayes.inf.exact.graph.Dag;
 import com.github.vangj.jbayes.inf.exact.graph.Ug;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.Clique;
@@ -9,15 +12,12 @@ import com.github.vangj.jbayes.inf.exact.graph.pptc.blocks.Initialization;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.blocks.Moralize;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.blocks.Transform;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.blocks.Triangulate;
-import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import org.junit.Test;
 
 public class CollectEvidenceTest extends HuangExample {
+
   @Test
   public void testTraversal() {
     Dag dag = getDag();

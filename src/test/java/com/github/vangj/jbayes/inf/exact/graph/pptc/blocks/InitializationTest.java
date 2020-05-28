@@ -1,18 +1,18 @@
 package com.github.vangj.jbayes.inf.exact.graph.pptc.blocks;
 
+import static org.junit.Assert.assertTrue;
+
 import com.github.vangj.jbayes.inf.exact.graph.Dag;
 import com.github.vangj.jbayes.inf.exact.graph.Ug;
 import com.github.vangj.jbayes.inf.exact.graph.lpd.Potential;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.Clique;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.HuangExample;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.JoinTree;
+import java.util.List;
 import org.junit.Test;
 
-import java.util.List;
-
-import static org.junit.Assert.assertTrue;
-
 public class InitializationTest extends HuangExample {
+
   @Test
   public void testInitialization() {
     Dag dag = getDag();

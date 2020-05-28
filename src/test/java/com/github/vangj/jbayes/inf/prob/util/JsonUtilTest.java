@@ -1,16 +1,15 @@
 package com.github.vangj.jbayes.inf.prob.util;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import com.github.vangj.jbayes.inf.prob.Graph;
 import com.github.vangj.jbayes.inf.prob.Node;
 import com.github.vangj.jbayes.inf.prob.json.JsonGraph;
-import org.junit.Test;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import org.junit.Test;
 
 /**
  * Test JsonUtil.
@@ -26,14 +25,14 @@ public class JsonUtilTest {
     n2.addParent(n1);
     n3.addParent(n2);
 
-    n1.setCpt(new double[][] {
+    n1.setCpt(new double[][]{
         {0.5, 0.5}
     });
-    n2.setCpt(new double[][] {
+    n2.setCpt(new double[][]{
         {0.5, 0.5},
         {0.5, 0.5}
     });
-    n3.setCpt(new double[][] {
+    n3.setCpt(new double[][]{
         {0.5, 0.5},
         {0.5, 0.5}
     });
@@ -59,16 +58,16 @@ public class JsonUtilTest {
       double[] probs2 = deGraph.getNode("n2").probs();
       double[] probs3 = deGraph.getNode("n3").probs();
 
-      assertTrue( (0.5 - probs1[0]) < 0.05 );
-      assertTrue( (0.5 - probs1[1]) < 0.05 );
+      assertTrue((0.5 - probs1[0]) < 0.05);
+      assertTrue((0.5 - probs1[1]) < 0.05);
 
-      assertTrue( (0.5 - probs2[0]) < 0.05 );
-      assertTrue( (0.5 - probs2[1]) < 0.05 );
+      assertTrue((0.5 - probs2[0]) < 0.05);
+      assertTrue((0.5 - probs2[1]) < 0.05);
 
-      assertTrue( (0.5 - probs3[0]) < 0.05 );
-      assertTrue( (0.5 - probs3[1]) < 0.05 );
+      assertTrue((0.5 - probs3[0]) < 0.05);
+      assertTrue((0.5 - probs3[1]) < 0.05);
       System.out.println("done");
-    } catch(IOException e) {
+    } catch (IOException e) {
       assertTrue(e.getMessage(), false);
     }
 
@@ -83,14 +82,14 @@ public class JsonUtilTest {
     n2.addParent(n1);
     n3.addParent(n2);
 
-    n1.setCpt(new double[][] {
+    n1.setCpt(new double[][]{
         {0.5, 0.5}
     });
-    n2.setCpt(new double[][] {
+    n2.setCpt(new double[][]{
         {0.5, 0.5},
         {0.5, 0.5}
     });
-    n3.setCpt(new double[][] {
+    n3.setCpt(new double[][]{
         {0.5, 0.5},
         {0.5, 0.5}
     });
@@ -106,7 +105,7 @@ public class JsonUtilTest {
     JsonGraph jsonGraph = new JsonGraph(g);
     String json = JsonUtil.toJson(jsonGraph);
 
-    JsonGraph deJsonGraph = (JsonGraph)JsonUtil.fromJson(json, JsonGraph.class);
+    JsonGraph deJsonGraph = (JsonGraph) JsonUtil.fromJson(json, JsonGraph.class);
 
     jsonGraph.getNodes().forEach((name, node) -> {
       assertTrue(deJsonGraph.getNodes().containsKey(name));
@@ -142,13 +141,13 @@ public class JsonUtilTest {
     double[] probs2 = deGraph.getNode("n2").probs();
     double[] probs3 = deGraph.getNode("n3").probs();
 
-    assertTrue( (0.5 - probs1[0]) < 0.05 );
-    assertTrue( (0.5 - probs1[1]) < 0.05 );
+    assertTrue((0.5 - probs1[0]) < 0.05);
+    assertTrue((0.5 - probs1[1]) < 0.05);
 
-    assertTrue( (0.5 - probs2[0]) < 0.05 );
-    assertTrue( (0.5 - probs2[1]) < 0.05 );
+    assertTrue((0.5 - probs2[0]) < 0.05);
+    assertTrue((0.5 - probs2[1]) < 0.05);
 
-    assertTrue( (0.5 - probs3[0]) < 0.05 );
-    assertTrue( (0.5 - probs3[1]) < 0.05 );
+    assertTrue((0.5 - probs3[0]) < 0.05);
+    assertTrue((0.5 - probs3[1]) < 0.05);
   }
 }

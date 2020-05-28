@@ -1,11 +1,10 @@
 package com.github.vangj.jbayes.inf.prob;
 
-import org.junit.Test;
-
-import java.util.List;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
+import java.util.List;
+import org.junit.Test;
 
 /**
  * Tests graph.
@@ -21,14 +20,14 @@ public class GraphTest {
     n2.addParent(n1);
     n3.addParent(n2);
 
-    n1.setCpt(new double[][] {
+    n1.setCpt(new double[][]{
         {0.5, 0.5}
     });
-    n2.setCpt(new double[][] {
+    n2.setCpt(new double[][]{
         {0.5, 0.5},
         {0.5, 0.5}
     });
-    n3.setCpt(new double[][] {
+    n3.setCpt(new double[][]{
         {0.5, 0.5},
         {0.5, 0.5}
     });
@@ -44,14 +43,14 @@ public class GraphTest {
     double[] probs2 = n2.probs();
     double[] probs3 = n3.probs();
 
-    assertTrue( (0.5 - probs1[0]) < 0.05 );
-    assertTrue( (0.5 - probs1[1]) < 0.05 );
+    assertTrue((0.5 - probs1[0]) < 0.05);
+    assertTrue((0.5 - probs1[1]) < 0.05);
 
-    assertTrue( (0.5 - probs2[0]) < 0.05 );
-    assertTrue( (0.5 - probs2[1]) < 0.05 );
+    assertTrue((0.5 - probs2[0]) < 0.05);
+    assertTrue((0.5 - probs2[1]) < 0.05);
 
-    assertTrue( (0.5 - probs3[0]) < 0.05 );
-    assertTrue( (0.5 - probs3[1]) < 0.05 );
+    assertTrue((0.5 - probs3[0]) < 0.05);
+    assertTrue((0.5 - probs3[1]) < 0.05);
   }
 
   @Test
@@ -63,14 +62,14 @@ public class GraphTest {
     n2.addParent(n1);
     n3.addParent(n2);
 
-    n1.setCpt(new double[][] {
+    n1.setCpt(new double[][]{
         {0.5, 0.5}
     });
-    n2.setCpt(new double[][] {
+    n2.setCpt(new double[][]{
         {0.5, 0.5},
         {0.5, 0.5}
     });
-    n3.setCpt(new double[][] {
+    n3.setCpt(new double[][]{
         {0.5, 0.5},
         {0.5, 0.5}
     });
@@ -88,14 +87,14 @@ public class GraphTest {
     double[] probs2 = n2.probs();
     double[] probs3 = n3.probs();
 
-    assertTrue( (1.0 - probs1[0]) < 0.001 );
-    assertTrue( probs1[1] < 0.05 );
+    assertTrue((1.0 - probs1[0]) < 0.001);
+    assertTrue(probs1[1] < 0.05);
 
-    assertTrue( (0.5 - probs2[0]) < 0.05 );
-    assertTrue( (0.5 - probs2[1]) < 0.05 );
+    assertTrue((0.5 - probs2[0]) < 0.05);
+    assertTrue((0.5 - probs2[1]) < 0.05);
 
-    assertTrue( (0.5 - probs3[0]) < 0.05 );
-    assertTrue( (0.5 - probs3[1]) < 0.05 );
+    assertTrue((0.5 - probs3[0]) < 0.05);
+    assertTrue((0.5 - probs3[1]) < 0.05);
 
     g.unobserve("n1");
 
@@ -105,14 +104,14 @@ public class GraphTest {
     probs2 = n2.probs();
     probs3 = n3.probs();
 
-    assertTrue( (0.5 - probs1[0]) < 0.05 );
-    assertTrue( (0.5 - probs1[1]) < 0.05 );
+    assertTrue((0.5 - probs1[0]) < 0.05);
+    assertTrue((0.5 - probs1[1]) < 0.05);
 
-    assertTrue( (0.5 - probs2[0]) < 0.05 );
-    assertTrue( (0.5 - probs2[1]) < 0.05 );
+    assertTrue((0.5 - probs2[0]) < 0.05);
+    assertTrue((0.5 - probs2[1]) < 0.05);
 
-    assertTrue( (0.5 - probs3[0]) < 0.05 );
-    assertTrue( (0.5 - probs3[1]) < 0.05 );
+    assertTrue((0.5 - probs3[0]) < 0.05);
+    assertTrue((0.5 - probs3[1]) < 0.05);
   }
 
   @Test
@@ -124,9 +123,9 @@ public class GraphTest {
     n2.addParent(n1);
     n3.addParent(n2);
 
-    n1.setCpt(new double[][] {{0.5, 0.5}});
-    n2.setCpt(new double[][] {{0.5, 0.5}, {0.5, 0.5}});
-    n3.setCpt(new double[][] {{0.5, 0.5}, {0.5, 0.5}});
+    n1.setCpt(new double[][]{{0.5, 0.5}});
+    n2.setCpt(new double[][]{{0.5, 0.5}, {0.5, 0.5}});
+    n3.setCpt(new double[][]{{0.5, 0.5}, {0.5, 0.5}});
 
     Graph g = new Graph();
     g.addNode(n1);

@@ -1,16 +1,17 @@
 package com.github.vangj.jbayes.inf.prob.util;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import com.github.vangj.jbayes.inf.prob.Cpt;
 import com.github.vangj.jbayes.inf.prob.Node;
 import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 /**
  * Tests CptUtil.
  */
 public class CptUtilTest {
+
   @Test
   public void testBuild() {
     Node n1 = Node.newBuilder()
@@ -81,7 +82,7 @@ public class CptUtilTest {
         .value("f")
         .build();
 
-    Cpt cpt = CptUtil.build(n1, new double[][] {
+    Cpt cpt = CptUtil.build(n1, new double[][]{
         {0.7, 0.3}
     });
 
@@ -103,7 +104,7 @@ public class CptUtilTest {
         .parent(n1)
         .build();
 
-    Cpt cpt = CptUtil.build(n2, new double[][] {
+    Cpt cpt = CptUtil.build(n2, new double[][]{
         {0.7, 0.3},
         {0.3, 0.7}
     });
@@ -136,7 +137,7 @@ public class CptUtilTest {
         .parent(n2)
         .build();
 
-    Cpt cpt = CptUtil.build(n3, new double[][] {
+    Cpt cpt = CptUtil.build(n3, new double[][]{
         {0.1, 0.2, 0.7},
         {0.7, 0.2, 0.1},
         {0.2, 0.1, 0.7},

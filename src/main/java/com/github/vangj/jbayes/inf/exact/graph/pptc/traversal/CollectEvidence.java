@@ -9,6 +9,7 @@ public class CollectEvidence {
   private final JoinTree joinTree;
   private final Clique startClique;
   private final Listener listener;
+
   public CollectEvidence(JoinTree joinTree, Clique startClique, Listener listener) {
     this.joinTree = joinTree;
     this.startClique = startClique;

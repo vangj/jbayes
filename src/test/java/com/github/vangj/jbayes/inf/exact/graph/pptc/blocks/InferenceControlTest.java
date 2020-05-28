@@ -1,17 +1,16 @@
 package com.github.vangj.jbayes.inf.exact.graph.pptc.blocks;
 
+import static com.github.vangj.jbayes.inf.exact.graph.pptc.blocks.InferenceControl.apply;
+
 import com.github.vangj.jbayes.inf.exact.graph.lpd.Potential;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.Evidence;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.HuangExample;
 import com.github.vangj.jbayes.inf.exact.graph.pptc.JoinTree;
+import java.util.Arrays;
 import org.junit.Test;
 
-import java.util.Arrays;
-
-import static org.junit.Assert.*;
-import static com.github.vangj.jbayes.inf.exact.graph.pptc.blocks.InferenceControl.*;
-
 public class InferenceControlTest extends HuangExample {
+
   @Test
   public void testInference() {
     JoinTree joinTree = apply(getDag());

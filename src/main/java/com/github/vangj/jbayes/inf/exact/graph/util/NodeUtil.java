@@ -1,11 +1,7 @@
 package com.github.vangj.jbayes.inf.exact.graph.util;
 
-import static java.util.Arrays.asList;
-import static java.util.Optional.of;
-
 import com.github.vangj.jbayes.inf.exact.graph.Node;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -58,7 +54,7 @@ public class NodeUtil {
    * Generates the cartesian product of a list of lists.
    *
    * @param lists List of lists.
-   * @param <T> Type.
+   * @param <T>   Type.
    * @return List of Lists.
    */
   public static <T> List<List<T>> product(List<List<T>> lists) {

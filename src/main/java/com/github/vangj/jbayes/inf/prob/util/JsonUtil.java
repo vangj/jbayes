@@ -47,7 +47,8 @@ public class JsonUtil {
    * @throws IOException For any IO errors.
    */
   public static Graph deserialize(InputStream is) throws IOException {
-    return ((JsonGraph) fromJson(IOUtils.toString(is, StandardCharsets.UTF_8), JsonGraph.class)).toGraph();
+    return ((JsonGraph) fromJson(IOUtils.toString(is, StandardCharsets.UTF_8), JsonGraph.class))
+        .toGraph();
   }
 
   /**
