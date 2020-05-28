@@ -1,5 +1,6 @@
 FROM openjdk:8u222-jdk
-LABEL Jee Vang, Ph.D. "vangjee@gmail.com"
+LABEL author="Jee Vang, Ph.D."
+LABEL email="vangjee@gmail.com"
 ARG AOSSRH_USERNAME
 ARG AOSSRH_PASSWORD
 ARG AGPG_PASSPHRASE
