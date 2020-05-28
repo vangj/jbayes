@@ -18,5 +18,3 @@ pom.xml.versionsBackup
 .docker/private.pgp
 .docker/public.pgp
 .DS_Store
-private.pgp
-public.pgp
