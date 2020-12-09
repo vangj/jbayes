@@ -30,19 +30,9 @@ But I like using `Python`, how may I use Bayesian Belief Networks in Python?
 
 There is a [Python port available](https://github.com/vangj/py-bbn).
 
-# Citation
+# Copyright
 
-```
-@misc{vang_2016, 
-title={jbayes}, 
-url={https://github.com/vangj/jbayes/}, 
-journal={GitHub},
-author={Vang, Jee}, 
-year={2016}, 
-month={Apr}}
-```
-
-# Copyright Stuff
+## Software
 
 ```
 Copyright 2016 Jee Vang
@@ -59,3 +49,24 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ```
+
+## Art Copyright
+
+Copyright 2020 Daytchia Vang
+
+# Citation
+
+```
+@misc{vang_2016, 
+title={jbayes}, 
+url={https://github.com/vangj/jbayes/}, 
+journal={GitHub},
+author={Vang, Jee}, 
+year={2016}, 
+month={Apr}}
+```
+
+# Sponsor, Love
+
+- [Patreon](https://www.patreon.com/vangj)
+- [GitHub](https://github.com/sponsors/vangj)
