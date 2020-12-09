@@ -1,3 +1,5 @@
+![logo](misc/logo.png)
+
 # jbayes
 Simple Java Bayesian Belief Network (BBN) inference library using likelihood weight sampling for approximate inference and the junction tree algorithm for exact inference.
 
